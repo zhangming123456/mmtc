@@ -1,0 +1,49 @@
+.p1 {
+  padding-top: 108rpx;
+  text-align: center;
+}
+
+.input-control {
+  border: solid 1px rgba(153,153,153,0.3);
+  width: 670rpx;
+  font-size: 28rpx;
+	color: #999999;
+  padding: 15rpx 10rpx;
+  display: inline-block;
+  text-align: left;
+  margin-bottom: 29rpx;
+}
+
+.input{
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 20rpx;
+}
+
+.loginBtn {
+  margin-top: 71rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  width: 670rpx;
+  display: inline-block;
+  background-color: #16d6c3;
+  border-radius: 5px;
+  font-size: 32rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.btn {
+  width: 190rpx;
+  height: 60rpx;
+  text-align:center;
+  border-radius: 5rpx;
+  border: solid 1px rgba(153, 153, 153, 0.3);
+  font-size: 28rpx;
+  line-height: 60rpx;
+  color: #16d6c3;
+}
+
+.disabled{
+  color:rgba(153, 153, 153, 0.3);
+}

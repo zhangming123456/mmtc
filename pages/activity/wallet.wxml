@@ -1,0 +1,39 @@
+<image src="{{bg2img}}" class="bg2"></image>
+<view class='top-info'>
+  <view class='top-yuan'>
+    <view class='top-yuan-money'>{{money||'???'}}</view> 元
+  </view>
+  <view class='top-avatar'>
+    <image class='avatar' src='{{avatar}}' binderror='loaderr'></image>
+  </view>
+  <view class='nickname'>{{nickname}}</view>
+</view>
+<view class='box1'>
+  <button wx:if="{{!hasGotUserInfo}}" bindtap='getUserInfo' class='cash-btn'>领取红包</button>
+  <button wx:elif="{{!hasGotphone}}" open-type='getPhoneNumber' bindgetphonenumber='docash' class='cash-btn'>立即提现</button>
+  <button wx:else bindtap='docash' class='cash-btn'>立即提现</button>
+  <image src='/imgs/act/line.png' class='line'></image>
+  <view class='box1-inner'>
+    <view class='box1-item one-line' wx:for="{{records}}">
+      用户
+      <text class='box1-username'>{{item.username}}</text> 领取了{{item.money}}元现金红包
+    </view>
+  </view>
+</view>
+
+
+<view class='masker' bindtap='closeMasker' hidden='{{!showMasker}}'>
+  <view class='masker-wrap'>
+    <view class='flex masker-header'>
+      <view class='flex-con mask-title'>
+        提现步骤
+      </view>
+      <view>
+        <image src='/imgs/act/close.png' class='close-btn'></image>
+      </view>
+    </view>
+    <view class='masker-inner' catchtap='noop'>
+      <image src='{{tipimg}}' class='tipimg'></image>
+    </view>
+  </view>
+</view>

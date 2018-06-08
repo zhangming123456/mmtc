@@ -1,0 +1,139 @@
+page {
+  background-color: #f1f1f1;
+}
+
+.box {
+  color: #222;
+  border-radius: 10rpx;
+  box-shadow: 0px 3px 14px 1px rgba(0, 0, 0, 0.05);
+  background-color: #f9f9f9;
+  width: 690rpx;
+  margin: 0 auto;
+}
+
+.wbox {
+  width: 690rpx;
+  padding-top: 36rpx;
+  padding-bottom: 36rpx;
+  margin: 0 auto;
+}
+
+.color-gray {
+  color: #444;
+}
+
+.pt {
+  padding: 35rpx 30rpx;
+  box-sizing: border-box;
+  
+}
+
+.mt {
+  margin: 35rpx -28rpx;
+  height: 1rpx;
+}
+
+.tcolor {
+  color: #16d6c3;
+}
+
+.discount {
+  padding-left: 30rpx;
+}
+
+.discount image {
+  width: 26rpx;
+  height: 26rpx;
+  vertical-align: middle;
+  position: relative;
+  top:-1rpx;
+}
+
+.fz30 {
+  font-size: 30rpx;
+  line-height: 61rpx;
+}
+
+.text-gray {
+  color: #999;
+}
+#discount_area{
+  margin-bottom:30rpx;
+}
+.box2 {
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+  padding-left:40rpx;
+  padding-right:40rpx;
+  background: transparent;
+  width:708rpx;
+  box-sizing: border-box;
+}
+
+.box2-inner{
+   z-index: 2;
+   position: relative;
+   margin-bottom: 60rpx;
+}
+
+.input-control {
+  background-color: #f9f9f9;
+  border: none;
+  width: 100%;
+}
+
+.main-btn {
+  background-color: #16d6c3;
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 690rpx;
+  text-align: center;
+  font-size: 36rpx;
+  white-space: nowrap;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin:0 auto;
+  margin-top:57rpx;
+  border-radius: 10rpx;
+
+}
+
+
+.main-btn.disabled {
+  opacity: 0.4;
+}
+
+
+
+#actMoney b {
+  font-size: 0.5866666666666667rem;
+}
+
+.addr {
+  width: 16rpx;
+  height: 25rpx;
+  margin-right:10rpx;
+  vertical-align: middle;
+}
+
+
+.gt{
+  width: 11rpx;
+	height: 21rpx;
+  margin-left:24rpx;
+}
+
+.mask{
+  position: absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  width: 100%;
+  z-index: 1;
+}
+
+#actMoney b {
+  	font-size: 44rpx;
+}

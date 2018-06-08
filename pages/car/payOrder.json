@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "确认订单",
+  "usingComponents": {
+    "zan-stepper": "../../lib/zanui/stepper/index",
+    "wxc-toast": "../../lib/minui/wxc-toast/dist/index"
+  }
+}

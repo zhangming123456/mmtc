@@ -1,0 +1,73 @@
+@font-face {
+  font-family: "iconfont";
+  src: url('data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAVoAAsAAAAAB8wAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADMAAABCsP6z7U9TLzIAAAE8AAAARAAAAFZW70gdY21hcAAAAYAAAABlAAABnM7pailnbHlmAAAB6AAAAX8AAAGQigGUsWhlYWQAAANoAAAALwAAADYRLnL7aGhlYQAAA5gAAAAcAAAAJAfeA4VobXR4AAADtAAAABAAAAAQD+kAAGxvY2EAAAPEAAAACgAAAAoBPgCUbWF4cAAAA9AAAAAfAAAAIAETAF1uYW1lAAAD8AAAAUUAAAJtPlT+fXBvc3QAAAU4AAAALgAAAD8oB6e2eJxjYGRgYOBikGPQYWB0cfMJYeBgYGGAAJAMY05meiJQDMoDyrGAaQ4gZoOIAgCKIwNPAHicY2Bk/sU4gYGVgYOpk+kMAwNDP4RmfM1gxMjBwMDEwMrMgBUEpLmmMDgwVDwzYG7438AQw9zI0AgUZgTJAQAnpgygeJzFkMENgCAMRX8pGmIcxQMH40CeHIGJWQN/Cxcm4JNH25+GkgLYACi5SATkg8D00hX3FYf7EQ/rxBMYS9WaW5syk3hH8izYy7JjmWTd6Fmn3/eobN9lwC9W7dhea+5Af3wJED8AAAB4nA2PvU7bUBzF/+fe2IlxfFOuEzvxRz6cxC6iuMJ2w4AAKbAEWoHUqWMnJlhZImEQlTp04BmqSs1WsbP0RYAKVgYeoG59dKQznaPzI4Xo3x9+y9tk0mtapz06IoK6ikAwH4Moi9kqWgOlZTcFj4bRoDoMYr4FO1CbVjLJQlutqg0IdJEOkkkUswjvsm22icTygY7rfJRjT/JrLLWj7pdin31Hqzf0GttrxezNTjPpm7WzupQdKb/VVEWpMVZpCJzYlqZoS2rxQ2k4rdveCuuh3omc95+Mvis/f81O/bGtAXkO0+2LnzvLznLpuWOZslN9ZdTajjEcNXH2pLfNuh8+UimUrOc84BdkEGlQgzDb0BBmk8TmQaGLsSdwUxwKNxS4LOrCK/MGv8TYN4iV3ZzPeU46ueWUQNUie0IbMXgQs5I46TJbAC+LO0Xi7cEB1mTlfjGaZq6bTWfT1AU75nnlYfFcXOk65s+Lh7+/vXQ62009L90dfTguL/4HQvhGnwB4nGNgZGBgAOJK76+c8fw2Xxm4WRhA4Dr79HoE/b+ehYG5EcjlYGACiQIAD8QJawB4nGNgZGBgbvjfwBDDwgACQJKRARWwAABHCgJtBAAAAAPpAAAEAAAABAAAAAAAAAAAdgCUAMgAAHicY2BkYGBgYQhkYGUAASYg5gJCBob/YD4DABESAXEAeJxlj01OwzAQhV/6B6QSqqhgh+QFYgEo/RGrblhUavdddN+mTpsqiSPHrdQDcB6OwAk4AtyAO/BIJ5s2lsffvHljTwDc4Acejt8t95E9XDI7cg0XuBeuU38QbpBfhJto41W4Rf1N2MczpsJtdGF5g9e4YvaEd2EPHXwI13CNT+E69S/hBvlbuIk7/Aq30PHqwj7mXle4jUcv9sdWL5xeqeVBxaHJIpM5v4KZXu+Sha3S6pxrW8QmU4OgX0lTnWlb3VPs10PnIhVZk6oJqzpJjMqt2erQBRvn8lGvF4kehCblWGP+tsYCjnEFhSUOjDFCGGSIyujoO1Vm9K+xQ8Jee1Y9zed0WxTU/3OFAQL0z1xTurLSeTpPgT1fG1J1dCtuy56UNJFezUkSskJe1rZUQuoBNmVXjhF6XNGJPyhnSP8ACVpuyAAAAHicY2BigAAuBuyAhZGJkZmRhZGVgbGCPSszMa8kv5Q9MSWlKLW4mIEBAElGBooAAA==') format('woff'), url('iconfont.ttf?t=1524725375576') format('truetype');
+  /* iOS 4.1- */
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 32rpx;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconfont.icon-jiantou:before {
+  content: "\e603";
+}
+.iconfont.icon-address:before {
+  content: "\e630";
+}
+.azm-address_location {
+  position: absolute;
+  box-sizing: border-box;
+  top: 20rpx;
+  left: 30rpx;
+  max-width: 276rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  background-color: rgba(0, 0, 0, 0.38);
+  border-radius: 29rpx;
+  padding-left: 52rpx;
+  padding-right: 45rpx;
+  color: #fff;
+}
+.azm-address_location text {
+  color: #fff;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 0;
+}
+.azm-address_location .azm-icon {
+  position: absolute;
+  top: 50%;
+}
+.azm-address_location .azm-icon.left {
+  left: 26rpx;
+  transform: translate(-50%, -50%);
+}
+.azm-address_location .azm-icon.right {
+  right: 0;
+  transform: translate(-50%, -50%);
+}
+.azm-address_location.pr {
+  position: relative;
+  left: 0;
+  top: 0;
+}
+.azm-address_location.pa {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.azm-address_location.pf {
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+.azm-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}

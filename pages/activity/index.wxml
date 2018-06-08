@@ -1,0 +1,8 @@
+<canvas style='width:{{w}}px;height:{{h}}px;margin-top:{{mtop}}px' canvas-id='mypager'>
+    <cover-view style='margin-top:{{mtop2}}px' class='man-wrap'>
+        <cover-view class='down-area' bindtap='downPage'>
+            <cover-image class="down-area-icon" src="/imgs/down.png"/>
+            点击生成分享海报
+        </cover-view>
+    </cover-view>
+</canvas>

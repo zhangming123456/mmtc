@@ -1,0 +1,67 @@
+<view class="panel-no-margin text-center text999 fz26" id="position_name_wrap"
+      style="visibility:{{position_name?'visible':'hidden'}};">
+    <image src="../../imgs/addrloc@2x.png" alt="" class='addr'></image>
+    <span id="position_name">{{position_name}}</span>
+</view>
+<view class="box fz30 pt">
+    <view class="flex">
+        <view>
+            消费总额：
+        </view>
+        <view class="flex-con">
+            <input type="digit" class="color-gray input-control text-right tcolor" placeholder="询问商家后输入" focus
+                   id="totalMoney" maxlength="8" bindinput='totalMoneyInput'></input>
+        </view>
+    </view>
+</view>
+<view class="wbox fz30 tcolor" id="noDiscountArea">
+  <span bindtap="checkDiscount" class="discount" id="discountFlag">
+    <image src="{{hasDiscount?'../../imgs/checked@2x.png':'../../imgs/unchecked@2x.png'}}"></image>
+    输入不参与优惠金额
+  </span>
+</view>
+<view class="box fz30 pt" id="discount_area" hidden='{{!hasDiscount}}'>
+    <view class="flex">
+        <view>
+            不参与优惠金额：
+        </view>
+        <view class="flex-con">
+            <input type="digit" class="color-gray input-control text-right tcolor" placeholder="询问商家后输入"
+                   id="noDiscountMoney" bindinput='noDiscountMoneyInput' maxlength="8"></input>
+        </view>
+    </view>
+</view>
+<view class="box fz30 pt box2">
+    <view class='box2-inner'>
+        <view id="discount_area_1">
+            <view class="flex">
+                <view>
+                    <span id="discount_area_num">{{discount}}</span>：
+                </view>
+                <view class="flex-con text-right">
+                    <span id="discountSum" class="tcolor">{{discountSum}}</span>
+                </view>
+            </view>
+            <view class="mt border-b"></view>
+        </view>
+        <view class="flex">
+            <view>
+                优惠券：
+            </view>
+            <view class="flex-con text-right text-gray">
+                无优惠券可用
+            </view>
+            <image src='../../imgs/gt@2x.png' class="gt"></image>
+        </view>
+
+    </view>
+
+    <image src='../../imgs/mask@2x.png' class='mask'></image>
+</view>
+<view class="main-btn {{submitBtnEnabled?'':'disabled'}}" id="submitBtn" bindtap="submitOrder">
+    确认买单
+    <span id="actMoney"><b>{{actMoney}}</b>{{actMoneyUnit}}</span>
+</view>
+<view class="wbox fz28 text999">
+    买单仅限于到店支付，请确认金额后提交
+</view>
