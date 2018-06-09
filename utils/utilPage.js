@@ -4,6 +4,7 @@
 "use strict";
 const app = getApp(),
     authorize = require('../utils/azm/authorize'),
+    config = require('../utils/config'),
     c = require('../utils/common'),
     ApiService = require('../utils/azm/ApiService');
 
@@ -226,8 +227,7 @@ const events = {
                     icon: options.icon,
                     src: options.src,
                     icon_color: options.icon_color,
-                    duration: options.duration,
-                    success: 'bindWxcToastSuccess'
+                    duration: options.duration
                 };
             }
             wxc_toastHideToast = function () {
@@ -254,7 +254,7 @@ class Page {
             isShow: false,
             isPullDownRefresh: false,
             options: {},
-            imageUrl: '',
+            imageUrl: config.imageUrl,
             $azmToast: {
                 show: false,
                 text: '',

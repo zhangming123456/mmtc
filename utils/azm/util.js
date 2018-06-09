@@ -424,25 +424,29 @@ function moneyFloor (num) {
     return Number(num.toString().match(/^\d+(?:\.\d{0,2})?/))
 }
 module.exports.moneyFloor = moneyFloor;
+
+let timer_toast = null;
+
 /**
  * 提示框（微信内置）
  * @param text
  */
 function showToast (option) {
+    clearTimeout(timer_toast);
     let data = {
         title: option,
         icon: 'success',
         mask: true,
-        duration: 1500
+        duration: 2000
     };
     if (utilCommon.isObject(option)) {
         data.title = option.title;
         data.icon = option.icon || 'success';
         data.image = option.image || data.image;
         data.mask = option.mask || true;
-        data.duration = option.duration || 2000;
+        data.duration = option.duration || 1500;
         data.success = option.success ? () => {
-            setTimeout(() => {
+            timer_toast = setTimeout(() => {
                 option.success();
             }, data.duration)
         } : null;
@@ -450,11 +454,13 @@ function showToast (option) {
         data.complete = option.complete;
     } else {
         if (arguments[1] && utilCommon.isFunction(arguments[1])) {
-            data.complete = arguments[1];
+            data.complete = () => {
+                timer_toast = setTimeout(() => {
+                    arguments[1]();
+                }, data.duration)
+            };
         }
     }
-    wx.hideToast();
-    wx.hideLoading();
     wx.showToast(data);
 }
 
@@ -462,21 +468,22 @@ module.exports.showToast = showToast;
 
 
 function failToast (option) {
+    clearTimeout(timer_toast);
     let data = {
         title: option,
         icon: 'fail',
-        image: '../../imgs/icon/fail.png',
+        image: '/imgs/icon/fail.png',
         mask: true,
-        duration: 1500
+        duration: 2000
     };
     if (utilCommon.isObject(option)) {
         data.title = option.title;
         data.icon = option.icon || 'success';
         data.image = option.image || data.image;
         data.mask = option.mask || true;
-        data.duration = option.duration || 2000;
+        data.duration = option.duration || 1500;
         data.success = option.success ? () => {
-            setTimeout(() => {
+            timer_toast = setTimeout(() => {
                 option.success();
             }, data.duration)
         } : null;
@@ -484,29 +491,57 @@ function failToast (option) {
         data.complete = option.complete;
     } else {
         if (arguments[1] && utilCommon.isFunction(arguments[1])) {
-            data.complete = arguments[1];
+            data.complete = () => {
+                timer_toast = setTimeout(() => {
+                    arguments[1]();
+                }, data.duration)
+            };
         }
     }
-    wx.hideToast();
-    wx.hideLoading();
     wx.showToast(data);
 }
 
 module.exports.failToast = failToast;
+module.exports.hideToast = wx.hideToast;
+module.exports.hideLoading = function () {
+    clearTimeout(timer_toast);
+    timer_toast = setTimeout(res => {
+        wx.hideLoading()
+    }, 1500)
+};
 
-
-function showLoading (text = '加载中', cb) {
-    wx.hideToast();
-    wx.hideLoading();
-    wx.showLoading({
-        title: text,
+/**
+ * Loading
+ * @param option
+ */
+function showLoading (option) {
+    clearTimeout(timer_toast);
+    let data = {
+        title: option || '加载中...',
         mask: true,
-        success() {
-            setTimeout(function () {
-                cb && cb();
-            }, 1500);
+        duration: 2000
+    };
+    if (utilCommon.isObject(option)) {
+        data.title = option.title;
+        data.mask = option.mask || true;
+        data.duration = option.duration || 1500;
+        data.success = option.success ? () => {
+            timer_toast = setTimeout(() => {
+                option.success();
+            }, data.duration)
+        } : null;
+        data.fail = option.fail;
+        data.complete = option.complete;
+    } else {
+        if (arguments[1] && utilCommon.isFunction(arguments[1])) {
+            data.complete = () => {
+                timer_toast = setTimeout(() => {
+                    arguments[1]();
+                }, data.duration)
+            };
         }
-    });
+    }
+    wx.showLoading(data);
 }
 
 module.exports.showLoading = showLoading;
@@ -678,6 +713,7 @@ function go (a, options = {}) {
                 }
             })
         } else if (options.type === 'goInit') {
+            isGoRouter = false;
             go('/pages/init/init',
                 {
                     type: 'tab',
@@ -691,6 +727,7 @@ function go (a, options = {}) {
                 }
             )
         } else if (options.type === 'goOrder') {
+            isGoRouter = false;
             go('/pages/order/index/index',
                 {
                     type: 'tab',
@@ -720,7 +757,7 @@ function go (a, options = {}) {
             })
         } else {
             isGoRouter = true;
-            if (getCurrentPages().length === 5) {
+            if (getCurrentPages().length === 10) {
                 wx.redirectTo({
                     url: url,
                     success() {

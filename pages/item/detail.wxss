@@ -1370,7 +1370,7 @@ image {
     border-radius: 50%;
     text-align: center;
     line-height: 30rpx;
-    background-color: #ff538b;
+    background-color: #ffa0b4;
     color: #ffffff;
     font-size: 24rpx;
     margin-right: 20rpx;

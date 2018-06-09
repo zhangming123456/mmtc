@@ -84,15 +84,6 @@ const appPage = {
      * @param scrollTop //页面在垂直方向已滚动的距离（单位px）
      */
     onPageScroll(options){
-        if (options.scrollTop > 5) {
-            this.setData({
-                isFixed: true
-            })
-        } else {
-            this.setData({
-                isFixed: false
-            })
-        }
     }
 };
 
@@ -101,9 +92,13 @@ const methods = {
         let that = this,
             options = that.data.options,
             item_id = options.item_id,
+            group_id = options.group_id,
             is_group = options.group || 0;
         util.showLoading();
-        that.setData({is_group, item_id});
+        that.setData({is_group, item_id, group_id});
+        if (is_group) {
+            wx.setNavigationBarTitle({title: '确认团单'});
+        }
         this.getItemBuyInfo(item_id, is_group)
     },
 
@@ -175,7 +170,7 @@ const methods = {
             }
         });
         p.finally(res => {
-            wx.hideLoading();
+            util.hideLoading();
         });
         return p;
     },
@@ -269,12 +264,14 @@ const methods = {
     },
     // 立即付款
     bindBuyNow(e){
+        if (this.data.isRequestPayment)return;
         let that = this,
             sendData = {},
             selectCoupons = that.data.selectCoupons || {},
             cart_items = that.data.cart_items || {},
             total_money = that.data.total_money || {},
             item_id = that.data.item_id,
+            group_id = that.data.group_id,
             items = [],
             is_group = that.data.is_group;
         if (that.data.isRequestPayment) {
@@ -291,8 +288,10 @@ const methods = {
             sendData = {
                 item_id: items[0].item_id,
                 item_num: items[0].num,
-                is_group: 1,
-                group_id: items[0].id
+                is_group: 1
+            };
+            if (group_id) {
+                sendData.group_id = group_id
             }
         } else {
             sendData = {
@@ -309,32 +308,46 @@ const methods = {
             sendData.rmcids.push(val.id)
         }
         sendData.rmcids = sendData.rmcids.join(',');
+        util.showLoading();
+        that.data.isRequestPayment = true;
         ApiService.getPayInfoOfBuyNow(sendData).then(
             res => {
                 let info = res.info;
                 if (res.status === 1 && util.common.isEmptyObject(info) && parseFloat(info.total_money) == total_money) {
                     let payInfo = info.payInfo,
-                        billId = info.billId;
-                    payInfo.success = function () {
-                        if (is_group) { // 是团购
-                            util.go("/pages/group/detail?id=" + billId, {type: 'blank'});
+                        billId = info.billId, no = info.no;
+                    payInfo.complete = function (res) {
+                        if (res.errMsg === 'requestPayment:ok') {
+                            if (is_group) { // 是团购
+                                util.go("/pages/group/detail?id=" + billId, {type: 'blank'});
+                            } else {
+                                util.go("/pages/car/paySuccess", {type: 'blank'});
+                            }
                         } else {
-                            util.go("/pages/car/paySuccess", {type: 'blank'});
-                        }
-                    };
-                    payInfo.fail = function () {
-                        if (!is_group) { //是团购 ,购买失败不需要刷新
-                            if (billId) {
+                            if (is_group) {
+                                that.data.isRequestPayment = false;
+                                that.azmShowToast({
+                                    text: '参团失败',
+                                    success: () => {
+                                        console.log(2);
+                                    }
+                                });
+                            } else if (billId) {
                                 util.go("/pages/order/detail?id=" + billId, {type: 'blank'});
                             } else {
-                                util.go("/pages/order/detail?no=" + billId, {type: 'blank'});
+                                util.go("/pages/order/detail?no=" + no, {type: 'blank'});
                             }
                         }
                     };
                     wx.requestPayment(payInfo);
+                } else {
+                    that.data.isRequestPayment = false;
+                    that.azmShowToast(res.message || '支付失败');
                 }
             }
-        );
+        ).finally(res => {
+            util.hideLoading();
+        });
     },
     bindShowToast(e){
         let dataset = e.currentTarget.dataset,

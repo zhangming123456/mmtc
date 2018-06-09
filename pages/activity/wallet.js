@@ -1,13 +1,67 @@
-const c = require("../../utils/common.js");
-const map = require("../../utils/map.js");
-Page({
+const app = getApp(),
+    util = app.util,
+    c = require("../../utils/common.js"),
+    utilPage = require("../../utils/utilPage"),
+    map = require("../../utils/map.js");
 
+const appPage = {
     /**
      * 页面的初始数据
      */
     data: {
+        text: 'page activityWallet',
         showMasker: false,
         hasGotUserInfo: false
+    },
+    onLoad(){
+        this.loadCb();
+    }
+};
+const methods = {
+    loadCb () {
+        let options = this.data.options;
+        if (options.scene) {
+            var scene = decodeURIComponent(options.scene)
+            if (scene) {
+                let kv = scene.split(':');
+                if (kv[0] == 'invite_id') {
+                    this.invite_id = kv[1];
+                }
+            }
+        } else if (options.invite_id) {
+            this.invite_id = options.invite_id
+        }
+        c.showLoading()
+        this.setData({
+            bg2img: c.absUrl('/little/bg2.png'),
+            tipimg: c.absUrl('/little/tipimgs.png')
+        })
+        c.getLocation(res => {
+            let lat = res.latitude
+            let lon = res.longitude
+            map.reverseGeocoder({
+                location: {
+                    latitude: lat,
+                    longitude: lon
+                },
+                success: (res) => {
+                    if (res.result && res.result.address_component.city == '深圳市') {
+                        this.is_from_sz = 1
+                    }
+                    this.loadUser()
+                }
+            });
+        }, () => {
+            this.is_from_sz = 0
+            this.loadUser()
+        })
+        c.get('/api/activity/notice', (res) => {
+            if (res.status == 1) {
+                this.setData({
+                    records: res.info
+                })
+            }
+        })
     },
     docash(e) {
         // this.showMasker()
@@ -85,54 +139,6 @@ Page({
     loaderr() {
         this.setData({
             avatar: '/imgs/default.png'
-        })
-    },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-        debugger
-        if (options.scene) {
-            var scene = decodeURIComponent(options.scene)
-            if (scene) {
-                let kv = scene.split(':');
-                if (kv[0] == 'invite_id') {
-                    this.invite_id = kv[1];
-                }
-            }
-        } else if (options.invite_id) {
-            this.invite_id = options.invite_id
-        }
-        c.showLoading()
-        this.setData({
-            bg2img: c.absUrl('/little/bg2.png'),
-            tipimg: c.absUrl('/little/tipimgs.png')
-        })
-        c.getLocation(res => {
-            let lat = res.latitude
-            let lon = res.longitude
-            map.reverseGeocoder({
-                location: {
-                    latitude: lat,
-                    longitude: lon
-                },
-                success: (res) => {
-                    if (res.result && res.result.address_component.city == '深圳市') {
-                        this.is_from_sz = 1
-                    }
-                    this.loadUser()
-                }
-            });
-        }, () => {
-            this.is_from_sz = 0
-            this.loadUser()
-        })
-        c.get('/api/activity/notice', (res) => {
-            if (res.status == 1) {
-                this.setData({
-                    records: res.info
-                })
-            }
         })
     },
     getUserInfo() {
@@ -238,4 +244,5 @@ Page({
     onShareAppMessage: function () {
 
     }
-})
+};
+Page(new utilPage(appPage, methods));

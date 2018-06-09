@@ -58,12 +58,12 @@ function getFly (params = {}) {
 
                 let page = util.getCurrentPage(),
                     path = page.route;
-                if (res.data.status === 202 && path !== 'pages/login') {
-                    util.go('/pages/login', {type: 'blank'});
+                if (res.data.status === 202 && path !== 'pages/login/index' && path !== 'pages/login/getUserInfo/index' && path !== 'pages/mine/index') {
+                    util.go('/pages/login/getUserInfo/index');
                     return {
                         info: null,
                         message: '未登入',
-                        status: 0
+                        status: res.data.status
                     }
                 } else {
                     let info = res.data.info,

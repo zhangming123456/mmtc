@@ -29,7 +29,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
@@ -41,6 +41,24 @@
 				{
 					"id": -1,
 					"name": "立即一下",
+					"pathName": "pages/activity/wallet",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "拼团",
+					"pathName": "pages/group/detail",
+					"query": "id=170"
+				},
+				{
+					"id": -1,
+					"name": "美美天成分享",
+					"pathName": "pages/activity/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "分享领券",
 					"pathName": "pages/activity/wallet",
 					"query": ""
 				}

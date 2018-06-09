@@ -110,6 +110,34 @@ class OldApi {
         return http;
     }
 
+    /**
+     * 获取拼团信息
+     * @param id
+     * @param resole
+     * @param reject
+     * @returns {*}
+     */
+    getGroupInfo ({id = 0}, resole, reject) {
+        let that = this, data = {id};
+        const api = '/group/getGroupInfo';
+        const http = $http.get(that.api + api, data, resole, reject);
+        return http;
+    }
+
+    /**
+     * 拼团订单详情
+     * @param id
+     * @param resole
+     * @param reject
+     * @returns {*}
+     */
+    getGroupDetail ({id = 0}, resole, reject) {
+        let that = this, data = {id};
+        const api = '/group/detail';
+        const http = $http.get(that.api + api, data, resole, reject);
+        return http;
+    }
+
 
 }
 class ApiService extends OldApi {

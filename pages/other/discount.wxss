@@ -8,10 +8,19 @@
   font-size: 32rpx;
   color: #282828;
   background-color: #fff;
-  /* padding-left: 55rpx; */
+  padding-left: 55rpx;
+  padding-right: 55rpx;
 }
 
 .category-item {
+  display: inline-block;
+  padding: 32rpx 0;
+  background-color: #fff;
+  margin-right: 65rpx;
+}
+
+
+.category-item2 {
   display: inline-block;
   padding: 32rpx 0;
   background-color: #fff;
@@ -19,6 +28,7 @@
   width: 50%;
   text-align: center;
 }
+
 
 .categories .active {
   color: #ff538b;
@@ -35,10 +45,6 @@
   bottom: 0;
   background-color: #ff538b;
 }
-
-
-
-
 
 .box3-item {
   float: left;

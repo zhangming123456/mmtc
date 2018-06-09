@@ -1,8 +1,16 @@
-<canvas style='width:{{w}}px;height:{{h}}px;margin-top:{{mtop}}px' canvas-id='mypager'>
-    <cover-view style='margin-top:{{mtop2}}px' class='man-wrap'>
-        <cover-view class='down-area' bindtap='downPage'>
-            <cover-image class="down-area-icon" src="/imgs/down.png"/>
+<view class='share-canvas'>
+    <!--<image class="list__image" src="{{tempFilePath}}" mode="aspectFill" style="width: 100%;height: 100%;"></image>-->
+    <canvas canvas-id='myCanvas' class="myCanvas" catchlongpress="downPage" disable-scroll="{{true}}"
+            style="{{myCanvasStyle}}">
+        <cover-view class="azm-btn" hover-class="none" catchtap="downPage">
+            <cover-image src="/imgs/down.png"></cover-image>
             点击生成分享海报
         </cover-view>
-    </cover-view>
-</canvas>
+    </canvas>
+    <canvas canvas-id='ctx' class="hover_canvas" catchlongpress="downPage" style="{{ctxStyle}}"></canvas>
+</view>
+<!--toast提示框-->
+<wxc-toast id="azm_wxc_toast" is-show="{{$azmToast.show}}" text="{{$azmToast.text}}" text="{{$azmToast.text}}"
+           icon="{{$azmToast.icon}}" src="{{$azmToast.src}}" icon-color="{{$azmToast.icon_color}}"
+           duration="{{$azmToast.duration}}" bindsuccess="bindWxcToastSuccess"></wxc-toast>
+

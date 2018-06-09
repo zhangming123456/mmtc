@@ -263,5 +263,5 @@
 <!--toast提示框-->
 <wxc-toast id="azm_wxc_toast" is-show="{{$azmToast.show}}" text="{{$azmToast.text}}" text="{{$azmToast.text}}"
            icon="{{$azmToast.icon}}" src="{{$azmToast.src}}" icon-color="{{$azmToast.icon_color}}"
-           duration="{{$azmToast.duration}}" bindsuccess="{{$azmToast.success}}"></wxc-toast>
+           duration="{{$azmToast.duration}}" bindsuccess="bindWxcToastSuccess"></wxc-toast>
 

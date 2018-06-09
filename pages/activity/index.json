@@ -1,3 +1,6 @@
 {
-  "navigationBarBackgroundColor": "#ffce0a"
+  "navigationBarTitleText": "分享有礼",
+  "usingComponents": {
+    "wxc-toast": "../../lib/minui/wxc-toast/dist/index"
+  }
 }
