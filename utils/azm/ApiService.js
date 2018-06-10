@@ -3,6 +3,7 @@ const config = require('../config'),
 import { HttpRequest } from "./httpRequest";
 
 const $http = new HttpRequest();
+
 class OldApi {
     constructor () {
         this.shopapi = `${this.url}/shopapi`;
@@ -97,6 +98,21 @@ class OldApi {
     }
 
     /**
+     * 登入
+     * @param code
+     * @param resole
+     * @param reject
+     * @returns {*}
+     */
+    wx2Login ({code = ''}, resole, reject) {
+        let that = this, data = {code};
+        const api = '/wx2/login';
+        const http = $http.get(that.api + api, data, resole, reject);
+        return http;
+    }
+
+
+    /**
      * 获取开通城市列表
      * @param data
      * @param resole
@@ -138,8 +154,35 @@ class OldApi {
         return http;
     }
 
+    /**
+     * 获取分享领奖领取记录
+     * @param resole
+     * @param reject
+     * @returns {*}
+     */
+    getActivityNotice ({} = {}, resole, reject) {
+        let that = this, data = {};
+        const api = '/activity/notice';
+        const http = $http.get(that.api + api, data, resole, reject);
+        return http;
+    }
+
+    /**
+     * 注册领奖信息
+     * @param is_from_sz
+     * @param resole
+     * @param reject
+     * @returns {*}
+     */
+    setActivityRegister ({is_from_sz = 0}, resole, reject) {
+        let that = this, data = {is_from_sz};
+        const api = '/activity/register';
+        const http = $http.post2(that.api + api, data, resole, reject);
+        return http;
+    }
 
 }
+
 class ApiService extends OldApi {
     constructor (...args) {
         super(...args); // 调用父类的constructor(x, y)
@@ -372,4 +415,5 @@ class ApiService extends OldApi {
     }
 
 }
+
 module.exports = new ApiService();

@@ -5,6 +5,7 @@ const app = getApp(),
     authorize = require('../../utils/azm/authorize'),
     ApiService = require('../../utils/azm/ApiService'),
     c = require("../../utils/common");
+import regeneratorRuntime from '../../lib/regenerator-runtime/runtime';
 
 /**
  * @author zhangxinxu(.com)
@@ -76,11 +77,17 @@ const appPage = {
      */
     data: {
         text: 'page activityIndex',
-        imagePath: null,
-        qrcodePath: null,
-        cookie: util.getSessionId(),
+        cookie: '',
+        posterPopup_text: '这张海报已经自动帮您保存到手机相册，发送好友或群，让大家来领红包吧~',
         drawArray: [],
-        downAreasStyle: 'color: #feece1;'
+        downAreasStyle: 'color: #feece1;',
+        bgImage: {},//源背景图数据
+        _bgImage: {},//背景图数据
+        qrCodeImage: {},//源二维码数据
+        _qrCodeImage: {},//维码数据
+        multiple: 3,//绘制几倍图
+        startUp: false,
+        imagesName: []
     },
     /**
      * 生命周期函数--监听页面加载
@@ -88,18 +95,24 @@ const appPage = {
     onLoad: function (options) {
         this.loadCb();
     },
+    onShow () {
+        if (this.data.isShow && !this.data.isHidePage) {
+            this.loadCb();
+        }
+    },
     /**
      * 用户点击右上角分享
      */
     onShareAppMessage: function () {
         return {
-            title: '美美天成新年红包',
-            path: '/pages/activity/wallet'
+            title: '分享有礼',
+            path: `/pages/activity/wallet?invite_id=${util.getSessionId()}`,
+            imageUrl: this.data._qrCodeImage.path
         };
     }
 };
 const methods = {
-    loadCb(){
+    loadCb () {
         wx.setNavigationBarColor({
             frontColor: '#000000',
             backgroundColor: '#feece1',
@@ -108,33 +121,47 @@ const methods = {
                 timingFunc: 'easeIn'
             }
         });
-        this.downImage()
+        this.data.cookie = util.getSessionId();
+        this.downImage();
+        this.binTogglePosterPopup();
     },
     // 下载图片&二维码
     downImage () {
-        util.showLoading();
+        util.showLoading('下载图片');
         let that = this,
             imageUrl = that.data.imageUrl,
             cookie = that.data.cookie,
             pagePath = encodeURIComponent('pages/activity/wallet'),
             imagePath = `${imageUrl}/little/redbag.png`,
-            qrcodePath = `${imageUrl}/api/wx_shop/showInviteQrcode?page=${pagePath}`;
+            qrCodePath = `${imageUrl}/api/wx_shop/showInviteQrcode?page=${pagePath}`;
+        that.data.startUp = true;
+        that.data.tempFilePath = null;
         wx.getSystemInfo({
             success: res => {
-                console.log(res);
                 let winWidth = res.windowWidth,
-                    radio = winWidth * 2 / 750,
-                    winHeight = 667 * radio;
-                this.setData({winWidth, winHeight, radio});
+                    winHeight = res.windowHeight,
+                    setData = {winWidth, winHeight}, imagesName = [];
+                that.setData({imagePath, qrCodePath});
                 let p1 = new Promise((resolve, reject) => {
                         wx.downloadFile({
                             url: imagePath,
                             success: function (res) {
                                 if (res.statusCode === 200) {
-                                    that.data.imagePath = res.tempFilePath;
-                                    resolve();
+                                    let path = res.tempFilePath;
+                                    wx.getImageInfo({
+                                        src: path,
+                                        success: function (res) {
+                                            setData.bgImage = res;
+                                            imagesName.push('_bgImage');
+                                            resolve(true);
+                                        },
+                                        fail (err) {
+                                            util.go('/pages/login/getUserInfo/index');
+                                            reject(false);
+                                        }
+                                    });
                                 } else {
-                                    reject()
+                                    reject(false)
                                 }
                             },
                             fail: () => {
@@ -142,18 +169,31 @@ const methods = {
                             }
                         });
                     }).then(result => result).catch(e => e),
+                    /**
+                     * 下载二维码
+                     * @type {Promise<any>}
+                     */
                     p2 = new Promise((resolve, reject) => {
                         wx.downloadFile({
-                            url: qrcodePath,
+                            url: qrCodePath,
                             header: {cookie},
                             success: function (res) {
                                 if (res.statusCode === 200) {
-                                    that.data.qrcodePath = res.tempFilePath
-                                    resolve();
-                                } else if (res.status === 202) {
-
+                                    let path = res.tempFilePath;
+                                    wx.getImageInfo({
+                                        src: path,
+                                        success: function (res) {
+                                            setData.qrCodeImage = res;
+                                            imagesName.push('_qrCodeImage');
+                                            resolve(true);
+                                        },
+                                        fail (err) {
+                                            util.go('/pages/login/getUserInfo/index');
+                                            reject(false);
+                                        }
+                                    });
                                 } else {
-                                    reject()
+                                    reject(false)
                                 }
                             },
                             fail: () => {
@@ -162,24 +202,45 @@ const methods = {
                         });
                     }).then(result => result).catch(e => e);
                 Promise.all([p1, p2])
+                    .then(res => {
+                        console.log(res);
+                    }, err => {
+                        console.log(arguments);
+                    })
                     .catch(res => {
                         console.log(res);
                     })
-                    .finally(res => {
-                        that.drawStart();
-                        that.drawStart({id: 'myCanvas', w: winWidth, h: winHeight});
+                    .finally(() => {
+                        setData.imagesName = imagesName;
+                        that.setData(setData);
+                        that.data.startUp = false;
+                        util.hideLoading();
                     });
             },
-            complete: res => {
+            fail: res => {
                 util.hideLoading();
             }
         });
     },
+    // 图片加载成功
+    imageLoad (e) {
+        console.log(e);
+        let target = e.currentTarget || e.target,
+            key = target.dataset.key,
+            width = e.detail.width,
+            height = e.detail.height,
+            offsetX = target.offsetLeft,
+            offsetY = target.offsetTop;
+        this.data[`_${key}`] = {width, height, offsetX, offsetY, status: true};
+    },
     /**
      * 开始绘制
      */
-    drawStart({id = 'ctx', w = 750, h = 1334, bgColor = '#feece1'} = {}){
-        let that = this, data = {w, h};
+    async drawStart ({id = 'ctx', bgColor = '#feece1'} = {}) {
+        let that = this,
+            multiple = that.data.multiple,
+            w = that.data.winWidth * multiple,
+            h = that.data.winHeight * multiple;
         that.setData({
             [`${id}Style`]: `width: ${w}px;height: ${h}px`
         });
@@ -190,9 +251,9 @@ const methods = {
         ctx.setFillStyle(bgColor);
         ctx.fillRect(0, 0, w, h);
         // 绘制背景图
-        that.drawBgImage(ctx, w, h);
+        await that.drawBgImage(ctx);
         // 绘制小程序码
-        that.drawQrCodeImage(ctx, w, h);
+        await that.drawQrCodeImage(ctx);
         // // 绘制势力汉字：吴
         // that.drawInfluence(ctx, that.data.hero.HERO.INFLUENCE);
         // // 绘制武将姓名：陆逊
@@ -201,98 +262,113 @@ const methods = {
         // that.drawHorner(ctx, that.data.hero.HERO.HORNER);
         // 最终调用draw函数，生成预览图
         // 一个坑点：只能调用一次，否则后面的会覆盖前面的
-
-        Promise.all(that.data.drawArray)
-            .catch(res => {
-                console.log('绘制出错');
+        console.log(4);
+        await new Promise(resolve => {
+            ctx.draw(true, function () {
+                console.log(5);
+                that.azmShowToast('绘制结束', function () {
+                    that.getPictures();
+                });
+                resolve();
             })
-            .finally(res => {
-
-            })
+        })
     },
     /**
      * 绘制背景图
      * @param path
      */
-    drawBgImage (ctx, w, h) {
+    drawBgImage (ctx) {
         let that = this,
-            imagePath = that.data.imagePath;
-        let p = new Promise((resolve, reject) => {
-            wx.getImageInfo({
-                src: imagePath,
-                success: function (res) {
-                    // 计算图片占比信息
-                    let maxWidth = Math.min(res.width, w),
-                        radio = maxWidth / res.width,
-                        offsetX = (w - res.width * radio) / 2,
-                        offsetY = h - res.height * radio;
-                    that.setData({
-                        bg_image: {
-                            radio,
-                            width: res.width,
-                            height: res.height,
-                            w: res.width * radio,
-                            h: res.height * radio,
-                            y: offsetY,
-                            x: offsetX
-                        }
-                    });
-                    // 绘制背景图片，path是本地路径，不可以传网络url，如果是网络图片需要先下载
-                    ctx.drawImage(imagePath, offsetX, offsetY, res.width * radio, res.height * radio);
-                    ctx.draw(true)
-                    resolve();
-                },
-                fail: function () {
-                    reject();
-                }
-            });
-        }).then(result => result).catch(e => e);
-        that.data.drawArray.push(p);
+            multiple = that.data.multiple,
+            bgImage = that.data.bgImage,
+            _bgImage = that.data._bgImage,
+            imageWidth = _bgImage.width * multiple,
+            imageHeight = _bgImage.height * multiple,
+            offsetX = _bgImage.offsetX * multiple,
+            offsetY = _bgImage.offsetY * multiple,
+            imagePath = bgImage.path;
+        // // 计算图片占比信息
+        // let maxWidth = Math.min(imageWidth, w),
+        //     radio = maxWidth / imageWidth,
+        //     offsetX = (w - imageWidth * radio) / 2,
+        //     offsetY = h - imageHeight * radio;
+        // that.setData({
+        //     bg_image: {
+        //         radio,
+        //         width: res.width,
+        //         height: res.height,
+        //         w: res.width * radio,
+        //         h: res.height * radio,
+        //         y: offsetY,
+        //         x: offsetX
+        //     }
+        // });
+        // 绘制背景图片，path是本地路径，不可以传网络url，如果是网络图片需要先下载
+        return new Promise(resolve => {
+            that.getEleScrollOffset('.bgImage').then(res => {
+                console.log(res);
+                let imageWidth = res.width * multiple,
+                    imageHeight = res.height * multiple,
+                    offsetX = res.left * multiple,
+                    offsetY = res.top * multiple;
+                console.log('bgImage', offsetX, offsetY, imageWidth, imageHeight);
+                ctx.drawImage(imagePath, offsetX, offsetY, imageWidth, imageHeight);
+                console.log(0);
+                ctx.draw(true, function () {
+                    console.log(1);
+                    resolve(ctx);
+                });
+            })
+        })
     },
     /**
      * 绘制二维码
      * @param ctx
      */
-    drawQrCodeImage(ctx, w, h){
+    drawQrCodeImage (ctx) {
         let that = this,
-            qrcodePath = that.data.qrcodePath,
-            width = w,
-            height = h,
-            scale = 0.4,
-            offset_y = 437;
-        let p = new Promise((resolve, reject) => {
-            wx.getImageInfo({
-                src: qrcodePath,
-                success: function (res) {
-                    // 计算图片占比信息
-                    let maxWidth = Math.min(res.width, width * scale),
-                        radio = maxWidth / res.width,
-                        radioY = height * 2 / 1334,
-                        offsetX = (width - res.width * radio) / 2,
-                        offsetY = offset_y * radioY - res.height * radio / 2;
-                    that.setData({
-                        qrcodeImage: {
-                            radioY,
-                            width: res.width,
-                            height: res.height,
-                            w: res.width * radio,
-                            h: res.height * radio,
-                            y: offsetY,
-                            x: offsetX
-                        }
-                    });
-                    ctx.drawImage(qrcodePath, offsetX, offsetY, res.width * radio, res.height * radio);
-                    ctx.draw(true);
-                    resolve();
-                },
-                fail: function () {
-                    reject()
-                }
+            multiple = that.data.multiple,
+            qrCodeImage = that.data.qrCodeImage,
+            _qrCodeImage = that.data._qrCodeImage,
+            imageWidth = _qrCodeImage.width * multiple,
+            imageHeight = _qrCodeImage.height * multiple,
+            offsetX = _qrCodeImage.offsetX * multiple,
+            offsetY = _qrCodeImage.offsetY * multiple,
+            imagePath = qrCodeImage.path;
+        // let that = this,
+        //     qrcodePath = that.data.qrcodePath,
+        //     width = w,
+        //     height = h,
+        //     scale = 0.4,
+        //     offset_y = 437;
+        // // 计算图片占比信息
+        // let maxWidth = Math.min(res.width, width * scale),
+        //     radio = maxWidth / res.width,
+        //     radioY = height * 2 / 1334,
+        //     offsetX = (width - res.width * radio) / 2,
+        //     offsetY = offset_y * radioY - res.height * radio / 2;
+        return new Promise(resolve => {
+            that.getEleScrollOffset('.qrcodeImage').then(res => {
+                console.log(res);
+                let imageWidth = res.width * multiple,
+                    imageHeight = res.height * multiple,
+                    offsetX = res.left * multiple,
+                    offsetY = res.top * multiple;
+                console.log('qrcodeImage', offsetX, offsetY, imageWidth, imageHeight);
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(offsetX + imageWidth / 2, offsetY + imageHeight / 2, imageWidth / 2, 0, 2 * Math.PI, false);
+                ctx.clip();
+                ctx.drawImage(imagePath, offsetX, offsetY, imageWidth, imageHeight);
+                ctx.restore();
+                console.log(2);
+                ctx.draw(true, function () {
+                    console.log(3);
+                    resolve(ctx);
+                });
             })
-        }).then(result => result).catch(e => e);
-        that.data.drawArray.push(p);
+        })
     },
-
     // 绘制文字
     drawText (ctx, text) {
         ctx.setFillStyle('#db3033');
@@ -311,40 +387,74 @@ const methods = {
         // 绘制竖排文字，这里是个Util函数，具体实现请继续看
         // drawTextVertical(ctx, text, x, y);
     },
+    /**
+     * 按钮绘制图片
+     */
+    bindDrawImage () {
+        let that = this,
+            startUp = that.data.startUp,
+            imagesName = that.data.imagesName,
+            flag = true;
+
+        for (let v of imagesName) {
+            if (!that.data[v] || (that.data[v] && that.data[v].status === false)) {
+                flag = false;
+                break;
+            }
+        }
+        if (that.data.tempFilePath) {
+            that.getPictures();
+        } else if (!startUp && flag) {
+            util.showLoading('生成绘制海报');
+            let p = that.drawStart();
+            p.then(res => {
+                util.hideLoading(true);
+                console.log(res);
+            });
+        } else {
+            that.azmShowToast('海报资源加载失败');
+        }
+    },
     // 获取canvas图片
-    downPage() {
+    getPictures () {
         let that = this;
-        console.log('长按事件');
+        if (that.data.isDownPage) return;
+        that.data.isDownPage = true;
         if (that.data.tempFilePath) {
             that.saveImage();
             return;
         }
-        util.showLoading();
+        util.showLoading('获取绘制海报');
         wx.canvasToTempFilePath({
             canvasId: 'ctx',
             success: function (res) {
                 that.setData({
                     tempFilePath: res.tempFilePath
                 });
-                util.hideLoading();
                 that.saveImage();
+            },
+            fail: function () {
+                that.data.isDownPage = false;
+                util.hideLoading();
             }
         })
     },
     // 保存海报
-    saveImage(){
+    saveImage () {
         let that = this;
         wx.saveImageToPhotosAlbum({
             filePath: that.data.tempFilePath,
-            success(rt) {
-                that.azmShowToast({
-                    text: '该海报已保存到您的手机相册，可以直接去分享啦~',
-                    success(){
-                        console.log(3);
-                    }
+            success (rt) {
+                that.setData({
+                    posterPopup_text: '这张海报已经自动帮您保存到手机相册，发送好友或群，让大家来领红包吧~'
                 });
+                that.binTogglePosterPopup(null, true);
             },
-            fail(){
+            fail () {
+                that.setData({
+                    posterPopup_text: '该海报保存到您的手机相册失败，可以预览海报，长按图片保存或发送朋友哦~'
+                });
+                that.binTogglePosterPopup(null, true);
                 authorize.writePhotosAlbum(true)
                     .then(
                         res => {
@@ -367,16 +477,26 @@ const methods = {
                         }
                     );
             },
+            complete () {
+                util.hideLoading();
+                that.data.isDownPage = false;
+            }
         })
     },
-    openImage(){
+    binTogglePosterPopup (e, bol = false) {
+        this.selectComponent('#posterPopup').toggle(bol);
+    },
+    openImage () {
         let that = this;
         wx.previewImage({
             current: that.data.tempFilePath, // 当前显示图片的http链接
             urls: [that.data.tempFilePath], // 需要预览的图片http链接列表
-            complete(){
+            complete () {
             }
         });
+    },
+    bindCanvasError () {
+
     }
 };
 Page(new utilPage(appPage, methods));

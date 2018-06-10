@@ -1,5 +1,4 @@
 //app.js
-
 const c = require("./utils/common.js"),
     config = require('./utils/config'),
     util = require('./utils/azm/util');
@@ -94,7 +93,7 @@ App({
      * 不存在页面监听
      * @param options
      */
-    onPageNotFound(options){
+    onPageNotFound (options) {
         console.warn('不存在页面监听', options);
     }
 })

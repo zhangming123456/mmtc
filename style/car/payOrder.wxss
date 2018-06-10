@@ -1,3 +1,13 @@
+.azm-payOrder .azm-money .flexBox-item.left {
+  line-height: 60rpx;
+}
+.azm-payOrder .azm-money .flexBox-item.right {
+  text-align: right;
+}
+.azm-payOrder .azm-money .flexBox-item.right .azm-stepper-box {
+  display: inline-block;
+  line-height: 50rpx;
+}
 .azm-item__box {
   box-sizing: border-box;
   padding: 30rpx 20rpx;
@@ -34,38 +44,6 @@
 }
 .azm-item__box > .right .azm-money .azm-unit {
   font-size: 24rpx;
-}
-.azm-item__box > .right .azm-money .azm-stepper {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 111rpx;
-  box-sizing: border-box;
-  border: 1px solid #999;
-  border-radius: 4rpx;
-}
-.azm-item__box > .right .azm-money .azm-stepper > view {
-  height: 30rpx;
-  line-height: 30rpx;
-  text-align: center;
-  font-size: 24rpx;
-  color: #282828;
-}
-.azm-item__box > .right .azm-money .azm-stepper .left,
-.azm-item__box > .right .azm-money .azm-stepper .right {
-  flex-basis: 30rpx;
-  height: inherit;
-  text-align: center;
-}
-.azm-item__box > .right .azm-money .azm-stepper .left.azm-stepper--disabled,
-.azm-item__box > .right .azm-money .azm-stepper .right.azm-stepper--disabled {
-  color: #999;
-}
-.azm-item__box > .right .azm-money .azm-stepper .left {
-  border-right: 1px solid #999;
-}
-.azm-item__box > .right .azm-money .azm-stepper .right {
-  border-left: 1px solid #999;
 }
 .azm-platform__coupon {
   padding: 24rpx 0;

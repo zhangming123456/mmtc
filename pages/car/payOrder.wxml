@@ -31,23 +31,29 @@
                                     <text class='t-Price fz30'>{{item.price}}</text>
                                 </view>
                                 <view class="flexBox-item right fb-12">
-                                    <view class="flexBox azm-stepper">
-                                        <view class="flexBox-item left {{ item.num <= stepper.min ? 'azm-stepper--disabled' : '' }}"
-                                              data-stepper="{{item.num}}"
-                                              data-key="cart_items[{{sindex}}].items[{{index}}].num"
-                                              data-disabled="{{ item.num <= stepper.min }}"
-                                              catchtap="handleAzmStepperMinus">
-                                            <text>-</text>
-                                        </view>
-                                        <view class="flexBox-item fb-all center">{{item.num}}</view>
-                                        <view class="flexBox-item right {{ item.num >= stepper.max ? 'azm-stepper--disabled' : '' }}"
-                                              data-stepper="{{item.num}}"
-                                              data-key="cart_items[{{sindex}}].items[{{index}}].num"
-                                              data-disabled="{{ item.num >= stepper.max }}"
-                                              catchtap="handleAzmStepperPlus">
-                                            <text>+</text>
-                                        </view>
+                                    <view class="azm-stepper-box">
+                                        <wxc-counter my-class="azm-stepper" number="{{item.num}}" max="{{stepper.max}}"
+                                                     min="{{stepper.min}}"
+                                                     data-key="cart_items[{{sindex}}].items[{{index}}].num"
+                                                     color="#333" bind:changenumber="onChangeNumber"></wxc-counter>
                                     </view>
+                                    <!--<view class="flexBox azm-stepper">-->
+                                    <!--<view class="flexBox-item left {{ item.num <= stepper.min ? 'azm-stepper&#45;&#45;disabled' : '' }}"-->
+                                    <!--data-stepper="{{item.num}}"-->
+                                    <!--data-key="cart_items[{{sindex}}].items[{{index}}].num"-->
+                                    <!--data-disabled="{{ item.num <= stepper.min }}"-->
+                                    <!--catchtap="handleAzmStepperMinus">-->
+                                    <!--<text>-</text>-->
+                                    <!--</view>-->
+                                    <!--<view class="flexBox-item fb-all center">{{item.num}}</view>-->
+                                    <!--<view class="flexBox-item right {{ item.num >= stepper.max ? 'azm-stepper&#45;&#45;disabled' : '' }}"-->
+                                    <!--data-stepper="{{item.num}}"-->
+                                    <!--data-key="cart_items[{{sindex}}].items[{{index}}].num"-->
+                                    <!--data-disabled="{{ item.num >= stepper.max }}"-->
+                                    <!--catchtap="handleAzmStepperPlus">-->
+                                    <!--<text>+</text>-->
+                                    <!--</view>-->
+                                    <!--</view>-->
                                 </view>
                             </view>
                         </block>

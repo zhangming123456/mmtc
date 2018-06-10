@@ -701,6 +701,10 @@ view {
   padding: 0;
   line-height: 1;
 }
+view .azm-stepper,
+view .azm-stepper view {
+  line-height: inherit;
+}
 .border-t,
 .border-b {
   position: relative;

@@ -3,6 +3,7 @@
  */
 "use strict";
 const app = getApp(),
+    util = app.util,
     authorize = require('../utils/azm/authorize'),
     config = require('../utils/config'),
     c = require('../utils/common'),
@@ -22,6 +23,9 @@ const events = {
         try {
             if (options) {
                 Object.assign(that.data.options, options);
+                for (let k in that.data.options) {
+                    that.data.options[k] = decodeURIComponent(that.data.options[k]);
+                }
                 console.warn(`初始化${that.data.text}`, options);
             } else {
                 throw {message: '初始化options为空'};
@@ -30,6 +34,12 @@ const events = {
             console.warn(e, options);
         }
         that.__page.onLoad && that.__page.onLoad.call(this, options);
+        let _this2 = app.util.getCurrentPage(2);
+        if (_this2) {
+            _this2.setData({
+                isShow: true
+            })
+        }
     },
 
     /**
@@ -40,6 +50,9 @@ const events = {
         console.warn(`进入${this.data.text}`, options, 'onShow');
         this.__page.onShow && that.__page.onShow.call(this, options);
         if (that.data.isShow) {
+            that.setData({
+                isShow: false
+            });
             that.azmLocation_onRefresh && that.azmLocation_onRefresh.call(this, options, 'onShow');
         }
     },
@@ -51,9 +64,6 @@ const events = {
         console.warn(`离开${this.data.text}`, options, 'onHide');
         let that = this;
         this.__page.onHide && that.__page.onHide.call(this, options);
-        that.setData({
-            isShow: true
-        });
         if (that.data.isShow) {
 
         }
@@ -63,11 +73,8 @@ const events = {
      * 生命周期函数--监听页面卸载
      */
     onUnload (options) {
-        console.log(`离开${this.data.text}`, options, 'onUnload');
+        console.log(`卸载${this.data.text}`, options, 'onUnload');
         let that = this;
-        that.setData({
-            isShow: true
-        });
         this.__page.onUnload && that.__page.onUnload.call(this, options);
     },
 
@@ -77,9 +84,6 @@ const events = {
     onReady (options) {
         console.warn(`渲染完成${this.data.text}`, options, 'onReady');
         let that = this;
-        that.setData({
-            isShow: true
-        });
         this.__page.onReady && that.__page.onReady.call(this, options);
     },
 
@@ -94,7 +98,7 @@ const events = {
         that.data.isPullDownRefresh = true;
     },
 
-    stopPullDownRefresh(options){
+    stopPullDownRefresh (options) {
         console.warn(`下拉触发事件${this.data.text}结束`, options, 'onPullDownRefresh');
         let that = this;
         that.data.isPullDownRefresh = false;
@@ -128,17 +132,21 @@ const events = {
     onShareAppMessage (options) {
         console.warn(`用户点击右上角分享${this.data.text}`, options, 'onShareAppMessage');
         let that = this;
-        this.__page.onShareAppMessage && this.__page.onShareAppMessage.call(this, options);
+        if (this.__page.onShareAppMessage) {
+            return this.__page.onShareAppMessage.call(this, options)
+        } else {
+
+        }
     },
 
     __login (bol) {
         return new Promise((resolve, reject) => {
             function login () {
                 wx.login({
-                    success(res){
+                    success (res) {
                         resolve(res)
                     },
-                    fail(){
+                    fail () {
                         reject()
                     }
                 })
@@ -170,7 +178,7 @@ const events = {
                 success (res) {
                     resolve(res)
                 },
-                fail(res){
+                fail (res) {
                     reject(res)
                 }
             };
@@ -196,8 +204,11 @@ const events = {
                 );
         });
     },
+    __imageError () {
+
+    },
     // 保存formId
-    saveFormIds(e) {
+    saveFormIds (e) {
         let formId = e.detail.formId;
         console.log(formId);
         if (formId !== 'the formId is a mock one') {
@@ -210,17 +221,34 @@ const events = {
             type = dataset.type || '';
         app.util.go(path, {type});
     },
-    bindPageToast(e){
+    bindPageToast (e) {
         let dataset = e.currentTarget.dataset,
             message = dataset.message;
         c.alert(message)
     },
-    azmShowToast(options){
-        let str = null,
+    /**
+     *  toast方法
+     * @param text 提示文字
+     * @param icon 提示图标（minuiicon）
+     * @param src 提示图片
+     * @param icon_color 提示icon颜色
+     * @param duration 提示时间
+     */
+    azmShowToast ({text = '', icon = null, src = null, icon_color = null, duration = 1500} = {}) {
+        let that = this,
+            str = null,
+            options = arguments[0],
+            callBack = arguments[1],
             $azmToast = this.data.$azmToast;
+        wxc_toastHideToast = new Function();
         try {
             if (app.util.common.isString(options)) {
                 $azmToast.text = options;
+                if (callBack && app.util.common.isFunction(callBack)) {
+                    wxc_toastHideToast = function () {
+                        callBack.call(that);
+                    };
+                }
             } else {
                 $azmToast = {
                     text: options.text,
@@ -229,19 +257,48 @@ const events = {
                     icon_color: options.icon_color,
                     duration: options.duration
                 };
+                wxc_toastHideToast = function () {
+                    options.success && options.success.call(that);
+                };
             }
-            wxc_toastHideToast = function () {
-                options.success && options.success();
-            };
-            this.setData($azmToast);
+            this.setData({$azmToast});
             this.selectComponent("#azm_wxc_toast").show($azmToast.text);
         } catch (e) {
             console.log("调用azmShowToast失败", e);
         }
     },
-    bindWxcToastSuccess(){
+    bindWxcToastSuccess () {
+        console.log('toast结束');
         wxc_toastHideToast && wxc_toastHideToast();
+    },
+    getEleScrollOffset (el) {
+        if (!el) return;
+        let node = null;
+        let p = new Promise((resolve, reject) => {
+            wx.createSelectorQuery().select(el).boundingClientRect(function (res) {
+                node = res;
+                resolve(res);
+            }).exec();
+        });
+        p.catch(res => {
+
+        });
+        return p;
+    },
+
+    bindSetClipboardData (e) {
+        let dataset = e.currentTarget.dataset || e.target.dataset;
+        wx.setClipboardData({
+            data: dataset.value,
+            success: function (res) {
+                util.showToast('复制成功');
+            },
+            fail () {
+                util.failToast('复制失败');
+            }
+        })
     }
+
 };
 
 class Page {

@@ -17,10 +17,13 @@ module.exports.regExpUtil = regExpUtil;
 module.exports.queryString = queryString;
 module.exports.md5 = utilMd5;
 module.exports.common = utilCommon;
+
 function type (ob) {
     return Object.prototype.toString.call(ob).slice(8, -1).toLowerCase();
 }
+
 module.exports.type = type;
+
 function getDate (date) {
     let _date = new Date();
     if (regExpUtil.isDateTime(date)) {
@@ -419,10 +422,12 @@ function moneyToFloat (num) {
 }
 
 module.exports.moneyToFloat = moneyToFloat;
+
 function moneyFloor (num) {
     num = parseFloat(num) || 0;
     return Number(num.toString().match(/^\d+(?:\.\d{0,2})?/))
 }
+
 module.exports.moneyFloor = moneyFloor;
 
 let timer_toast = null;
@@ -503,11 +508,15 @@ function failToast (option) {
 
 module.exports.failToast = failToast;
 module.exports.hideToast = wx.hideToast;
-module.exports.hideLoading = function () {
+module.exports.hideLoading = function (bol) {
     clearTimeout(timer_toast);
-    timer_toast = setTimeout(res => {
-        wx.hideLoading()
-    }, 1500)
+    if (bol) {
+        wx.hideLoading();
+    } else {
+        timer_toast = setTimeout(res => {
+            wx.hideLoading()
+        }, 1500)
+    }
 };
 
 /**
@@ -658,6 +667,7 @@ function CurrentPages () {
 module.exports.CurrentPages = CurrentPages;
 
 let isGoRouter = false;
+
 /**
  * 跳转路径
  * @param a{String|Number} 页面路径地址
@@ -686,13 +696,13 @@ function go (a, options = {}) {
             isGoRouter = true;
             wx.redirectTo({
                 url: url,
-                success() {
+                success () {
                     options.success && options.success()
                 },
-                fail(res) {
+                fail (res) {
                     options.fail && options.fail()
                 },
-                complete() {
+                complete () {
                     isGoRouter = false;
                     options.complete && options.complete()
                 }
@@ -701,13 +711,13 @@ function go (a, options = {}) {
             isGoRouter = true;
             wx.switchTab({
                 url: url,
-                success() {
+                success () {
                     options.success && options.success()
                 },
-                fail(res) {
+                fail (res) {
                     options.fail && options.fail()
                 },
-                complete() {
+                complete () {
                     isGoRouter = false;
                     options.complete && options.complete()
                 }
@@ -717,7 +727,7 @@ function go (a, options = {}) {
             go('/pages/init/init',
                 {
                     type: 'tab',
-                    success() {
+                    success () {
                         setTimeout(() => {
                             go(a, {
                                 data: options.data
@@ -731,7 +741,7 @@ function go (a, options = {}) {
             go('/pages/order/index/index',
                 {
                     type: 'tab',
-                    success() {
+                    success () {
                         setTimeout(() => {
                             go(a, {
                                 data: options.data
@@ -744,13 +754,13 @@ function go (a, options = {}) {
             isGoRouter = true;
             wx.reLaunch({
                 url: url,
-                success() {
+                success () {
                     options.success && options.success()
                 },
-                fail(res) {
+                fail (res) {
                     options.fail && options.fail()
                 },
-                complete() {
+                complete () {
                     isGoRouter = false;
                     options.complete && options.complete()
                 }
@@ -760,13 +770,13 @@ function go (a, options = {}) {
             if (getCurrentPages().length === 10) {
                 wx.redirectTo({
                     url: url,
-                    success() {
+                    success () {
                         options.success && options.success()
                     },
-                    fail(res) {
+                    fail (res) {
                         options.fail && options.fail()
                     },
-                    complete() {
+                    complete () {
                         isGoRouter = false;
                         options.complete && options.complete()
                     }
@@ -774,13 +784,13 @@ function go (a, options = {}) {
             } else
                 wx.navigateTo({
                     url: url,
-                    success() {
+                    success () {
                         options.success && options.success()
                     },
-                    fail(res) {
+                    fail (res) {
                         options.fail && options.fail()
                     },
-                    complete() {
+                    complete () {
                         isGoRouter = false;
                         options.complete && options.complete()
                     }
@@ -800,7 +810,7 @@ function chooseLocation () {
                 var longitude = res.longitude
                 resolve(res);
             },
-            cancel(res) {
+            cancel (res) {
                 reject(res);
             }
         })
@@ -948,13 +958,14 @@ function getSessionId () {
         return null;
     }
 }
+
 module.exports.getSessionId = getSessionId;
 
 module.exports.getCurrentPages = getCurrentPages;
 
-module.exports.getCurrentPage = function () {
+module.exports.getCurrentPage = function (num = 1) {
     let pages = getCurrentPages();
-    return pages[pages.length - 1];
+    return pages[pages.length - num];
 };
 
 function goToTop () {
@@ -967,6 +978,7 @@ function goToTop () {
         return null;
     }
 }
+
 module.exports.goToTop = goToTop;
 
 function getMap (location, resolve, reject) {
@@ -1025,6 +1037,7 @@ function getMap (location, resolve, reject) {
 
     }
 }
+
 module.exports.getMap = getMap;
 
 
@@ -1037,4 +1050,23 @@ function getCity ({title = '深圳', id = 1} = {}) {
     }
     return {title: '深圳', id: 1};
 }
+
 module.exports.getCity = getCity;
+
+function getLatAndLon () {
+    let app = getApp();
+    return extend(true, {}, app.globalData.lat_and_lon);
+}
+
+module.exports.getLatAndLon = getLatAndLon;
+
+function getUserInfo () {
+    let app = getApp();
+    if (utilCommon.isEmptyObject(app.globalData.userInfo)) {
+        return app.globalData.userInfo;
+    } else {
+        return wx.getStorageSync('_userInfo_') || null;
+    }
+}
+
+module.exports.getUserInfo = getUserInfo;

@@ -76,19 +76,19 @@ const appPage = {
     /**
      * 上拉触底
      */
-    onReachBottom(){
+    onReachBottom () {
         console.warn(`上拉触底事件${this.data.text}`);
     },
     /**
      * 页面滚动
      * @param scrollTop //页面在垂直方向已滚动的距离（单位px）
      */
-    onPageScroll(options){
+    onPageScroll (options) {
     }
 };
 
 const methods = {
-    loadCb(){
+    loadCb () {
         let that = this,
             options = that.data.options,
             item_id = options.item_id,
@@ -107,7 +107,7 @@ const methods = {
      * @param setData
      * @param cart_items
      */
-    setTotalMoney(setData = {}, cart_items = []){
+    setTotalMoney (setData = {}, cart_items = []) {
         if (cart_items.length === 0) {
             cart_items = this.data.cart_items;
         }
@@ -130,7 +130,7 @@ const methods = {
         // 根据优惠券计算价格
         for (let k in selectCoupons) {
             let val = selectCoupons[k];
-            if (!val)continue;
+            if (!val) continue;
             if (val.cond <= cond && !!val.id) {
                 total_money -= +val.price
             } else if (!val.id) {
@@ -153,7 +153,7 @@ const methods = {
      * @param is_group
      * @returns {*}
      */
-    getItemBuyInfo(item_id, is_group){
+    getItemBuyInfo (item_id, is_group) {
         let that = this,
             p = ApiService.getItemBuyInfo({item_id, is_group});
         p.then(res => {
@@ -179,7 +179,7 @@ const methods = {
      * 选择优惠券
      * @param e
      */
-    bindSelectItem(e){
+    bindSelectItem (e) {
         let that = this,
             dataset = e.currentTarget.dataset,
             key = dataset.key,
@@ -200,8 +200,8 @@ const methods = {
      * 打开优惠券popup
      * @param e
      */
-    bindShowCouponPopup(e){
-        if (this.data.isOpenCouponPopup)return;
+    bindShowCouponPopup (e) {
+        if (this.data.isOpenCouponPopup) return;
         let dataset = e.currentTarget.dataset,
             key = dataset.key,
             coupons = dataset.coupons;
@@ -216,7 +216,7 @@ const methods = {
      * 关闭优惠券popup
      * @param e
      */
-    bindHideCouponPopup(e, setData = {}){
+    bindHideCouponPopup (e, setData = {}) {
         this.setData(Object.assign(setData, {
             popupData: [],
             popupDataKey: '',
@@ -230,7 +230,7 @@ const methods = {
      * @param type 加减类型
      * @returns {null}
      */
-    handleAzmStepperChange(e, type) {
+    handleAzmStepperChange (e, type) {
         const dataset = e.currentTarget.dataset,
             disabled = dataset.disabled,
             key = dataset.key;
@@ -247,24 +247,32 @@ const methods = {
         this.setTotalMoney();
     },
     /* 点击加号 */
-    handleAzmStepperPlus(e){
+    handleAzmStepperPlus (e) {
         this.handleAzmStepperChange(e, 'plus');
     },
     /* 点击减号 */
-    handleAzmStepperMinus(e){
+    handleAzmStepperMinus (e) {
         this.handleAzmStepperChange(e, 'minus');
+    },
+    // 数量选择器
+    onChangeNumber (e) {
+        let stepper = e.detail.number,
+            dataset = e.currentTarget.dataset || e.target.dataset,
+            key = dataset.key;
+        this.setData({[`${key}`]: stepper});
+        this.setTotalMoney();
     },
     /**
      * 打开
      */
-    bindShowNotice(){
+    bindShowNotice () {
         this.setData({
             isOpenNotice: !this.data.isOpenNotice
         })
     },
     // 立即付款
-    bindBuyNow(e){
-        if (this.data.isRequestPayment)return;
+    bindBuyNow (e) {
+        if (this.data.isRequestPayment) return;
         let that = this,
             sendData = {},
             selectCoupons = that.data.selectCoupons || {},
@@ -349,13 +357,13 @@ const methods = {
             util.hideLoading();
         });
     },
-    bindShowToast(e){
+    bindShowToast (e) {
         let dataset = e.currentTarget.dataset,
             message = dataset.message;
         this.azmShowToast({
             text: message,
-            duration: 10000,
-            success(){
+            duration: 1500,
+            success () {
                 console.log(3);
             }
         });

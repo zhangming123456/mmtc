@@ -1,3 +1,19 @@
+.azm-payOrder {
+    .azm-money {
+        .flexBox-item {
+            &.left {
+                line-height: 60*1rpx;
+            }
+            &.right {
+                text-align: right;
+                .azm-stepper-box {
+                    display: inline-block;
+                    line-height: 50*1rpx;
+                }
+            }
+        }
+    }
+}
 
 .azm-item__box {
     box-sizing: border-box;
@@ -35,36 +51,36 @@
             .azm-unit {
                 font-size: 24*1rpx;
             }
-            .azm-stepper {
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                width: 111*1rpx;
-                box-sizing: border-box;
-                border: 1px solid #999;
-                border-radius: 4*1rpx;
-                > view {
-                    height: 30*1rpx;
-                    line-height: 30*1rpx;
-                    text-align: center;
-                    font-size: 24*1rpx;
-                    color: #282828;
-                }
-                .left, .right {
-                    flex-basis: 30*1rpx;
-                    height: inherit;
-                    text-align: center;
-                    &.azm-stepper--disabled {
-                        color: #999;
-                    }
-                }
-                .left {
-                    border-right: 1px solid #999;
-                }
-                .right {
-                    border-left: 1px solid #999;
-                }
-            }
+            //.azm-stepper {
+            //    position: absolute;
+            //    bottom: 0;
+            //    right: 0;
+            //    width: 111*1rpx;
+            //    box-sizing: border-box;
+            //    border: 1px solid #999;
+            //    border-radius: 4*1rpx;
+            //    > view {
+            //        height: 30*1rpx;
+            //        line-height: 30*1rpx;
+            //        text-align: center;
+            //        font-size: 24*1rpx;
+            //        color: #282828;
+            //    }
+            //    .left, .right {
+            //        flex-basis: 30*1rpx;
+            //        height: inherit;
+            //        text-align: center;
+            //        &.azm-stepper--disabled {
+            //            color: #999;
+            //        }
+            //    }
+            //    .left {
+            //        border-right: 1px solid #999;
+            //    }
+            //    .right {
+            //        border-left: 1px solid #999;
+            //    }
+            //}
         }
     }
 }

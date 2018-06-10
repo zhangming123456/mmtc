@@ -8,9 +8,9 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.6.6",
+	"libVersion": "1.9.94",
 	"appid": "wx0df0e298b3b13290",
-	"projectname": "mmtc2.0_dev2",
+	"projectname": "mmtc2.0_dev",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -29,12 +29,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 4,
 			"list": [
 				{
 					"id": 0,
 					"name": "确认订单",
-					"pathName": "pages/car/newPayOrder/payOrder",
+					"pathName": "pages/car/payOrder",
 					"query": "item_id=12&num=1",
 					"scene": "1001"
 				},
