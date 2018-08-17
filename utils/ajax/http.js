@@ -295,6 +295,8 @@ class HttpRequest {
     downImage (url, data) {
         let qrCodePath = `${url}?${queryString.stringify(data)}`;
         let cookie = util.getSessionId();
+        console.log(qrCodePath);
+        
         return new Promise((resolve, reject) => {
             wx.downloadFile({
                 url: qrCodePath,

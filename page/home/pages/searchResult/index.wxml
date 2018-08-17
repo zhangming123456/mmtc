@@ -6,7 +6,7 @@
         <view class="azm-search flexBox flexBox-start azm-1px-b">
             <view class="flexBox azm-search-l">
                 <input type="text" value="{{search}}" placeholder="找店铺 找服务 找案例" maxlength="12"
-                       confirm-type="search" bindconfirm="doSearch"/>
+                       confirm-type="search" bindconfirm="doSearch" bindinput="bindSearchInput"/>
                 <icon type="search" class="azm-icon-search" size="12"/>
             </view>
             <view class="flexBox azm-search-r">
@@ -41,30 +41,37 @@
                         </block>
                     </view>
                 </view>
+
                 <view id="tab0" style="{{styleMinH}}">
-                    <block wx:for="{{shopList}}" wx:key="{{index}}" wx:for-item="list" wx:for-index="i">
-                        <view class="flexBox flexBox-start azm-1px-b" wx:for="{{list}}" wx:key="{{index}}">
-                            <view class="flexBox-item azm-tab0-l">
-                                <azm-image ratio="1" src="{{item.cover}}" class="azm-image-box" type="img"
-                                           lazy-load="true" mode="aspectFill"></azm-image>
-                            </view>
-                            <view class="flexBox-item azm-tab0-r">
-                                <view class="azm-tab0-title">{{item.shop_name}}</view>
-                                <view class="azm-tab0-stars flexBox flexBox-start">
-                                    <view class="flexBox-item">
-                                        <wxc-rate value="{{item.score}}" readonly padding="10" size="28"></wxc-rate>
+                    <view wx:if="{{!shopList || shopList.length===0}}" class="azm-no-data">
+                        <wxc-abnor type="REQUEST_ERROR" image="https://app.mmtcapp.com/mmtc/imgs/empty.png"
+                                   title="抱歉！没有找到相关店铺~" tip="" button="点击刷新" bind:abnortap="onAbnorTap"></wxc-abnor>
+                    </view>
+                    <block wx:else>
+                        <block wx:for="{{shopList}}" wx:key="{{index}}" wx:for-item="list" wx:for-index="i">
+                            <view class="flexBox flexBox-start azm-1px-b" wx:for="{{list}}" wx:key="{{index}}">
+                                <view class="flexBox-item azm-tab0-l">
+                                    <azm-image ratio="1" src="{{item.cover}}" class="azm-image-box" type="img"
+                                               lazy-load="true" mode="aspectFill"></azm-image>
+                                </view>
+                                <view class="flexBox-item azm-tab0-r">
+                                    <view class="azm-tab0-title">{{item.shop_name}}</view>
+                                    <view class="azm-tab0-stars flexBox flexBox-start">
+                                        <view class="flexBox-item">
+                                            <wxc-rate value="{{item.score}}" readonly padding="10" size="28"></wxc-rate>
+                                        </view>
+                                        <view class="flexBox-item">
+                                            <text>{{item.loved_count}}人喜欢</text>
+                                        </view>
                                     </view>
-                                    <view class="flexBox-item">
-                                        <text>{{item.loved_count}}人喜欢</text>
+                                    <wxc-label class="azm-tab0-label" type="corner" text="{{item.major_category}}"
+                                               type-color="#f4f4f4" text-color="#999999"></wxc-label>
+                                    <view class="azm-tab0-location">
+                                        <text>{{item.position_name}}{{item.distance}}</text>
                                     </view>
                                 </view>
-                                <wxc-label class="azm-tab0-label" type="corner" text="{{item.major_category}}"
-                                           type-color="#f4f4f4" text-color="#999999"></wxc-label>
-                                <view class="azm-tab0-location">
-                                    <text>{{item.position_name}}{{item.distance}}</text>
-                                </view>
                             </view>
-                        </view>
+                        </block>
                     </block>
                 </view>
             </scroll-view>
@@ -73,22 +80,59 @@
             <scroll-view scroll-y scroll-with-animation enable-back-to-top bindscrolltoupper="upper1"
                          bindscrolltolower="lower1" style="height: 100%"
                          bindscroll="bindTabScroll1" scroll-into-view="{{tab1View}}" scroll-top="{{scrollTop1}}">
+                <i-message id="message1"/>
                 <view id="azm-refresh1" class="azm-refresh">
                     <view class="azm-refresh-box">
                         <text>下拉刷新</text>
                     </view>
                 </view>
                 <view id="tab1" style="{{styleMinH}}">
-                    <view class="flexBox flexBox-start azm-tab-content">
-                        <view class="flexBox-item fb-12" wx:for="{{picFigure}}" wx:key="{{index}}"
-                              data-item="{{item}}" catchtap="toAlbum">
-                            <image src="{{c.absUrl(item.cover)}}" mode="aspectFill"
-                                   data-index="{{index}}"></image>
-                            <view class="azm-tab-content-title">
-                                <text>{{item.title}}({{item.pic_count || 0}})</text>
-                            </view>
-                        </view>
+                    <view wx:if="{{!itemList || itemList.length===0}}" class="azm-no-data">
+                        <wxc-abnor type="REQUEST_ERROR" image="https://app.mmtcapp.com/mmtc/imgs/empty.png"
+                                   title="抱歉！没有找到相关服务~" tip="" button="点击刷新" bind:abnortap="onAbnorTap"></wxc-abnor>
                     </view>
+                    <block wx:else>
+                        <block wx:for="{{itemList}}" wx:key="{{index}}" wx:for-item="list" wx:for-index="i">
+                            <view class="flexBox flexBox-start" wx:for="{{c.itemArrSplit(list)}}"
+                                  wx:for-item="arr" wx:for-index="j" wx:key="{{j}}">
+                                <view class="flexBox-item fb-12" wx:for="{{arr}}" wx:key="{{index}}">
+                                    <view class="azm-item__box">
+                                        <view class="azm-group-num" wx:if="{{item.group_num>0}}">
+                                            <text>{{item.group_num}}人团</text>
+                                        </view>
+                                        <azm-image ratio="1" src="{{item.cover}}" class="azm-image-box" type="img"
+                                                   lazy-load="true" mode="aspectFill"></azm-image>
+                                        <view class='azm-item-info'>
+                                            <view class="azm-item-title zan-ellipsis">{{item.title}}</view>
+                                            <view class="azm-item-desc zan-ellipsis">
+                                                <text>{{item.profile||'专家设计，节假日通用'}}</text>
+                                            </view>
+                                            <view class="azm-item-price-info zan-ellipsis">
+                                                <block wx:if="{{item.group_num && item.group_num>0}}">
+                                                    <view class="price">
+                                                        <i>拼团价￥</i>
+                                                        <span>{{item.group_price}}</span>
+                                                    </view>
+                                                    <view class='market-price'>
+                                                        ¥{{item.price}}
+                                                    </view>
+                                                </block>
+                                                <block wx:else>
+                                                    <view class="price">
+                                                        <i>￥</i>
+                                                        <span>{{item.price}}</span>
+                                                    </view>
+                                                    <view class='market-price'>
+                                                        ¥{{item.market_price}}
+                                                    </view>
+                                                </block>
+                                            </view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                        </block>
+                    </block>
                 </view>
             </scroll-view>
         </swiper-item>

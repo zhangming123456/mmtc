@@ -18,7 +18,7 @@
                 <text class="t-yuan">元</text>
                 <text class="t-beforePrice">{{cardList.info.market_price}}</text>
             </view>
-            <view class="t-valid">有效期: {{cardList.info.card_no}} 天</view>
+            <view class="t-valid">有效期: {{cardList.info.effective}} 天</view>
         </view>
         <!-- <view class="t-discount">4.9折</view> -->
     </view>
@@ -26,7 +26,6 @@
     <view class="t-setCard2" wx:if="{{buyCardList.info}}" style="background: url('{{imageUrl + buyCardList.bj}}') no-repeat center center;">
         <view class="t-shopTitle">
             <text>{{buyCardList.info.card_name}}</text>
-            <image src="https://app.mmtcapp.com/mmtc/imgs/Fill1Copy.png"></image>
         </view>
         <view class="t-shopID">ID:{{buyCardList.info.order_no}}</view>
 
@@ -37,7 +36,7 @@
         <view class="t-shopSet">
             <view class="t-setShopName">
                 <image mode="aspectFill" src="{{imageUrl+buyCardList.info.cover}}"></image>
-                <text>{{buyCardList.info.nickname}}</text>
+                <text>{{buyCardList.info.name}}</text>
             </view>
 
             <view bindtap="gotoRecord" data-item="{{item}}" class="t-record">体验记录</view>
@@ -120,7 +119,7 @@
                                     <image src="https://app.mmtcapp.com/mmtc/imgs/GroupCopy.png"></image>
                                     <text>查看券码</text>
                                 </view>
-                                <view class="t-qrCode" wx:elif="{{item.is_used==1}}">
+                                <view class="t-qrCode" wx:elif="{{item.is_used==1 }}">
                                     <image src="../../../../image/icon-lose.png"></image>
                                     <text>已失效</text>
                                 </view>
@@ -193,7 +192,10 @@
                     <view class="t-sign"></view>
                     <view>图文详情</view>
                 </view>
-                <template is="wxParse" data="{{wxParseData:intro.nodes}}" />
+                <view class="t-wxParse">
+
+                    <template is="wxParse" data="{{wxParseData:intro.nodes}}" />
+                </view>
             </view>
         </view>
     </view>
@@ -203,7 +205,7 @@
             <image src="https://app.mmtcapp.com/mmtc/imgs/icon-shop.png"></image>
             <text>进入店铺</text>
         </view>
-        <view class="t-enterShop" catchtap='makeCall'  data-item="{{item}}" >
+        <view class="t-enterShop" catchtap='makeCall' data-item="{{item}}">
             <image src="https://app.mmtcapp.com/mmtc/imgs/icon-phone.png"></image>
             <text>电话商家</text>
         </view>
@@ -212,8 +214,28 @@
             <view class="t-buttonBuy" bindtap="bindbuy">立即购买</view>
         </block>
 
-        <block wx:elif="{{bill_id}}" bindtap="gotoNavShop">
-            <view class="t-buttonBuy">立即导航</view>
+        <block wx:elif="{{bill_id}}">
+            <view bindtap="gotoNavShop" class="t-buttonBuy">导航到店</view>
         </block>
     </view>
+
+
+    <!-- 底部弹出框 -->
+    <!-- <zan-popup show="{{ isShow }}" bindclose="togglePopup">
+        <view class="t-share">
+            <view class="t-shareShopName">
+                <image mode="aspectFill" src="http://img.hb.aicdn.com/40220c183e3af6c07a63dbbbd60153be30a0d34b4200d-oanV9q_fw658"></image>
+                <text>莎蔓莉莎美容院文体中心店</text>
+            </view>
+
+            <view class="t-qrcode">
+                <image mode="aspectFill" src="http://img.hb.aicdn.com/40220c183e3af6c07a63dbbbd60153be30a0d34b4200d-oanV9q_fw658"></image>
+            </view>
+
+            <view class="t-download">
+                <image src="../../../../image/icon-ownload.png"></image>
+                <text>下载二维码分享朋友圈</text>
+            </view>
+        </view>
+    </zan-popup> -->
 </view>

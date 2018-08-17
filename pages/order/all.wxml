@@ -47,18 +47,16 @@
                     </block>
                 </block>
                 <block wx:else>
-                    <view class='order-item border-t' style="margin-bottom: 16rpx">
-                        <view class='flex border-b'>
+                    <view class='order-item azm-1px-b' style="margin-bottom: 16rpx">
+                        <view wx:if="{{bill.order_type!=3}}" class='flex border-b'>
                             <image src='https://app.mmtcapp.com/mmtc/imgs/shop2.png' class='bill-icon'></image>
                             <view class='flex-con text999 fz28'>
-                                {{bill.shop_name}}
+                                <text>{{bill.shop_name}}</text>
                             </view>
-                            
                             <view class="status">
                                 <!--<text>{{c.orderNumber(bill,type).status}}</text>-->
                                 <!-- <view wx:if="{{bill.is_cancelled==1}}">交易关闭</view> -->
-                                <view >{{bill.items[0].item_status}}</view>
-
+                                <view>{{bill.items[0].item_status}}</view>
                                 <!-- <view wx:elif="{{bill.payed==0}}">待付款</view>
                                 <view wx:elif="{{c.orderNumber(bill,type).status == 4 || bill.is_refund == 1}}">完成退款
                                 </view>
@@ -73,6 +71,36 @@
                             <view class='order-price'>{{bill.total}}</view>
                             <view class='order-type1'>买单订单</view>
                         </view>
+                        <block wx:if="{{bill.order_type==3}}" bindtap='showBuyOrderDetail'>
+                            <i-cell-group>
+                                <i-cell title="{{bill.shop_name}}" is-link url="/pages/dashboard/index">
+                                    <text class="iconfont icon-shop" slot="icon"></text>
+                                </i-cell>
+                                <i-cell url="/pages/dashboard/index">
+                                    <view class="flexBox flexBox-start azm-card-bag">
+                                        <view class="flexBox-item azm-card-bag-l">
+                                            <azm-image ratio="1" src="wxftp://image/icon-bitmap.png"
+                                                       class="azm-image-box" type="img"
+                                                       lazy-load="true" mode="aspectFill"></azm-image>
+                                        </view>
+                                        <view class="flexBox-item azm-card-bag-r">
+                                            <wxc-label class="azm-label" type="corner"
+                                                       text="套卡" type-color="#04D3AF" text-color="#fff"></wxc-label>
+                                            <view class="azm-card-bag-title zan-ellipsis">
+                                                <text>{{bill.card_name}}</text>
+                                            </view>
+                                            <view class="azm-card-bag-price zan-ellipsis">
+                                                <text class="azm-price">￥{{bill.price}}</text>
+                                                <text class="azm-m-price" decode>&nbsp;￥{{bill.market_price}}</text>
+                                            </view>
+                                            <view class="azm-card-bag-time zan-ellipsis">
+                                                <text>下单时间：{{bill.create_time}}</text>
+                                            </view>
+                                        </view>
+                                    </view>
+                                </i-cell>
+                            </i-cell-group>
+                        </block>
                         <block wx:else>
                             <block wx:if="c.orderNumber(bill,type).flag">
                                 <view hover-class='none' class="order-items" bindtap="goOrderDetail"

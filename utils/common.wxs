@@ -2,9 +2,12 @@ var baseUrl = "https://app.mmtcapp.com";
 var c = {};
 module.exports.absUrl = function (url, imgw) {
     if (url) {
-        var reg = getRegExp('^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$', 'i')
+        var reg = getRegExp('^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$', 'i'),
+            reg2 = getRegExp('^(wxftp:)', 'i')
         if (reg.test(url)) {
             return url;
+        } else if (reg2.test(url)) {
+            return url.replace(reg2, '')
         }
         if (imgw) {
             if (typeof imgw === 'boolean') {
@@ -22,7 +25,6 @@ module.exports.absUrl = function (url, imgw) {
     } else {
         return 'https://app.mmtcapp.com/mmtch5/images/imageErr.png';
     }
-
 };
 module.exports.isEmpty = function (v) {
     return !v || v == 0;
@@ -171,3 +173,17 @@ module.exports.shopLabel = function (arr) {
         return ''
     }
 }
+
+module.exports.itemArrSplit = function (arr) {
+    if (arr && "Array" === arr.constructor) {
+        var arr2 = [], j = 0;
+        for (var i = 0; arr.length > i; i = i + 2) {
+            arr2[j++] = [arr[i], arr[i + 1]]
+        }
+        return arr2;
+    } else {
+        return []
+    }
+}
+
+

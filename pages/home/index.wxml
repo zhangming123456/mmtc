@@ -93,16 +93,16 @@
 </movable-area>
 
 <!-- 套卡 -->
-<view class="">
+<view class="" wx:if="{{ShopcardList&&ShopcardList.length>=1}}">
     <view class="t-cardTitle">
         <view class="t-cardadvise">
             <view></view>
             <text>套卡推荐</text>
         </view>       
-        <view class="t-cardMore">
+        <!-- <view class="t-cardMore">
             <text>更多</text>
             <image src="https://app.mmtcapp.com/mmtc/imgs/gt@2x.png"></image>
-        </view>
+        </view> -->
     </view>
 
     <scroll-view class="azm-sv" scroll-x bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">

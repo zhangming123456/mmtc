@@ -2,14 +2,16 @@ const app = getApp(),
   util2 = app.util2,
   config = require('../../../../utils/config'),
   utilPage = require('../../../../utils/utilPage'),
-  ApiService = require('../../../../utils/ApiService');
+  ApiService = require('../../../../utils/ApiService'),
+  qrcode = require("../../../../utils/qrcode.js");
 const appPage = {
   data: {
     text: "Page mmtcTabList",
     isFixed: false,
     loadingMore: true,
     noMore: false,
-    pwdList:{}
+    pwdList: {},
+    qrcode:''
   },
   onLoad: function (options) {
     let that = this;
@@ -76,7 +78,10 @@ const methods = {
     }).finally(res => {
       if (res.status === 1) {
         that.setData({
-          pwdList: res.info
+          pwdList: res.info,
+          qrcode: qrcode.createQrCodeImg('https://app.mmtcapp.com/mmtc/?pwd=' + res.info.pwd, {
+            'size': 300
+          })
         })
       }
     })

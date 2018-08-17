@@ -529,6 +529,7 @@ navigator:active {
   background-image: linear-gradient(90deg, #ff5ea2 0%, #ed3980 70%, #db135e 83%, #e82b8d 100%), linear-gradient(#fd0f5d, #fd0f5d);
   background-blend-mode: normal, normal;
   border-radius: 0 0 5rpx 0;
+  z-index: 10;
 }
 .azm-border_top_1px_f4f4f4 {
   border-top: 1px solid #f4f4f4;

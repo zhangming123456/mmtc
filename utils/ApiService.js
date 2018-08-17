@@ -7,7 +7,7 @@ const $http = new HttpRequest();
 
 class OldApi {
     constructor () {
-        this.shopapi = config.shopApi;
+        this.shopApi = config.shopApi;
         this.appApi = config.appApi;
     }
 
@@ -161,7 +161,7 @@ class OldApi {
                 userInfo
             };
         const api = '/login2/wxLogin';
-        const http = $http.post2(that.shopapi + api, data, resole, reject);
+        const http = $http.post2(that.shopApi + api, data, resole, reject);
         return http;
     }
 
@@ -926,15 +926,16 @@ class ApiService extends OldApi {
      * @param lon
      * @param lat
      * @param p
-     * @return {*}
+     * @return
      */
-    getItemSearch ({kw = "", city_id = 0, lon = 0, lat = 0, p = 1} = {}) {
+    getItemSearch ({kw = "", city_id = 0, lon = 0, lat = 0, p = 1}) {
         let that = this,
             data = {kw, city_id, lon, lat, p};
         const api = '/item/search';
         const http = $http.get(that.api + api, data);
         return http;
     }
+
 
     /**
      * 立即支付（套卡）
@@ -983,6 +984,32 @@ class ApiService extends OldApi {
         return http;
     }
 
+    /**
+     * 卡订单详情
+     * @return {*}
+     */
+    getOrderGetBillDetail ({bill_id = '3253'} = {}) {
+        let that = this,
+            data = {bill_id};
+        const api = '/order_card/getBillDetail';
+        const http = $http.get(that.api + api, data);
+        return http;
+    }
+
+    /**
+     * 获取二维码(小程序码)
+     * @param page
+     * @param resole
+     * @param reject
+     * @returns {*}
+     */
+    showShopQrcodeOp ({page,op,param}, resole, reject) {
+        let that = this,
+            data = {page,op,param};
+        const api = `/shop/shopQrcodeOp`;
+        const http = $http.downImage(that.shopApi + api, data, resole, reject);
+        return http;
+    }
 }
 
 module.exports = new ApiService();

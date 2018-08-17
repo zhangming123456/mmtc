@@ -1,4 +1,5 @@
 const app = getApp(),
+    util2 = app.util2,
     config = require('../../../../utils/config'),
     utilPage = require('../../../../utils/utilPage'),
     ApiService = require('../../../../utils/ApiService'),
@@ -15,8 +16,11 @@ const appPage = {
         bill_id: null,
         cardList: {},
         buyCardList: {},
-        bgstyle: ''
-
+        bgstyle: '',
+        intro: null,
+        show: false,
+        isShow: false,
+        qrCode: ''
     },
     onLoad: function (options) {
         let that = this;
@@ -88,6 +92,9 @@ const methods = {
         }
 
 
+        // that.showShopQRCode()
+
+
     },
     loadData() {
 
@@ -110,13 +117,20 @@ const methods = {
     },
 
 
+    // 分享二维码
+    gotoShare() {
+
+    },
+
+    // 导航到店
     gotoNavShop() {
-        if (this.data.shop) {
+        debugger
+        if (this.data.buyCardList.info) {
             let data = {
-                latitude: parseFloat(this.data.shop.lat_new),
-                longitude: parseFloat(this.data.shop.lon_new),
-                name: this.data.shop.shop_name,
-                address: this.data.shop.address,
+                latitude: parseFloat(this.data.buyCardList.info.latitude),
+                longitude: parseFloat(this.data.buyCardList.info.longitude),
+                name: this.data.buyCardList.info.name,
+                address: this.data.buyCardList.info.address,
                 scale: 28
             };
             console.log(data);
@@ -146,11 +160,14 @@ const methods = {
 
         }).finally(res => {
             if (res.status === 1) {
+                let info = res.info;
                 that.setData({
                     cardList: res.info
                 })
-                $wxParse.wxParse('intro', 'html', res.info.intro, that)
 
+                console.log(res.info.intro, 544444444444444);
+
+                $wxParse.wxParse('intro', 'html', info.info.intro, that)
             }
         })
     },
@@ -189,7 +206,8 @@ const methods = {
             status
         }).finally(res => {
             if (res.status === 1) {
-                let img = imageUrl + res.info.bj.bj2
+                let img = imageUrl + res.info.bj.bj2;
+                let info = res.info;
                 if (!status) {
                     img = imageUrl + res.info.bj.bj1
                 }
@@ -197,6 +215,9 @@ const methods = {
                     buyCardList: res.info,
                     bgstyle: `background: url('${img}') no-repeat center center;`
                 })
+                console.log(res.info.intro, 544444444444444);
+
+                $wxParse.wxParse('intro', 'html', info.info.intro, that)
             }
         })
     },
@@ -254,6 +275,37 @@ const methods = {
         }
 
 
+    },
+
+
+    // 获取分享二维码
+    // showShopQRCode() {
+
+    //     let that = this;
+    //     let card_id = that.data.card_id
+
+    //     if (!card_id) return;
+    //     ApiService.showShopQrcodeOp({
+    //         page: `page/cardBag/pages/setDetails/index`,
+    //         op: "card_id",
+    //         param: card_id
+    //     }).finally(res => {
+    //         if (res.status === 1) {
+    //             that.setData({
+    //                 qrCode: res.info
+    //             })
+    //         } else {
+    //             that.$Toast({
+    //                 content: res.message
+    //             })
+    //         }
+    //     })
+    // },
+
+    togglePopup() {
+        this.setData({
+            isShow: !this.data.isShow
+        });
     },
 
     //滑动切换

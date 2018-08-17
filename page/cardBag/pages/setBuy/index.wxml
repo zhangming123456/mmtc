@@ -4,7 +4,7 @@
 
 <view>
     <view class="t-buyTitle">
-        <image class="t-stroke" src="{{c.absUrl(info.cover)}}"></image>
+        <image class="t-stroke" src="../../../../image/icon-bitmap.png"></image>
         <view class="t-buyName">{{info.nickname}}</view>
     </view>
     <view>

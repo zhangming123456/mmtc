@@ -2,23 +2,23 @@
     <view class="h20"></view>
     <view class="t-shopName">
         <view class="t-name">
-            <image src="../https://app.mmtcapp.com/mmtc/imgs/shop2.png"></image>
-            <text>赛忙丽莎美容店</text>
+            <image src="https://app.mmtcapp.com/mmtc/imgs/shop2.png"></image>
+            <text>{{billDetail.shop_name}}</text>
         </view>
-        <image src="../https://app.mmtcapp.com/mmtc/imgs/gt2@2x.png"></image>
+        <image src="https://app.mmtcapp.com/mmtc/imgs/gt2@2x.png"></image>
     </view>
     <view class="t-cardContent">
-        <image class="t-stroke" src="../https://app.mmtcapp.com/mmtc/imgs/Stroke.png"></image>
+        <image class="t-stroke" src="https://app.mmtcapp.com/mmtc/imgs/Stroke.png"></image>
         <view class="t-cardIntro">
             <view class="t-cardName">
-                <text>赛忙丽莎体验卡</text>
+                <text>{{billDetail.card_name }}</text>
                 <view>套卡</view>
             </view>
             <view class="t-cartPrice">
-                <text>￥106.6</text>
-                <text>￥988</text>
+                <text>￥{{billDetail.price}}</text>
+                <text>￥{{billDetail.market_price }}</text>
             </view>
-            <view class="t-cardTime">下单时间：2018-5-20</view>
+            <view class="t-cardTime">下单时间：{{billDetail.create_time }}</view>
         </view>
     </view>
     <view class="t-cardState">
@@ -28,33 +28,33 @@
         </view>
         <view class="t-cardMoney">
             <text>项目总价</text>
-            <text>¥120</text>
+            <text>¥{{billDetail.total }}</text>
         </view>
         <view class="t-cardMoney">
             <text>套卡优惠</text>
-            <text>-¥120</text>
+            <text>-¥{{billDetail.discount_money }}</text>
         </view>
         <view class="t-cardMoney">
             <text>实际支付</text>
-            <text>¥120</text>
+            <text>¥{{billDetail.total }}</text>
         </view>
     </view>
     <view class="t-order">
-        <view>订单号：2017124565461231</view>
-        <view>购卡时间： 2017-01-02 14:00:08</view>
-        <view>购卡手机： 181****2453</view>
-        <view>有效期至：无限期有效</view>
-        <view>购卡状态：生效中</view>
-        <view>消费次数：0</view>
+        <view>订单号：{{billDetail.card_no}}</view>
+        <view>购卡时间： {{billDetail.create_time}}</view>
+        <view>购卡手机： {{billDetail.telephone}}</view>
+        <view>有效期至：{{billDetail.effective }}</view>
+        <view>购卡状态：{{billDetail.status_c}}</view>
+        <view>消费次数：{{billDetail.use_count }}</view>
         <view>复制</view>
     </view>
 
 
     <view class="t-button">
         <!-- 可退款 -->
-        <view class="t-refund">退款</view>
+        <view class="t-refund" wx:if="{{is_user==0}}">退款</view>
         <!-- 不可退款 -->
-        <!-- <view class="t-refund2">退款</view> -->
-        <view>前往卡包</view>
+        <view class="t-refund2" wx:if="{{is_user==1}}">退款</view>
+        <view bindtap="gotoMycard">前往卡包</view>
     </view>
 </view>

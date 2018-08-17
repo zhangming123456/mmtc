@@ -29,7 +29,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 18,
+			"current": 19,
 			"list": [
 				{
 					"id": 0,
@@ -129,10 +129,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 16,
 					"name": "搜索结果 - new",
 					"pathName": "page/home/pages/searchResult/index",
-					"query": ""
+					"query": "w=美甲&type=1"
 				},
 				{
 					"id": -1,
@@ -145,6 +145,12 @@
 					"name": "套卡(购买）",
 					"pathName": "page/cardBag/pages/setDetails/index",
 					"query": "card_id=2"
+				},
+				{
+					"id": -1,
+					"name": "我的订单",
+					"pathName": "pages/order/all",
+					"query": ""
 				}
 			]
 		}

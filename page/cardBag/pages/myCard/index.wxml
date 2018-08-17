@@ -6,11 +6,11 @@
 <view>
     <block wx:if="{{type=='可用套卡'}}">
         <view class="t-cardBox">
-            <view class="t-card" style="background: url('{{imageUrl + item.bj}}') no-repeat center center;" wx:for="{{cardList}}"
-                wx:key="{{index}}" bindtap="gotoCardDetails" data-item="{{item}}">
+            <view class="t-card" style="background: url('{{imageUrl + item.bj}}') no-repeat center center;" wx:for="{{cardList}}" wx:key="{{index}}"
+                bindtap="gotoCardDetails" data-item="{{item}}">
                 <view class="t-cardTitle">
                     <text>{{ item.card_name }}</text>
-                    <image src="../../../../image/cardBag/Fill1Copy.png"></image>
+                    <!-- <image src="../../../../image/cardBag/Fill1Copy.png"></image> -->
                 </view>
                 <view class="t-cardId">ID:{{ item.card_no }}</view>
                 <view class="t-cardTime">还剩 128 天有效</view>
@@ -24,10 +24,11 @@
 
     <block wx:if="{{type=='不可用卡'}}">
         <view class="t-cardBox">
-            <view class="t-card" wx:for="{{myCardList}}" style="background: url('{{imageUrl + item.bj}}') no-repeat center center;" wx:key="{{index}}" bindtap="gotoCardDetails" data-item="{{item}}">
+            <view class="t-card" wx:for="{{myCardList}}" style="background: url('{{imageUrl + item.bj}}') no-repeat center center;" wx:key="{{index}}"
+                bindtap="gotoCardDetails" data-item="{{item}}">
                 <view class="t-cardTitle">
                     <text>{{ item.card_name }}</text>
-                    <image src="../../../../image/cardBag/Fill1Copy.png"></image>
+                    <!-- <image src="../../../../image/cardBag/Fill1Copy.png"></image> -->
                 </view>
                 <view class="t-cardId">ID:{{ item.card_no }}</view>
                 <view class="t-shopName azm-1px-t">
@@ -43,4 +44,7 @@
     <view class="t-bottom" bindtap="toggle">
         {{type === '可用套卡' ? '不可用卡' : '可用套卡'}}
     </view>
+
+
+    
 </view>

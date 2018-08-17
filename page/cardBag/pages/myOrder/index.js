@@ -3,13 +3,16 @@ const app = getApp(),
     utilPage = require('../../../../utils/utilPage'),
     ApiService = require('../../../../utils/ApiService'),
     c = require("../../../../utils/common.js");
+
 const appPage = {
     data: {
         text: "Page mmtcTabList",
         isFixed: false,
         loadingMore: true,
         noMore: false,
-        currentTab: 0
+        currentTab: 0,
+        billDetail: {},
+        qrcode: ''
     },
     onLoad: function (options) {
         let that = this;
@@ -62,14 +65,29 @@ const methods = {
             options = that.data.options,
             isShow = that.data.isShow,
             id = options.id;
-
+        that.getOrderGetBillDetail()
 
     },
     loadData() {
 
     },
 
+    getOrderGetBillDetail() {
+        let that = this;
+        ApiService.getOrderGetBillDetail({}).finally(res => {
+            if (res.status === 1) {
+                that.setData({
+                    billDetail: res.info,
+                })
+            }
+        })
+    },
 
+    gotoMycard() {
+        this.$route.push({
+            path: '/page/cardBag/pages/myCard/index'
+        })
+    }
 
 };
 Page(new utilPage(appPage, methods));

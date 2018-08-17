@@ -196,7 +196,7 @@ view {
     background-color: #FFFFFF;
 }
 
-.t-usableShop:last-child{
+.t-usableShop:last-child {
     margin-bottom: 90rpx;
 }
 
@@ -395,4 +395,60 @@ view {
     color: #FFFFFF;
     text-align: center;
     line-height: 90rpx;
+}
+
+.t-wxParse {
+    padding: 30rpx;
+    background-color: #ffffff;
+}
+
+.t-share {
+    background-image: linear-gradient(-40deg, #FE5163 0%, #FFB503 100%);
+    border-radius: 20rpx;
+    width: 630rpx;
+    height: 690rpx;
+    padding: 30rpx;
+    box-sizing: border-box;
+}
+
+.t-shareShopName {
+    display: flex;
+    align-items: center;
+    font-size: 28rpx;
+    color: #FFFFFF;
+}
+
+.t-shareShopName image {
+    width: 60rpx;
+    height: 60rpx;
+    border-radius: 50%;
+    margin-right: 30rpx;
+}
+
+.t-qrcode {
+    display: flex;
+    justify-content: center;
+    margin-top: 70rpx;
+}
+
+.t-qrcode image {
+    width: 390rpx;
+    height: 390rpx;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.t-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28rpx;
+    color: #FFFFFF;
+    margin-top: 70rpx;
+}
+
+.t-download image {
+    width: 34rpx;
+    height: 33rpx;
+    margin-right: 10rpx;
 }

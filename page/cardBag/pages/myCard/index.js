@@ -10,7 +10,7 @@ const appPage = {
         text: "page cardBag MyCard",
         cardList: [],
         type: '可用套卡',
-        myCardList: []
+        myCardList: [],
     },
     onLoad: function (options) {
         let that = this;
@@ -117,6 +117,8 @@ const methods = {
     },
 
 
+   
+
     toggle(e) {
         var that = this;
         var type = that.data.type === '可用套卡' ? '不可用卡' : '可用套卡';
@@ -124,6 +126,8 @@ const methods = {
             type: type
         });
     },
+
+
 
     // Event handler.
     viewTap: function () {

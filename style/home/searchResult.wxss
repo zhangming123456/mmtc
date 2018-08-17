@@ -62,8 +62,12 @@ page {
   font-size: 24rpx;
   width: 100%;
 }
+.azm-home-searchResult .azm-content .azm-no-data image {
+  width: 190rpx;
+}
 .azm-home-searchResult .azm-content #tab0 {
   min-height: 200rpx;
+  background-color: #fff;
 }
 .azm-home-searchResult .azm-content #tab0 > .flexBox {
   background-color: #fff;
@@ -111,7 +115,61 @@ page {
 }
 .azm-home-searchResult .azm-content #tab1 {
   min-height: 200rpx;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding-top: 30rpx;
+  padding-left: 30rpx;
+}
+.azm-home-searchResult .azm-content #tab1 .flexBox-item {
+  box-sizing: border-box;
+  padding-right: 30rpx;
+  padding-bottom: 30rpx;
+}
+.azm-home-searchResult .azm-content #tab1 .azm-item__box {
+  position: relative;
+  box-shadow: 2px 4px 13px 0 rgba(0, 0, 0, 0.06);
+}
+.azm-home-searchResult .azm-content #tab1 .azm-item__box .azm-image-box {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.azm-home-searchResult .azm-content #tab1 .azm-item__box .azm-item-info {
+  box-sizing: border-box;
+  padding: 20rpx;
+  line-height: 1;
+}
+.azm-home-searchResult .azm-content #tab1 .azm-item__box .azm-item-info .azm-item-title {
+  font-size: 30rpx;
+  color: #282828;
+}
+.azm-home-searchResult .azm-content #tab1 .azm-item__box .azm-item-info .azm-item-desc {
+  font-size: 20rpx;
+  color: #666;
+  padding-top: 11rpx;
+  padding-bottom: 17rpx;
+  border-bottom: 1px dashed #d9d9d9;
+}
+.azm-home-searchResult .azm-content #tab1 .azm-item__box .azm-item-info .azm-item-price-info {
+  padding-top: 20rpx;
+}
+.azm-home-searchResult .azm-content #tab1 .azm-item__box .azm-item-info .azm-item-price-info .price {
+  color: #ff538b;
+  font-size: 45rpx;
+  display: inline-block;
+}
+.azm-home-searchResult .azm-content #tab1 .azm-item__box .azm-item-info .azm-item-price-info .price i {
+  font-size: 24rpx;
+}
+.azm-home-searchResult .azm-content #tab1 .azm-item__box .azm-item-info .azm-item-price-info .market-price {
+  color: #999;
+  font-size: 24rpx;
+  text-decoration: line-through;
+  margin-left: 10rpx;
+  display: inline-block;
 }
 .azm-home-searchResult .azm-content #tab2 {
   min-height: 200rpx;
+  background-color: #fff;
 }
