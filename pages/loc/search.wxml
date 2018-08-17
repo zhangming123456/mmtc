@@ -1,7 +1,7 @@
 <view class="p1 border-b">
     <view class='flex'>
         <view class='search flex-con rel'>
-            <image src='../../imgs/search@2x.png' style='width: 24rpx;	height: 24rpx' class='search-img'></image>
+            <image src='https://app.mmtcapp.com/mmtc/imgs/search@2x.png' style='width: 24rpx;	height: 24rpx' class='search-img'></image>
             <input class='search-input' bindinput='addrChange' value="{{kw}}" bindconfirm='addrChange'
                    confirm-type="search" focus="{{isFocus}}" placeholder='请输入关键字'></input>
         </view>

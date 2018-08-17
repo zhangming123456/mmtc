@@ -1,22 +1,18 @@
 "use strict";
-const utilMd5 = require('./md5.js'),
-    utilCommon = require('./utilCommon'),
-    regExpUtil = require('./RegExpUtil'),
-    dateFormate = require('./formateDate'),
-    date_formate = require('./date/format'),
-    date_range = require('./date/range'),
-    config = require('../config'),
-    Amap = require('./amap'),
-    qqmapsdk = require('../map'),
-    queryString = require('./queryString');
+const dateFormate = require('./formateDate'),
+    date_formate = require('../date/format'),
+    date_range = require('../date/range'),
+    config = require('../config');
+
+import { queryString, regExpUtil, jude, router } from '../util'
+import { Amap, Qmap } from '../map/index';
 
 module.exports.date_formate = date_formate;
 module.exports.date_range = date_range;
 module.exports.dateFormate = dateFormate;
 module.exports.regExpUtil = regExpUtil;
 module.exports.queryString = queryString;
-module.exports.md5 = utilMd5;
-module.exports.common = utilCommon;
+module.exports.common = jude;
 
 function type (ob) {
     return Object.prototype.toString.call(ob).slice(8, -1).toLowerCase();
@@ -32,7 +28,7 @@ function getDate (date) {
             date = trim(date).replace(/\s/g, 'T');
             _date = new Date(date);
         }
-    } else if (utilCommon.isNumberOfNaN(date)) {
+    } else if (jude.isNumberOfNaN(date)) {
         _date = new Date(+date)
     } else if (date instanceof Date) {
         _date = date
@@ -48,7 +44,7 @@ function next3Days (input) {
         if (input) {
             if (regExpUtil.isDateTime(input)) {
                 input = input.split(' ')[0]
-            } else if (utilCommon.isNumberOfNaN(input)) {
+            } else if (jude.isNumberOfNaN(input)) {
                 input = date_formate(input, 'YYYY-MM-DD')
             } else {
                 input = date_formate(getDate(input), 'YYYY-MM-DD')
@@ -222,7 +218,7 @@ function formateDate (strTime, format, needMap) {
 function formatTimeDifference (start, end, config) {
     var defaultTime = new Date(), time;
 
-    if (utilCommon.isObject(start)) {
+    if (jude.isObject(start)) {
         start = start;
     } else {
         let _start = end.trim().replace(/-/g, '/');
@@ -232,7 +228,7 @@ function formatTimeDifference (start, end, config) {
             start = new Date(_start);
         }
     }
-    if (utilCommon.isObject(end)) {
+    if (jude.isObject(end)) {
         end = end;
     } else {
         let _end = end.trim().replace(/-/g, '/');
@@ -246,7 +242,7 @@ function formatTimeDifference (start, end, config) {
     // console.log(time);
     if (config) {
         var type = '';
-        if (utilCommon.isString(config)) {
+        if (jude.isString(config)) {
             type = config;
         } else {
             type = config.type;
@@ -444,7 +440,7 @@ function showToast (option) {
         mask: true,
         duration: 2000
     };
-    if (utilCommon.isObject(option)) {
+    if (jude.isObject(option)) {
         data.title = option.title;
         data.icon = option.icon || 'success';
         data.image = option.image || data.image;
@@ -458,7 +454,7 @@ function showToast (option) {
         data.fail = option.fail;
         data.complete = option.complete;
     } else {
-        if (arguments[1] && utilCommon.isFunction(arguments[1])) {
+        if (arguments[1] && jude.isFunction(arguments[1])) {
             data.complete = () => {
                 timer_toast = setTimeout(() => {
                     arguments[1]();
@@ -481,7 +477,7 @@ function failToast (option) {
         mask: true,
         duration: 2000
     };
-    if (utilCommon.isObject(option)) {
+    if (jude.isObject(option)) {
         data.title = option.title;
         data.icon = option.icon || 'success';
         data.image = option.image || data.image;
@@ -495,7 +491,7 @@ function failToast (option) {
         data.fail = option.fail;
         data.complete = option.complete;
     } else {
-        if (arguments[1] && utilCommon.isFunction(arguments[1])) {
+        if (arguments[1] && jude.isFunction(arguments[1])) {
             data.complete = () => {
                 timer_toast = setTimeout(() => {
                     arguments[1]();
@@ -508,16 +504,18 @@ function failToast (option) {
 
 module.exports.failToast = failToast;
 module.exports.hideToast = wx.hideToast;
-module.exports.hideLoading = function (bol) {
+
+function hideLoading (bol) {
     clearTimeout(timer_toast);
     if (bol) {
         wx.hideLoading();
     } else {
         timer_toast = setTimeout(res => {
             wx.hideLoading()
-        }, 1500)
+        }, 200)
     }
 };
+module.exports.hideLoading = hideLoading;
 
 /**
  * Loading
@@ -530,7 +528,7 @@ function showLoading (option) {
         mask: true,
         duration: 2000
     };
-    if (utilCommon.isObject(option)) {
+    if (jude.isObject(option)) {
         data.title = option.title;
         data.mask = option.mask || true;
         data.duration = option.duration || 1500;
@@ -542,7 +540,7 @@ function showLoading (option) {
         data.fail = option.fail;
         data.complete = option.complete;
     } else {
-        if (arguments[1] && utilCommon.isFunction(arguments[1])) {
+        if (arguments[1] && jude.isFunction(arguments[1])) {
             data.complete = () => {
                 timer_toast = setTimeout(() => {
                     arguments[1]();
@@ -593,7 +591,7 @@ function extend () {
         i = 2;
     }
     // 当目标参数不是object 或者不是函数的时候，设置成object类型的
-    if (typeof target !== "object" && !utilCommon.isFunction(target)) {
+    if (typeof target !== "object" && !jude.isFunction(target)) {
         target = {};
     }
     // //如果extend只有一个函数的时候，那么将跳出后面的操作
@@ -613,12 +611,12 @@ function extend () {
                     continue;
                 }
                 // 如果我们拷贝的对象是一个对象或者数组的话
-                if (deep && copy && (utilCommon.isPlainObject(copy) || (copyIsArray = utilCommon.isArray(copy)))) {
+                if (deep && copy && (jude.isPlainObject(copy) || (copyIsArray = jude.isArray(copy)))) {
                     if (copyIsArray) {
                         copyIsArray = false;
-                        clone = src && utilCommon.isArray(src) ? src : [];
+                        clone = src && jude.isArray(src) ? src : [];
                     } else {
-                        clone = src && utilCommon.isPlainObject(src) ? src : {};
+                        clone = src && jude.isPlainObject(src) ? src : {};
                     }
                     //不删除目标对象，将目标对象和原对象重新拷贝一份出来。
                     target[name] = extend(deep, clone, copy);
@@ -641,9 +639,9 @@ module.exports.extend = extend;
  */
 function clone (arr, obj) {
     var target = {};
-    if (utilCommon.isString(arr)) {
+    if (jude.isString(arr)) {
         target[arr] = obj[arr]
-    } else if (utilCommon.isArray(arr)) {
+    } else if (jude.isArray(arr)) {
         let length = arr.length;
         for (let i = 0; i < length; i++) {
             target[arr[i]] = obj[arr[i]]
@@ -673,19 +671,23 @@ let isGoRouter = false;
  * @param a{String|Number} 页面路径地址
  * @param options{Object} type{String}:跳转类型 （blank：关闭当前页面跳转；tab:关闭其他tabBar页面，跳转到tabBar页面；blankAll：关闭所有页面跳转）；data{Object}：跳转携带参数对象
  */
-function go (a, options = {}) {
+function _go (a, options = {}) {
+    debugger
     let stringify = '';
     if (isGoRouter) return;
     if (options.data) {
         stringify = queryString.stringify(options.data);
     }
-    if (utilCommon.isNumberOfNaN(a)) {
-        if (a < 0) {
+    if (jude.isNumberOfNaN(a)) {
+        let pageNum = getCurrentPages().length;
+        if (a < 0 && pageNum > 1) {
             wx.navigateBack({
                 delta: -a
             })
+        } else {
+            go('/pages/index/index', {type: 'tab'})
         }
-    } else if (utilCommon.isString(a) && regExpUtil.isPath(a)) {
+    } else if (jude.isString(a) && regExpUtil.isPath(a)) {
         if (/\?/.test(a)) {
             a = a + '&';
         } else {
@@ -799,7 +801,9 @@ function go (a, options = {}) {
     }
 }
 
-module.exports.go = go;
+module.exports.go = function (...arg) {
+    return router.go(...arg)
+};
 
 function chooseLocation () {
     return new Promise(function (resolve, reject) {
@@ -1008,7 +1012,7 @@ function getMap (location, resolve, reject) {
                 }
             });
         } else {
-            qqmapsdk.reverseGeocoder({
+            Qmap.reverseGeocoder({
                 location: {
                     latitude: location.lat,
                     longitude: location.lon
@@ -1062,7 +1066,7 @@ module.exports.getLatAndLon = getLatAndLon;
 
 function getUserInfo () {
     let app = getApp();
-    if (utilCommon.isEmptyObject(app.globalData.userInfo)) {
+    if (jude.isEmptyObject(app.globalData.userInfo)) {
         return app.globalData.userInfo;
     } else {
         return wx.getStorageSync('_userInfo_') || null;
@@ -1070,3 +1074,42 @@ function getUserInfo () {
 }
 
 module.exports.getUserInfo = getUserInfo;
+
+class LogManager {
+    constructor () {
+        this.console = wx.getLogManager ? wx.getLogManager() : {};
+    }
+
+    log (...arg) {
+        this.console.log && this.console.log(...arg);
+    }
+
+    info (...arg) {
+        this.console.info && this.console.info(...arg);
+    }
+
+    debug (...arg) {
+        this.console.debug && this.console.debug(...arg);
+    }
+
+    warn (...arg) {
+        this.console.warn && this.console.warn(...arg);
+    }
+}
+
+module.exports.LogManager = new LogManager();
+
+function filterNullData (data = {}) {
+    try {
+        for (let k in data) {
+            data[k] = jude.isFalse(data[k]);
+            if (trim(data[k]) === '' || !data[k] && !jude.isNumberOfNaN(data[k])) {
+                delete data[k]
+            }
+        }
+        return data;
+    } catch (err) {
+        return {};
+    }
+}
+module.exports.filterNullData = filterNullData;

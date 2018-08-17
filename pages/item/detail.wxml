@@ -7,7 +7,7 @@
 <import src="../../wxParse/wxParse.wxml" />
 <view class='msgitem' hidden='{{!msgitem||!msgitem.msg}}'>
     <view class='flex'>
-        <image class='msgitem-avatar' src='{{c.absUrl(msgitem.avatar,200)||"../../imgs/default.png"}}'></image>
+        <image class='msgitem-avatar' src='{{c.absUrl(msgitem.avatar,200)||"https://app.mmtcapp.com/mmtc/imgs/default.png"}}'></image>
         <view class='flex-con'>
             {{msgitem.msg}}
         </view>
@@ -25,7 +25,7 @@
                 <view class='ib unit'>{{item.group_num?'拼团价':''}}￥</view>
                 <view class='ib price'>{{item.group_num?item.group_price:item.price}}</view>
                 <view class='ib market-price'>
-                    <view class='text-left' >
+                    <view class='text-left'>
                         <view class='discount'>{{f.discount(item)}} 折</view>
                     </view>
                     <view class='money'>￥{{item.group_num?item.price:item.market_price}}</view>
@@ -55,7 +55,7 @@
         <view class="t-title">首单</view>
         <view class="t-describe">美美天成新人专享券，每人仅且可享1次</view>
         <view class="t-prize">去领劵</view>
-        <image class="t-arrows" src="../../imgs/gt@2x.png"></image>
+        <image class="t-arrows" src="https://app.mmtcapp.com/mmtc/imgs/gt@2x.png"></image>
     </view>
 
     <!-- 店铺优惠券 -->
@@ -66,28 +66,27 @@
         </view>
         <view>
             <text class="t-prize">去领劵</text>
-            <image class="t-arrows" src="../../imgs/gt@2x.png"></image>
+            <image class="t-arrows" src="https://app.mmtcapp.com/mmtc/imgs/gt@2x.png"></image>
         </view>
-        
     </view>
 
 
     <view class='tip-list border-b border-t' bindtap='showMasker'>
         <view class='flex'>
             <view class='flex-con t-flex'>
-                <image class='realnote-icon' src='../../imgs/book.png'></image>
+                <image class='realnote-icon' src='https://app.mmtcapp.com/mmtc/imgs/book.png'></image>
                 真实日记
             </view>
             <view class='flex-con t-flex'>
-                <image class="t-tui" src="../../imgs/tui.png"></image>
+                <image class="t-tui" src="https://app.mmtcapp.com/mmtc/imgs/tui.png"></image>
                 随时退
             </view>
             <view class='flex-con t-flex'>
-                <image class='safe-icon' src='../../imgs/fanghu.png'></image>
+                <image class='safe-icon' src='https://app.mmtcapp.com/mmtc/imgs/fanghu.png'></image>
                 消费保障
             </view>
             <view class='last-gt-col'>
-                <image class='gt-icon' src='../../imgs/gt@2x.png'></image>
+                <image class='gt-icon' src='https://app.mmtcapp.com/mmtc/imgs/gt@2x.png'></image>
             </view>
         </view>
     </view>
@@ -96,7 +95,7 @@
     <view class="t-remark" bindtap="gotoRemark" style="display: none">
         <view class="t-no">暂无点评</view>
         <view class="t-how">0篇点评</view>
-        <image class='t-gt-icon' src='../../imgs/gt@2x.png'></image>
+        <image class='t-gt-icon' src='https://app.mmtcapp.com/mmtc/imgs/gt@2x.png'></image>
     </view>
 
     <!-- 拼团的状态 -->
@@ -106,14 +105,14 @@
             <view class='group-buy-title border-b border-t' bindtap='showBuyListArea'>
                 <view class='flex'>
                     <view class='flex-con'> 已有{{groupData.count}}位小伙伴开团，可直接参与</view>
-                    <image class='gt-icon' wx:if="{{groupData.count>3}}" src='../../imgs/gt@2x.png'></image>
+                    <image class='gt-icon' wx:if="{{groupData.count>3}}" src='https://app.mmtcapp.com/mmtc/imgs/gt@2x.png'></image>
                 </view>
             </view>
             <form bindsubmit='reportSubmit' report-submit="true">
                 <view class='group-buy-list border-b'>
                     <view class='border-b flex' wx:key="id" wx:for-item="gitem" wx:for="{{f.subs(groupData.rows)}}">
                         <view>
-                            <image class='member-avatar' src='{{c.absUrl(gitem.avatar,120)||"../../imgs/default.png"}}'></image>
+                            <image class='member-avatar' src='{{c.absUrl(gitem.avatar,120)||"https://app.mmtcapp.com/mmtc/imgs/default.png"}}'></image>
                         </view>
                         <view class='flex-con group-buy-name'>{{gitem.nickname}}</view>
                         <view>
@@ -138,25 +137,26 @@
     </block>
     <view class='hr'></view>
     <view class="box bg-white  border-b">
-
     <view class="flex">
-            <view class='flex-con title-area shop-title-area' bindtap='gotoShopIndex'>
-                <view class='flex'>
-                    <view class='shop-name one-line text-left'>{{shop.shop_name}}</view>
-                    <image class="t-renzhen" src='../../imgs/renzhen.png'></image>
-                </view>
-                <view class="t-border-r"></view>
-                <view class='address one-line text-left'>
-                    <image class='t-gps' src='../../imgs/dingwei.png'></image>
-                    <view class="t-address">{{shop.address}}</view>
-                    <view class='distance'>{{'< '}} {{shop.distance}}</view>
-                </view>
-                <view class="t-welfareBox" wx:if="{{item.shop_tag&&item.shop_tag.length>0}}">
-                    <view class="t-welfare" wx:for ="{{item.shop_tag}}" wx:key="key" wx:for-item='v' wx:for-index='i'>{{v}}</view>
+            <view class='flex-con title-area ' bindtap='gotoShopIndex'>
+                <view class="shop-title-area">
+                    <view class='flex'>
+                        <view class='shop-name one-line text-left'>{{shop.shop_name}}</view>
+                        <image class="t-renzhen" src='https://app.mmtcapp.com/mmtc/imgs/renzhen.png'></image>
+                    </view>
+                    <view class="t-border-r"></view>
+                    <view class='address one-line text-left'>
+                        <image class='t-gps' src='https://app.mmtcapp.com/mmtc/imgs/dingwei.png'></image>
+                        <view class="t-address">{{shop.address}}</view>
+                        <view class='distance'>{{'< '}} {{shop.distance}}</view>
+                    </view>
+                    <view class="t-welfareBox" wx:if="{{item.shop_tag&&item.shop_tag.length>0}}">
+                        <view class="t-welfare" wx:for ="{{item.shop_tag}}" wx:key="key" wx:for-item='v' wx:for-index='i'>{{v}}</view>
+                    </view>
                 </view>
             </view>
             <view class="text-center loc-area" bindtap='makeCall'>
-                <image class='loc' src='../../imgs/dianhua.png'></image>
+                <image class='loc' src='https://app.mmtcapp.com/mmtc/imgs/dianhua.png'></image>
             </view>
         </view>
     </view>
@@ -167,7 +167,7 @@
             <view class="t-num">技师 ({{technicianData.length}})</view>
             <view class="t-examine"  bindtap="gotoTechnician">
                 <text >查看全部</text>
-                <image class='t-gt-icon' src='../../imgs/gt@2x.png'></image>
+                <image class='t-gt-icon' src='https://app.mmtcapp.com/mmtc/imgs/gt@2x.png'></image>
             </view>
         </view>
         <view style="height: 265rpx;">
@@ -240,7 +240,7 @@
                         </view>
                         <!-- <view class="t-time">
                             <view class="t-timeBox">
-                                <image class="t-waituse" src="../../imgs/waituse@2x.png"></image>
+                                <image class="t-waituse" src="https://app.mmtcapp.com/mmtc/imgs/waituse@2x.png"></image>
                                 <text>总耗时</text>
                             </view>
                             <view>{{c.numAbs(item.item_servic)}}分钟</view>
@@ -320,7 +320,7 @@
             <block wx:if="{{cases&&cases.length>0}}">
                 <viwe>
                     <view mode="aspectFill" class="t-diary"  wx:key="id" wx:for="{{cases}}">
-                        <image class="t-default" src="{{c.absUrl(item.avatar,100) || '../../imgs/default.png '}}"></image>
+                        <image class="t-default" src="{{c.absUrl(item.avatar,100) || 'https://app.mmtcapp.com/mmtc/imgs/default.png '}}"></image>
                         <view class="t-nameDiary">{{item.nickname}}</view>
                         <view class="t-timeDiary">{{item.create_time}}</view>
                         <!-- <view class="t-attention">+ 关注</view> -->
@@ -336,19 +336,19 @@
                             {{item.content}}
                         </view>
                         <view class="t-labelicon">
-                            <image class="t-label" src="../../imgs/icon_label_4.png"></image>{{item.item_title}}
+                            <image class="t-label" src="https://app.mmtcapp.com/mmtc/imgs/icon_label_4.png"></image>{{item.item_title}}
                         </view>
                         <view class="t-condition">
                             <view class="t-Condition border-r">
-                                <image class="t-eye" src="../../imgs/eye@2x.png"></image>
+                                <image class="t-eye" src="https://app.mmtcapp.com/mmtc/imgs/eye@2x.png"></image>
                                 <text>浏览 {{item.viewed_count}}</text>
                             </view>
                             <view class="t-ConDition border-r {{c.zanedClass(item)}}" catchtap='zan' data-id="{{item.id}}">
-                                <image src="../../imgs/zan{{item.zaned?'1':''}}@2x.png" alt="" class="t-zan"></image>
+                                <image src="https://app.mmtcapp.com/mmtc/imgs/zan{{item.zaned?'1':''}}@2x.png" alt="" class="t-zan"></image>
                                 <text>点赞 {{item.zan_count}}</text>
                             </view>
                             <view class="t-conDition">
-                                <image class="t-Eye" src="../../imgs/msg@2x.png"></image>
+                                <image class="t-Eye" src="https://app.mmtcapp.com/mmtc/imgs/msg@2x.png"></image>
                                 <text>评论 {{item.comment_count}}</text>
                             </view>
                         </view>
@@ -366,7 +366,7 @@
 
     <!-- 日记banner -->
     <view class="t-Journal" wx:if="{{currentTab!=2}}">
-        <image bindtap='showBannerLink'  mode="aspectFill" data-link="{{bannerData.link}}" class="t-journal" src="{{imageUrl + bannerData.cover}}"></image>
+        <image bindtap='showBannerLink'  mode="aspectFill" data-link="{{item.banner.link}}" class="t-journal" src="{{imageUrl + item.banner.cover}}"></image>
     </view>
 
     <!-- 其他推荐 --> 
@@ -413,19 +413,19 @@
 <form bindsubmit='reportSubmit' report-submit="true">
     <view id="footer" wx:if="{{loaded}}" class="flex flex-stretch">
         <view class="flex-con border-r border-t" bindtap="gotoHomePage">
-            <image src="../../imgs/homebig.png" alt="" style="width: 43rpx;height: 40rpx;"></image>
+            <image src="https://app.mmtcapp.com/mmtc/imgs/homebig.png" alt="" style="width: 43rpx;height: 40rpx;"></image>
             <view class='btn-txt '>
                 首页
             </view>
         </view>
         <!-- <view class="flex-con border-r border-t" wx:if="{{!item.group_num}}" bindtap="gotoShop">
-            <image src="../../imgs/car0.png" alt="" style="width: 43rpx;height: 40rpx;"></image>
+            <image src="https://app.mmtcapp.com/mmtc/imgs/car0.png" alt="" style="width: 43rpx;height: 40rpx;"></image>
             <view class='btn-txt'>
                 购物车
             </view>
         </view> -->
         <view class="flex-con border-r border-t"   bindtap='makeCall'>
-            <image src="../../imgs/makecall3.png" alt="" style="width: 43rpx;height: 42rpx;"></image>
+            <image src="https://app.mmtcapp.com/mmtc/imgs/makecall3.png" alt="" style="width: 43rpx;height: 42rpx;"></image>
             <view class='btn-txt '>
                 电话
             </view>
@@ -514,7 +514,7 @@
         <view class='tip-content'>
             <view class='tip-row flex flex-stretch'>
                 <view>
-                    <image class='realnote-icon' src='../../imgs/realnote.png'></image>
+                    <image class='realnote-icon' src='https://app.mmtcapp.com/mmtc/imgs/realnote.png'></image>
                 </view>
                 <view class='flex-con border-b'>
                     <view class='tip-row-title'>真实日记</view>
@@ -525,7 +525,7 @@
             </view>
             <view class='tip-row flex flex-stretch'>
                 <view>
-                    <image class='reback-icon' src='../../imgs/reback.png'></image>
+                    <image class='reback-icon' src='https://app.mmtcapp.com/mmtc/imgs/reback.png'></image>
                 </view>
                 <view class='flex-con border-b'>
                     <view class='tip-row-title'>随时退</view>
@@ -536,7 +536,7 @@
             </view>
             <view class='tip-row flex flex-stretch'>
                 <view>
-                    <image class='safe-icon ' src='../../imgs/safe.png'></image>
+                    <image class='safe-icon ' src='https://app.mmtcapp.com/mmtc/imgs/safe.png'></image>
                 </view>
                 <view class='flex-con border-b'>
                     <view class='tip-row-title'>消费保障</view>
@@ -556,14 +556,14 @@
 <view class='tip-box-masker tip-box-buy-list' bindtap='closeBuyListMasker' hidden='{{!isShowingByList}}'>
     <view class='tip-box-buy-list-inner'>
         <view class='tip-box-inner' catchtap='noop'>
-            <image class='tip-box-close-btn' src='../../imgs/closebtn@2x.png' bindtap='closeBuyListMasker'></image>
+            <image class='tip-box-close-btn' src='https://app.mmtcapp.com/mmtc/imgs/closebtn@2x.png' bindtap='closeBuyListMasker'></image>
             <view class='tip-box-title border-b'>拼团进行时</view>
             <scroll-view scroll-y style='height:640rpx;'>
                 <form bindsubmit='reportSubmit' report-submit="true">
                     <view class='group-buy-list border-b'>
                         <view class='border-b flex' wx:key="id" wx:for-item="gitem" wx:for="{{groupData.rows}}">
                             <view>
-                                <image class='member-avatar'src='{{c.absUrl(gitem.avatar,120)|| "../../imgs/default.png"}}'></image>
+                                <image class='member-avatar'src='{{c.absUrl(gitem.avatar,120)|| "https://app.mmtcapp.com/mmtc/imgs/default.png"}}'></image>
                             </view>
                             <view class='flex-con text-left pl20'>
                                 <view class='group-buy-num'>
@@ -617,4 +617,4 @@
     </view>
 </view>
 
-<image id="gotoTop" hidden='{{!showGotoTop}}' src='../../imgs/top.png' bindtap='gotoTop'></image>
+<image id="gotoTop" hidden='{{!showGotoTop}}' src='https://app.mmtcapp.com/mmtc/imgs/top.png' bindtap='gotoTop'></image>

@@ -2,7 +2,7 @@
 const c = require("../../utils/common.js");
 var note_id = 0;
 var page = 1;
-var WxParse = require('../../wxParse/wxParse.js');
+var WxParse = require('../../wxParse/wxParse');
 Page({
 
     /**

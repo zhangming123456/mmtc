@@ -52,6 +52,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        console.log(options,4555555555555);
+        
         let no = options.no;
         let url, postData;
         if (no) {
@@ -62,7 +64,7 @@ Page({
             };
         } else {
             url = '/api/order/getBillDetailV2';
-            bill_id = options.id || 26;
+            bill_id = options.id;
             postData = {
                 bill_id: bill_id
             };

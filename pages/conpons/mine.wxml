@@ -1,12 +1,12 @@
 <view class='bg-white'>
   <view class="item" wx:for="{{items}}" wx:key="id">
-    <image src='../../imgs/{{item.errmsg?"outdatedbg":"c1"}}.png' class='bg-img'></image>
+    <image src='https://app.mmtcapp.com/mmtc/imgs/{{item.errmsg?"outdatedbg":"c1"}}.png' class='bg-img'></image>
     <view class='flex item-info-wrap'>
-      <image src='../../imgs/outdated.png' class='outdated' wx:if="{{!!item.errmsg}}"></image>
+      <image src='https://app.mmtcapp.com/mmtc/imgs/outdated.png' class='outdated' wx:if="{{!!item.errmsg}}"></image>
       <view class='flex-con'>
         <view class='item-info'>
           <view class='shop-name'>
-            <image src='../../imgs/shop1.png' class='avatar'></image>
+            <image src='https://app.mmtcapp.com/mmtc/imgs/shop1.png' class='avatar'></image>
             {{item.shop_name}}
           </view>
           <view class='flex'>

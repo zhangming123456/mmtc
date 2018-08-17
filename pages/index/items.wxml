@@ -128,6 +128,6 @@
         </block>
     </view>
     <view class='masker' hidden='{{type==-1}}' catchtap='closeFilter'></view>
-    <image id="gotoTop" hidden='{{!topFixed}}' src='../../imgs/top.png' bindtap='gotoTop'></image>
+    <image id="gotoTop" hidden='{{!topFixed}}' src='https://app.mmtcapp.com/mmtc/imgs/top.png' bindtap='gotoTop'></image>
     <include src="../common/more.wxml"></include>
 </scroll-view>

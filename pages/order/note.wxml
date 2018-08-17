@@ -9,7 +9,7 @@
                 <view class='fz24 text999 text-right' bindtap='showScoreWin'>
                     {{scoreTip||'我要评分'}}
                 </view>
-                <image class='gt' src='../../imgs/gt@2x.png' class='gt'></image>
+                <image class='gt' src='https://app.mmtcapp.com/mmtc/imgs/gt@2x.png' class='gt'></image>
             </block>
         </view>
     </view>
@@ -18,7 +18,7 @@
     </view>
     <view class='p3'>
         <image wx:for="{{imgs}}" wx:key="*this" mode='aspectFill' src='{{c.absUrl(item)}}'></image>
-        <image src='/imgs/addpic@2x.png' bindtap='chooseImage'></image>
+        <image src='https://app.mmtcapp.com/mmtc/addpic@2x.png' bindtap='chooseImage'></image>
     </view>
 </view>
 

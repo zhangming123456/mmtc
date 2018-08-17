@@ -1,9 +1,9 @@
 const app = getApp(),
     utilPage = require("../../utils/utilPage"),
     config = require("../../utils/config"),
-    c = require("../../utils/common.js"),
-    Amap = require("../../utils/azm/amap"),
-    qqmapsdk = require("../../utils/map.js");
+    c = require("../../utils/common.js");
+
+import { Amap, Qmap } from '../../utils/map/index';
 
 let isMap = config.isMap;
 const appPage = {
@@ -85,7 +85,7 @@ const methods = {
                     }
                 });
             } else {
-                qqmapsdk.getSuggestion({
+                Qmap.getSuggestion({
                     keyword: value,
                     region: cityName,
                     region_fix: 1,

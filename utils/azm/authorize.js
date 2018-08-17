@@ -64,6 +64,8 @@ module.exports = {
                     fail(rsp){
                         if (rsp.errMsg !== 'getUserInfo:fail scope unauthorized') {
                             openModal(content)
+                        } else {
+                            reject(rsp)
                         }
                         wx.setStorageSync('isGetUserInfoErrMsg', rsp.errMsg);
                     }

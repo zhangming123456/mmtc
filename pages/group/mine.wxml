@@ -35,7 +35,7 @@
     <view class='shop-name border-b'>
         <view class='flex'>
             <view>
-                <image src='../../imgs/shop2.png' class='shop-avatar'></image>
+                <image src='https://app.mmtcapp.com/mmtc/imgs/shop2.png' class='shop-avatar'></image>
             </view>
             <navigator class='flex-con one-line' url='/pages/home/index?shop_id={{item.shop_id}}' hover-class='none'>
                 {{item.shop_name}}
@@ -81,19 +81,19 @@
                     </block>
                     <block wx:else>
                         <view class='item-text-red'>过期未成团</view>
-                        <image src='../../imgs/outdated.png' class='outtime-img'></image>
+                        <image src='https://app.mmtcapp.com/mmtc/imgs/outdated.png' class='outtime-img'></image>
                     </block>
                 </view>
             </view>
         </view>
     </view>
     <view class='border-t text-right btns' wx:if="{{!item.is_expired}}">
-        <navigator url='/pages/group/shared?id={{item.group_id}}' wx:if="{{item.num > item.num_used}}"
+        <navigator url='/pages/group/shared?id={{item.group_id}}' hover-class="none" wx:if="{{item.num > item.num_used}}"
                    class="btn full-red">邀请好友
         </navigator>
         <block wx:else>
             <navigator class='btn btn-red' url='/pages/car/payOrder?item_id={{item.id}}&num=1&group=1'>再来一单</navigator>
-            <view class='btn btn-red' wx:if="{{c.isEmpty(item.is_used)}}" data-item="{{item}}" bindtap='touse'>立即使用
+            <view class='btn btn-red' wx:if="{{c.isEmpty(item.is_used)}}" data-item="{{item}}" bindtap='touse'>查看券码
             </view>
             <view class='btn btn-red' wx:elif="{{c.isEmpty(item.is_noted)}}" data-item="{{item}}" bindtap='tonote'
                   data-id="{{item.order_info_id}}">去写日记
@@ -103,7 +103,7 @@
 </view>
 
 <view class='empty-area' wx:if="{{isEmpty}}">
-    <image src='../../imgs/empty@2x.png' class=''></image>
+    <image src='https://app.mmtcapp.com/mmtc/imgs/empty@2x.png' class=''></image>
     <view class='text-center'>
         ops，这里空空如也，逛逛其他的吧~
     </view>
@@ -128,7 +128,7 @@
         </view>
     </view>
     <view class='qrcode-close'>
-        <image src='../../imgs/btnclose.png' bindtap='closeQrcode'></image>
+        <image src='https://app.mmtcapp.com/mmtc/imgs/btnclose.png' bindtap='closeQrcode'></image>
     </view>
 </view>
 

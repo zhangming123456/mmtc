@@ -3,7 +3,7 @@
     <view class='flex'>
         <view class="nav-item border-r {{type==0?'active':''}}" data-type="0" bindtap='setType'>全部</view>
         <view class="nav-item border-r {{type==1?'active':''}}" data-type="1" bindtap='setType'>待付款</view>
-        <view class="nav-item border-r {{type==2?'active':''}}" data-type="2" bindtap='setType'>待使用</view>
+        <view class="nav-item border-r {{type==2?'active':''}}" data-type="2" bindtap='setType'>待服务</view>
         <view class="flex-con border-r {{type==3?'active':''}}" data-type="3" bindtap='setType'>待写日记/点评</view>
         <view class="nav-item {{type==4?'active':''}}" data-type="4" bindtap='setType'>退款</view>
     </view>
@@ -18,7 +18,7 @@
                     <block wx:for="{{bill.items}}" wx:key="{{val.id}}" wx:for-item="val" wx:for-index="j">
                         <view class='order-item border-t' style="margin-bottom: 16rpx">
                             <view class='flex border-b'>
-                                <image src='../../imgs/shop2.png' class='bill-icon'></image>
+                                <image src='https://app.mmtcapp.com/mmtc/imgs/shop2.png' class='bill-icon'></image>
                                 <view class='flex-con text999 fz28'>
                                     {{bill.shop_name}}
                                 </view>
@@ -49,19 +49,22 @@
                 <block wx:else>
                     <view class='order-item border-t' style="margin-bottom: 16rpx">
                         <view class='flex border-b'>
-                            <image src='../../imgs/shop2.png' class='bill-icon'></image>
+                            <image src='https://app.mmtcapp.com/mmtc/imgs/shop2.png' class='bill-icon'></image>
                             <view class='flex-con text999 fz28'>
                                 {{bill.shop_name}}
                             </view>
+                            
                             <view class="status">
                                 <!--<text>{{c.orderNumber(bill,type).status}}</text>-->
-                                <view wx:if="{{bill.is_cancelled==1}}">交易关闭</view>
-                                <view wx:elif="{{bill.payed==0}}">待付款</view>
+                                <!-- <view wx:if="{{bill.is_cancelled==1}}">交易关闭</view> -->
+                                <view >{{bill.items[0].item_status}}</view>
+
+                                <!-- <view wx:elif="{{bill.payed==0}}">待付款</view>
                                 <view wx:elif="{{c.orderNumber(bill,type).status == 4 || bill.is_refund == 1}}">完成退款
                                 </view>
                                 <view wx:elif="{{c.orderNumber(bill,type).status == 3}}">已完成</view>
                                 <view wx:elif="{{c.orderNumber(bill,type).status == 2}}">部分完成</view>
-                                <view wx:else>待使用</view>
+                                <view wx:else>待使用</view> -->
                             </view>
                         </view>
                         <view wx:if="{{bill.order_type==1}}" bindtap='showBuyOrderDetail' data-id="{{bill.id}}"
@@ -126,7 +129,7 @@
     </block>
     <block wx:else>
         <view class='empty-area'>
-            <image src='../../imgs/empty.png'></image>
+            <image src='https://app.mmtcapp.com/mmtc/imgs/empty.png'></image>
             <view>您还没有相关的订单</view>
         </view>
     </block>
@@ -152,11 +155,11 @@
         </view>
     </view>
     <view class='qrcode-close'>
-        <image src='../../imgs/btnclose.png' bindtap='closeQrcode'></image>
+        <image src='https://app.mmtcapp.com/mmtc/imgs/btnclose.png' bindtap='closeQrcode'></image>
     </view>
 </view>
 <!--<azm-gotop is-show="{{goToTopShow}}"></azm-gotop>-->
 
-<image id="gotoTop" hidden='{{!showGotoTop}}' src='../../imgs/top.png' bindtap='gotoTop'></image>
+<image id="gotoTop" hidden='{{!showGotoTop}}' src='https://app.mmtcapp.com/mmtc/imgs/top.png' bindtap='gotoTop'></image>
 <!--<include src="../common/more.wxml"></include>-->
 <azm-more no-more="{{noMore}}" loading="{{items[type].length>0}}"></azm-more>

@@ -36,7 +36,7 @@
         </view>
         <view class="flexBox-item fb-all" style="flex-grow: 2;box-sizing: border-box;padding-left: 20rpx;">
             <view class='azm-search' bindtap='doSearch'>
-                <image src='../../imgs/search@2x.png' style='width: 24rpx;	height: 24rpx'></image>
+                <image src='https://app.mmtcapp.com/mmtc/imgs/search@2x.png' style='width: 24rpx;	height: 24rpx'></image>
                 <text>找店铺 找服务 找案例</text>
             </view>
         </view>
@@ -120,7 +120,7 @@
                                 <view class='shop-title one-line'>{{item.shop_name}}</view>
                                 <view class='stars'>
                                     <block wx:for="{{f.num2arr(item.score)}}" wx:for-item="i" wx:key="index">
-                                        <image src="{{'../../imgs/start'+(i?1:2)+'@2x.png'}}"></image>
+                                        <image src="{{'https://app.mmtcapp.com/mmtc/imgs/start'+(i?1:2)+'@2x.png'}}"></image>
                                     </block>
                                 </view>
                                 <view class='ib fz24 text999'>
@@ -177,5 +177,5 @@
     </block>
 </view>
 <view class='masker' hidden='{{type==-1}}' catchtap='closeFilter' catchtouchmove='noop'></view>
-<image id="gotoTop" hidden='{{!topFixed}}' src='../../imgs/top.png' bindtap='gotoTop'></image>
+<image id="gotoTop" hidden='{{!topFixed}}' src='https://app.mmtcapp.com/mmtc/imgs/top.png' bindtap='gotoTop'></image>
 <include src="../common/more.wxml"></include>

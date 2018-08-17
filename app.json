@@ -1,5 +1,7 @@
 {
   "pages": [
+    "page/tabBar/home/index",
+    "page/tabBar/near/index",
     "pages/index/index",
     "pages/mine/index",
     "pages/chat/index",
@@ -48,16 +50,46 @@
     "pages/item/index",
     "pages/dongtai/index",
     "pages/cases/index",
-    "pages/login/index",
-    "pages/login/phone",
-    "pages/login/getUserInfo/index",
-    "pages/order/orderDetails/index"
+    "pages/order/orderDetails/index",
+    "pages/onlineBuy/remarks/index",
+    "page/login/index"
   ],
   "subPackages": [
     {
       "root": "pages/newPages",
       "pages": [
         "pages/mmtcTabList/index"
+      ]
+    },
+    {
+      "root": "page/cardBag",
+      "pages": [
+        "pages/setDetails/index",
+        "pages/setBuy/index",
+        "pages/myOrder/index",
+        "pages/myCard/index",
+        "pages/cardCode/index",
+        "pages/record/index"
+      ]
+    },
+    {
+      "root": "page/userLogin",
+      "pages": [
+        "pages/getUserInfo/index"
+      ]
+    },
+    {
+      "root": "page/home",
+      "pages": [
+        "pages/search/index",
+        "pages/searchResult/index"
+      ]
+    },
+    {
+      "root": "page/public",
+      "pages": [
+        "pages/location/index",
+        "pages/locSearch/index"
       ]
     }
   ],
@@ -76,26 +108,26 @@
     "borderStyle": "black",
     "list": [
       {
-        "selectedIconPath": "imgs/home1@2x.png",
-        "iconPath": "imgs/home0@2x.png",
-        "pagePath": "pages/index/index",
+        "selectedIconPath": "image/tabBar/home.png",
+        "iconPath": "image/tabBar/home_active.png",
+        "pagePath": "page/tabBar/home/index",
         "text": "首页"
       },
       {
-        "selectedIconPath": "imgs/near1@2x.png",
-        "iconPath": "imgs/near@2x.png",
-        "pagePath": "pages/index/near",
+        "selectedIconPath": "image/tabBar/near.png",
+        "iconPath": "image/tabBar/near_active.png",
+        "pagePath": "page/tabBar/near/index",
         "text": "附近"
       },
       {
-        "selectedIconPath": "imgs/order1.png",
-        "iconPath": "imgs/order0.png",
+        "selectedIconPath": "image/tabBar/order.png",
+        "iconPath": "image/tabBar/order_active.png",
         "pagePath": "pages/order/all",
         "text": "订单"
       },
       {
-        "selectedIconPath": "imgs/mine1@2x.png",
-        "iconPath": "imgs/mine0@2x.png",
+        "selectedIconPath": "image/tabBar/mine.png",
+        "iconPath": "image/tabBar/mine_active.png",
         "pagePath": "pages/mine/index",
         "text": "我的"
       }

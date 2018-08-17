@@ -2,7 +2,7 @@
 const app = getApp(),
     c = require("../../utils/common.js"),
     config = require("../../utils/config"),
-    ApiService = require("../../utils/azm/ApiService"),
+    ApiService = require("../../utils/ApiService"),
     authorize = require("../../utils/azm/authorize"),
     utilPage = require('../../utils/utilPage');
 
@@ -12,8 +12,6 @@ const appPage = {
      */
     data: {
         text: 'Page indexNear',
-        imageUrl: config.imageUrl,
-        canIUse: wx.canIUse('button.open-type.getUserInfo'),
         isLogin: true,
         userInfo_start: app.globalData.userInfo_start,
         userInfo: c.getUserInfo()
@@ -79,25 +77,23 @@ const methods = {
             options = that.data.options,
             setData = {isLogin: false};
         app.globalData.pages.minePage = this;
-        ApiService.wx2CheckSession().then(
-            res => {
-                if (res.status === 1) {
-                    setData.userInfo = c.getUserInfo();
-                    setData.isLogin = true;
-                } else {
-                    c.setUserInfo({});
-                    setData.userInfo = {};
-                    setData.isLogin = false
-                }
+        ApiService.wx2CheckSession().finally(res => {
+            if (res.status === 1) {
+                setData.userInfo = c.getUserInfo();
+                setData.isLogin = true;
+            } else {
+                c.setUserInfo({});
+                setData.userInfo = {};
+                setData.isLogin = false
             }
-        ).finally(function () {
             that.setData(setData);
         })
     },
     showAdvise() {
-        wx.navigateTo({
-            url: '/pages/advise/index'
-        });
+        this.$route.push('/pages/advise/index');
+    },
+    showCard(){
+        this.$route.push('/page/cardBag/pages/myCard/index')
     },
     showCar (e) {
         c.hasLogin(function () {
@@ -143,7 +139,7 @@ const methods = {
     },
     toLoginPage(){
         if (!this.data.isLogin) {
-            app.util.go('/pages/login/index');
+            app.util.go('/page/login/index');
         }
     },
     showCollection () {

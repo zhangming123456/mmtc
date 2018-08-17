@@ -28,28 +28,28 @@
   <view class="flex">
     <view>环境</view>
     <view class="flex-con starts">        
-      <image data-index="{{index}}" bindtap='setEnsScore' src="{{item?'../../imgs/start1@2x.png':'../../imgs/starhalf@2x.png'}}" alt="" wx:for="{{ens}}"/>
+      <image data-index="{{index}}" bindtap='setEnsScore' src="{{item?'https://app.mmtcapp.com/mmtc/imgs/start1@2x.png':'https://app.mmtcapp.com/mmtc/imgs/starhalf@2x.png'}}" alt="" wx:for="{{ens}}"/>
       <span class="pl01">{{f.score(ens)}} 分</span>
     </view>
   </view>
   <view class="flex">
     <view>专业</view>
     <view class="flex-con starts">
-      <image data-index="{{index}}"  bindtap='setMajorScore' src="{{item?'../../imgs/start1@2x.png':'../../imgs/starhalf@2x.png'}}" alt="" wx:for="{{major}}"/>
+      <image data-index="{{index}}"  bindtap='setMajorScore' src="{{item?'https://app.mmtcapp.com/mmtc/imgs/start1@2x.png':'https://app.mmtcapp.com/mmtc/imgs/starhalf@2x.png'}}" alt="" wx:for="{{major}}"/>
       <span class="pl01">{{f.score(major)}} 分</span>
     </view>
   </view>
   <view class="flex">
     <view>服务</view>
     <view class="flex-con starts">
-      <image data-index="{{index}}" bindtap='setServiceScore' src="{{item?'../../imgs/start1@2x.png':'../../imgs/starhalf@2x.png'}}" alt="" wx:for="{{service}}"/>
+      <image data-index="{{index}}" bindtap='setServiceScore' src="{{item?'https://app.mmtcapp.com/mmtc/imgs/start1@2x.png':'https://app.mmtcapp.com/mmtc/imgs/starhalf@2x.png'}}" alt="" wx:for="{{service}}"/>
       <span class="pl01">{{f.score(service)}} 分</span>
     </view>
   </view>
   <view class="flex">
     <view>效果</view>
     <view class="flex-con starts">
-      <image data-index="{{index}}" bindtap='setEffectScore' src="{{item?'../../imgs/start1@2x.png':'../../imgs/starhalf@2x.png'}}" alt="" wx:for="{{effect}}"/>
+      <image data-index="{{index}}" bindtap='setEffectScore' src="{{item?'https://app.mmtcapp.com/mmtc/imgs/start1@2x.png':'https://app.mmtcapp.com/mmtc/imgs/starhalf@2x.png'}}" alt="" wx:for="{{effect}}"/>
       <span class="pl01">{{f.score(effect)}} 分</span>
     </view>
   </view>

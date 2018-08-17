@@ -1,0 +1,60 @@
+<view>
+    <view class="h20"></view>
+    <view class="t-shopName">
+        <view class="t-name">
+            <image src="../https://app.mmtcapp.com/mmtc/imgs/shop2.png"></image>
+            <text>赛忙丽莎美容店</text>
+        </view>
+        <image src="../https://app.mmtcapp.com/mmtc/imgs/gt2@2x.png"></image>
+    </view>
+    <view class="t-cardContent">
+        <image class="t-stroke" src="../https://app.mmtcapp.com/mmtc/imgs/Stroke.png"></image>
+        <view class="t-cardIntro">
+            <view class="t-cardName">
+                <text>赛忙丽莎体验卡</text>
+                <view>套卡</view>
+            </view>
+            <view class="t-cartPrice">
+                <text>￥106.6</text>
+                <text>￥988</text>
+            </view>
+            <view class="t-cardTime">下单时间：2018-5-20</view>
+        </view>
+    </view>
+    <view class="t-cardState">
+        <view class="t-cardOrder">
+            <text>订单详情</text>
+            <view>投诉</view>
+        </view>
+        <view class="t-cardMoney">
+            <text>项目总价</text>
+            <text>¥120</text>
+        </view>
+        <view class="t-cardMoney">
+            <text>套卡优惠</text>
+            <text>-¥120</text>
+        </view>
+        <view class="t-cardMoney">
+            <text>实际支付</text>
+            <text>¥120</text>
+        </view>
+    </view>
+    <view class="t-order">
+        <view>订单号：2017124565461231</view>
+        <view>购卡时间： 2017-01-02 14:00:08</view>
+        <view>购卡手机： 181****2453</view>
+        <view>有效期至：无限期有效</view>
+        <view>购卡状态：生效中</view>
+        <view>消费次数：0</view>
+        <view>复制</view>
+    </view>
+
+
+    <view class="t-button">
+        <!-- 可退款 -->
+        <view class="t-refund">退款</view>
+        <!-- 不可退款 -->
+        <!-- <view class="t-refund2">退款</view> -->
+        <view>前往卡包</view>
+    </view>
+</view>

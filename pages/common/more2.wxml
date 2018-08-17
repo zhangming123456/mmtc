@@ -4,7 +4,7 @@
       <view class='ib'>
         <view class='flex'>
           <view>
-            <image src='../../imgs/nomore.png' class='nomore-image'></image>
+            <image src='https://app.mmtcapp.com/mmtc/imgs/nomore.png' class='nomore-image'></image>
           </view>
           <view class='nomore-text'>
             没有内容~

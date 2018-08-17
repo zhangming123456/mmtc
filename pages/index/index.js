@@ -1,6 +1,6 @@
 // pages/index/index.js
 const app = getApp(),
-    ApiService = require('../../utils/azm/ApiService'),
+    ApiService = require('../../utils/ApiService'),
     config = require('../../utils/config'),
     utilPage = require('../../utils/utilPage'),
     c = require("../../utils/common");
@@ -272,7 +272,7 @@ const methods = {
     },
     doSearch () {
         wx.navigateTo({
-            url: '/pages/loc/search2',
+            url: '/page/home/pages/search/index',
         });
     },
     gotoTop () {

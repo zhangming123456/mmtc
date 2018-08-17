@@ -13,7 +13,7 @@
     <view class='border-b title-tip'>
         <view class='flex'>
             <view>
-                <image src='../../imgs/kt_success.png' class='kt-suc'></image>
+                <image src='https://app.mmtcapp.com/mmtc/imgs/kt_success.png' class='kt-suc'></image>
             </view>
             <view class='flex-con text-left'>
                 <view class='title'>{{left_num<=0? '拼团成功！':(num_used<=1? '开团成功！': '参团成功！')}}</view>
@@ -47,7 +47,7 @@
             <movable-view direction="horizontal" class='box1-members' out-of-bounds="true">
                 <view class='box1-member' wx:for="{{members}}" wx:key="id">
                     <image class='{{item.avatar?"":"no-border"}}'
-                           src='{{c.absUrl(item.avatar,200)||"../../imgs/question.png"}}'></image>
+                           src='{{c.absUrl(item.avatar,200)||"https://app.mmtcapp.com/mmtc/imgs/question.png"}}'></image>
                     <view class='box1-member-tz' wx:if="{{item.id}}">
                         {{item.id==member_id?'团长':'团员'}}
                     </view>

@@ -1,16 +1,16 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.94",
+	"libVersion": "1.7.3",
 	"appid": "wx0df0e298b3b13290",
-	"projectname": "mmtc2.0_dev",
+	"projectname": "mmtc-dev-master",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -29,7 +29,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 18,
 			"list": [
 				{
 					"id": 0,
@@ -61,6 +61,90 @@
 					"name": "分享领券",
 					"pathName": "pages/activity/wallet",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "登入",
+					"pathName": "pages/login/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "121312",
+					"pathName": "pages/mine/aboutus",
+					"query": ""
+				},
+				{
+					"id": 8,
+					"name": "店铺信息",
+					"pathName": "pages/home/detail",
+					"query": "shop_id=767"
+				},
+				{
+					"id": 8,
+					"name": "店铺买单",
+					"pathName": "pages/onlineBuy/index",
+					"query": "shop_id=2399"
+				},
+				{
+					"id": -1,
+					"name": "ddddddd",
+					"pathName": "pages/activity/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "登入",
+					"pathName": "pages/login/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的",
+					"pathName": "pages/mine/index",
+					"query": ""
+				},
+				{
+					"id": 12,
+					"name": "我的卡包",
+					"pathName": "page/cardBag/pages/myCard/index",
+					"query": ""
+				},
+				{
+					"id": 13,
+					"name": "我的首页",
+					"pathName": "page/tabBar/home/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "附近",
+					"pathName": "page/tabBar/near/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "地址定位",
+					"pathName": "page/public/pages/location/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "搜索结果 - new",
+					"pathName": "page/home/pages/searchResult/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "店铺首页",
+					"pathName": "pages/home/index",
+					"query": "shop_id=69"
+				},
+				{
+					"id": -1,
+					"name": "套卡(购买）",
+					"pathName": "page/cardBag/pages/setDetails/index",
+					"query": "card_id=2"
 				}
 			]
 		}

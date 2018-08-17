@@ -1,12 +1,11 @@
 const app = getApp(),
     util = app.util,
+    regeneratorRuntime = app.util2.regeneratorRuntime,
     config = require('../../utils/config'),
     utilPage = require('../../utils/utilPage'),
     authorize = require('../../utils/azm/authorize'),
-    ApiService = require('../../utils/azm/ApiService'),
+    ApiService = require('../../utils/ApiService'),
     c = require("../../utils/common");
-import regeneratorRuntime from '../../lib/regenerator-runtime/runtime';
-
 /**
  * @author zhangxinxu(.com)
  * @licence MIT
@@ -146,17 +145,22 @@ const methods = {
                         wx.downloadFile({
                             url: imagePath,
                             success: function (res) {
-                                if (res.statusCode === 200) {
+                                console.log(res, '_bgImage', 1);
+                                if (res.header && /text\/html/.test(res.header[`Content-Type`])) {
+                                    util.go('/page/userLogin/pages/getUserInfo/index');
+                                } else if (res.statusCode === 200) {
                                     let path = res.tempFilePath;
                                     wx.getImageInfo({
                                         src: path,
                                         success: function (res) {
+                                            console.log(res, '_bgImage');
                                             setData.bgImage = res;
                                             imagesName.push('_bgImage');
                                             resolve(true);
                                         },
                                         fail (err) {
-                                            util.go('/pages/login/getUserInfo/index');
+                                            console.log(err, '_bgImage');
+                                            util.go('/page/userLogin/pages/getUserInfo/index');
                                             reject(false);
                                         }
                                     });
@@ -165,7 +169,8 @@ const methods = {
                                 }
                             },
                             fail: () => {
-                                reject()
+                                util.showToast('网络连接失败');
+                                reject();
                             }
                         });
                     }).then(result => result).catch(e => e),
@@ -178,26 +183,37 @@ const methods = {
                             url: qrCodePath,
                             header: {cookie},
                             success: function (res) {
-                                if (res.statusCode === 200) {
+                                console.log(res, '_qrCodeImage', 1);
+                                if (res.header && /text\/html/.test(res.header[`Content-Type`])) {
+                                    util.go('/page/userLogin/pages/getUserInfo/index');
+                                } else if (res.statusCode === 200) {
                                     let path = res.tempFilePath;
-                                    wx.getImageInfo({
-                                        src: path,
-                                        success: function (res) {
-                                            setData.qrCodeImage = res;
-                                            imagesName.push('_qrCodeImage');
-                                            resolve(true);
-                                        },
-                                        fail (err) {
-                                            util.go('/pages/login/getUserInfo/index');
-                                            reject(false);
-                                        }
-                                    });
+                                    if (/(htm|html)$/.test(path)) {
+                                        util.go('/page/userLogin/pages/getUserInfo/index');
+                                        reject(false)
+                                    } else {
+                                        wx.getImageInfo({
+                                            src: path,
+                                            success: function (res) {
+                                                console.log(res, '_qrCodeImage');
+                                                setData.qrCodeImage = res;
+                                                imagesName.push('_qrCodeImage');
+                                                resolve(true);
+                                            },
+                                            fail (err) {
+                                                console.log(err, '_qrCodeImage');
+                                                util.go('/page/userLogin/pages/getUserInfo/index');
+                                                reject(false);
+                                            }
+                                        });
+                                    }
                                 } else {
                                     reject(false)
                                 }
                             },
                             fail: () => {
-                                reject()
+                                util.showToast('网络连接失败');
+                                reject();
                             }
                         });
                     }).then(result => result).catch(e => e);
@@ -264,13 +280,12 @@ const methods = {
         // 一个坑点：只能调用一次，否则后面的会覆盖前面的
         console.log(4);
         await new Promise(resolve => {
-            ctx.draw(true, function () {
-                console.log(5);
-                that.azmShowToast('绘制结束', function () {
-                    that.getPictures();
-                });
-                resolve();
-            })
+            ctx.draw(true);
+            console.log(5);
+            that.azmShowToast('绘制结束', function () {
+                that.getPictures();
+            });
+            resolve();
         })
     },
     /**
@@ -314,10 +329,9 @@ const methods = {
                 console.log('bgImage', offsetX, offsetY, imageWidth, imageHeight);
                 ctx.drawImage(imagePath, offsetX, offsetY, imageWidth, imageHeight);
                 console.log(0);
-                ctx.draw(true, function () {
-                    console.log(1);
-                    resolve(ctx);
-                });
+                ctx.draw(true);
+                console.log(1);
+                resolve(ctx);
             })
         })
     },
@@ -362,10 +376,9 @@ const methods = {
                 ctx.drawImage(imagePath, offsetX, offsetY, imageWidth, imageHeight);
                 ctx.restore();
                 console.log(2);
-                ctx.draw(true, function () {
-                    console.log(3);
-                    resolve(ctx);
-                });
+                ctx.draw(true);
+                console.log(3);
+                resolve(ctx);
             })
         })
     },

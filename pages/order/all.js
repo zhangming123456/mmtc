@@ -4,7 +4,7 @@ const app = getApp(),
     utilPage = require("../../utils/utilPage"),
     qrcode = require("../../utils/qrcode.js"),
     config = require('../../utils/config'),
-    ApiService = require('../../utils/azm/ApiService');
+    ApiService = require('../../utils/ApiService');
 const appPage = {
     /**
      * 页面的初始数据
@@ -18,7 +18,7 @@ const appPage = {
         page: [1, 1, 1, 1],
         items: [],
         loaded: 0,
-        reData: [],
+        reData: [], 
         qrcode: {
             img: '',
             hidden: true

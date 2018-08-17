@@ -1,34 +1,102 @@
 // pages/home/index.js
-const c = require("../../utils/common.js");
+const app = getApp(),
+    util = app.util,
+    regeneratorRuntime = app.util2.regeneratorRuntime,
+    config = require('../../utils/config'),
+    utilPage = require('../../utils/utilPage'),
+    ApiService = require('../../utils/ApiService'),
+    c = require("../../utils/common.js");
 var page = 1;
-Page({
-    /**
-     * 页面的初始数据
-     */
+const appPage = {
     data: {
+        text: "page cardBag MyCard",
+        cardList: [],
         shop: {},
         discount: '',
         discountAreaWidth: 0,
         items: [],
-        coupons: []
+        coupons: [],
+        ShopcardList: []
     },
-    showLocation: function (e) {
-        if (this.data.shop) {
-            let data = {
-                latitude: parseFloat(this.data.shop.lat_new),
-                longitude: parseFloat(this.data.shop.lon_new),
-                name: this.data.shop.shop_name,
-                address: this.data.shop.address,
-                scale: 28
-            };
-            console.log(data);
-            wx.openLocation(data);
-        }
+    onLoad: function (options, callback) {
+        let that = this;
+        that.loadCb();
     },
     /**
-     * 生命周期函数--监听页面加载
+     * 进入页面
      */
-    onLoad: function (options, callback) {
+    onShow: function (options) {
+        let that = this;
+    },
+    /**
+     * 生命周期函数--监听页面隐藏
+     */
+    onHide: function () {
+
+    },
+    /**
+     * 生命周期函数--监听页面卸载
+     */
+    onUnload: function () {
+
+    },
+    /**
+     * 页面渲染完成
+     */
+    onReady: function () {},
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh: function () {
+        let that = this;
+        this.noMore = false;
+        this.onLoad(null, function () {
+            wx.stopPullDownRefresh();
+        });
+    },
+    /**
+     * 上拉触底
+     */
+    onReachBottom() {
+        // load more
+        page++;
+        var that = this;
+        if (that.isLoading || that.noMore) {
+            return;
+        }
+        that.isLoading = true;
+        that.setData({
+            loadingMore: true
+        });
+        ApiService.getHomeIndex({
+            p: page,
+            shop_id: this.shop_id
+        }).then(res => {
+            that.isLoading = false;
+            if (res.status == 1) {
+                var setData = {};
+                if (res.info.items.length < c.getPageSize()) {
+                    setData.noMore = true;
+                    that.noMore = true;
+                }
+                that.data.items = that.data.items.concat(res.info.items);
+                setData.items = that.data.items;
+                that.setData(setData);
+            }
+        });
+    },
+    /**
+     * 页面滚动
+     * @param scrollTop //页面在垂直方向已滚动的距离（单位px）
+     */
+    onPageScroll(options) {
+
+    }
+}
+const methods = {
+    async loadCb() {
+        let that = this,
+            options = that.data.options;
         if (options) {
             if (options.scene) {
                 var scene = decodeURIComponent(options.scene)
@@ -42,14 +110,17 @@ Page({
             this.shop_id = options.shop_id;
         }
         c.showLoading();
-        var that = this;
         page = 1;
         wx.getLocation({
             type: 'gcj02',
             success: function (res) {
                 var lat = res.latitude
                 var lon = res.longitude
-                c.get("/api/wx2/index", {shop_id: that.shop_id, lat: lat, lon: lon}, function (res) {
+                c.get("/api/wx2/index", {
+                    shop_id: that.shop_id,
+                    lat: lat,
+                    lon: lon
+                }, function (res) {
                     c.hideLoading();
                     if (res.status == 1) {
                         var info = res.info;
@@ -60,29 +131,25 @@ Page({
                         });
                         var reduce_discount, str;
                         if (info.shop.discount_type == 1) {
-                            str = [
-                                {
-                                    name: 'div',
+                            str = [{
+                                name: 'div',
+                                attrs: {
+                                    class: 'ib'
+                                },
+                                children: [{
+                                    name: 'span',
                                     attrs: {
-                                        class: 'ib'
+                                        class: 'discount0'
                                     },
                                     children: [{
-                                        name: 'span',
-                                        attrs: {
-                                            class: 'discount0'
-                                        },
-                                        children: [
-                                            {
-                                                type: 'text',
-                                                text: info.shop.discount
-                                            }
-                                        ]
-                                    }, {
                                         type: 'text',
-                                        text: '折'
+                                        text: info.shop.discount
                                     }]
-                                }
-                            ];
+                                }, {
+                                    type: 'text',
+                                    text: '折'
+                                }]
+                            }];
                         } else {
                             var v = info.shop.discount.split(':');
                             reduce_discount = {
@@ -101,9 +168,8 @@ Page({
                             that.noMore = true;
                         }
                         that.data.coupons = info.coupons;
-                        that.data.discountAreaWidth = 350 * (that.data.coupons.length
-                            + 1) + 60;
-                        callback && callback();
+                        that.data.discountAreaWidth = 350 * (that.data.coupons.length +
+                            1) + 60;
                         that.setData({
                             discount: str,
                             noMore: noMore,
@@ -116,79 +182,35 @@ Page({
                 });
             }
         });
+        that.getOrderCardShopcard();
     },
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
+    loadData() {
 
     },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-        this.noMore = false;
-        this.onLoad(null, function () {
-            wx.stopPullDownRefresh();
-        });
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-        // load more
-        page++;
-        var that = this;
-        if (that.isLoading || that.noMore) {
-            return;
+    showLocation: function (e) {
+        if (this.data.shop) {
+            let data = {
+                latitude: parseFloat(this.data.shop.lat_new),
+                longitude: parseFloat(this.data.shop.lon_new),
+                name: this.data.shop.shop_name,
+                address: this.data.shop.address,
+                scale: 28
+            };
+            wx.openLocation(data);
         }
-        that.isLoading = true;
-        that.setData({
-            loadingMore: true
-        });
-        c.get("/api/wx2/index", {p: page, shop_id: this.shop_id}, function (res) {
-            that.isLoading = false;
-            if (res.status == 1) {
-                var setData = {};
-                if (res.info.items.length < c.getPageSize()) {
-                    setData.noMore = true;
-                    that.noMore = true;
-                }
-                that.data.items = that.data.items.concat(res.info.items);
-                setData.items = that.data.items;
-                that.setData(setData);
-            }
-        });
     },
 
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
+    gotoCardDetails(e) {
+        console.log(e, 12222222222222222);
+        let item = e.currentTarget.dataset.item
+        if (item && item.card_id) {
+            this.$route.push({
+                path: '/page/cardBag/pages/setDetails/index',
+                query: {
+                    card_id: item.card_id
+                }
+            })
+        }
     },
     showCouponDetail: function (e) {
         var id = e.currentTarget.dataset.id;
@@ -207,5 +229,22 @@ Page({
         wx.navigateTo({
             url: '/pages/onlineBuy/index?shop_id=' + this.shop_id,
         })
+    },
+
+
+    getOrderCardShopcard() {
+        let that = this,
+            shop_id = this.shop_id;
+        ApiService.getOrderCardShopcard({
+            shop_id
+        }).finally(res => {
+            if (res.status === 1) {
+                that.setData({
+                    ShopcardList: res.info
+                })
+            }
+        })
     }
-});
+}
+
+Page(new utilPage(appPage, methods));

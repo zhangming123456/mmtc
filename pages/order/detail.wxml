@@ -1,22 +1,22 @@
-<wxs src="../../utils/common.wxs" module="c"/>
+<wxs src="../../utils/common.wxs" module="c" />
 
 <view class='order-item border-t' wx:for="{{data.bills}}" wx:key="id">
     <view class='flex border-b'>
-        <image src='../../imgs/shop2.png' class='bill-icon'></image>
+        <image src='https://app.mmtcapp.com/mmtc/imgs/shop2.png' class='bill-icon'></image>
         <view class='flex-con text999 fz28'>
             {{item.shop_name}}
         </view>
         <view class="status">
-            <view wx:if="{{item.is_cancelled==1}}">交易关闭</view>
+            <!-- <view wx:if="{{item.is_cancelled==1}}">交易关闭</view>
             <view wx:elif="{{item.payed==0}}">待付款</view>
             <view wx:elif="{{item.used_count==item.items.length}}">已完成</view>
             <view wx:elif="{{item.used_count>0}}">部分完成</view>
-            <view wx:else>待使用</view>
+            <view wx:else>待使用</view> -->
+              <view>{{item.items[0].item_status}}</view>
         </view>
     </view>
-    <view class='flex border-b' wx:for="{{item.items}}" wx:key="id" wx:for-item="i" data-id="{{i.item_id}}"
-          bindtap='showItemDetail'>
-        <image class='avatar'  mode="aspectFill" src='{{c.absUrl(i.cover,300)}}'></image>
+    <view class='flex border-b' wx:for="{{item.items}}" wx:key="id" wx:for-item="i" data-id="{{i.item_id}}" bindtap='showItemDetail'>
+        <image class='avatar' mode="aspectFill" src='{{c.absUrl(i.cover,300)}}'></image>
         <view class='item-info flex-con'>
             <view class='title'>{{i.title}}</view>
             <view class='price-area'>
@@ -76,11 +76,13 @@
         <view class='flex'>
             <view class='text999 field-label'>订单状态：</view>
             <view>
-                <view wx:if="{{data.is_cancelled==1}}">交易关闭</view>
+                <!-- <view wx:if="{{data.is_cancelled==1}}">交易关闭</view>
                 <view wx:elif="{{data.payed==0}}">待付款</view>
                 <view wx:elif="{{data.used_count==data.count_items}}">已完成</view>
                 <view wx:elif="{{data.used_count>0}}">部分完成</view>
-                <view wx:else>待使用</view>
+                <view wx:else>待使用</view> --> 
+                <view>{{data.bills[0].items[0].item_status}}</view>
+                
             </view>
         </view>
         <view class='flex' wx:if="{{data.is_cancelled==1}}">
@@ -97,7 +99,7 @@
         <view class='btn0 btn flex-con' bindtap='payBill'>去付款</view>
     </view>
 </view>
-<view class='qrcode-area' wx:if="{{!qrcode.hidden}}">
+<view class='qrcode-area' wx:if="{{!qrcode.hidden}}"> 
 
     <view class='qrcode-dlg'>
         <view class='fz28 text666 order-no'>订单号：{{data.order_no}}</view>
@@ -117,6 +119,6 @@
         </view>
     </view>
     <view class='qrcode-close'>
-        <image src='../../imgs/btnclose.png' bindtap='closeQrcode'></image>
+        <image src='https://app.mmtcapp.com/mmtc/imgs/btnclose.png' bindtap='closeQrcode'></image>
     </view>
 </view>

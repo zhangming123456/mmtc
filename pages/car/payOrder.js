@@ -3,9 +3,8 @@ const app = getApp(),
     util = app.util,
     config = require('../../utils/config'),
     utilPage = require('../../utils/utilPage'),
-    ApiService = require('../../utils/azm/ApiService'),
-    c = require("../../utils/common.js"),
-    map = require("../../utils/map.js");
+    ApiService = require('../../utils/ApiService'),
+    c = require("../../utils/common.js");
 
 const appPage = {
     data: {

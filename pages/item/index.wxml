@@ -36,7 +36,7 @@
              bindscrolltolower="scrolltolower">
     <view class='hr'></view>
     <view class='empty-area' wx:if="{{isEmpty}}">
-        <image src='../../imgs/empty@2x.png' class=''></image>
+        <image src='https://app.mmtcapp.com/mmtc/imgs/empty@2x.png' class=''></image>
         <view class='text-center'>
             ops，这里空空如也，逛逛其他的吧~
         </view>

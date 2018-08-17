@@ -47,7 +47,7 @@
     <movable-area class="box1-members-wrap">
       <movable-view direction="horizontal" class='box1-members' out-of-bounds="true">
         <view class='box1-member' wx:for="{{members}}" wx:key="id">
-          <image class='{{item.avatar?"":"no-border"}}' src='{{c.absUrl(item.avatar,200)||"../../imgs/question.png"}}'></image>
+          <image class='{{item.avatar?"":"no-border"}}' src='{{c.absUrl(item.avatar,200)||"https://app.mmtcapp.com/mmtc/imgs/question.png"}}'></image>
           <view class='box1-member-tz' wx:if="{{item.id}}">
             {{item.id==member_id?'团长':'团员'}}
           </view>

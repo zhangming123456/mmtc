@@ -88,7 +88,7 @@
 </block>
 <block wx:elif="{{loaded}}">
   <view class='empty-area'>
-    <image src='../../imgs/emptycar.png'></image>
+    <image src='https://app.mmtcapp.com/mmtc/imgs/emptycar.png'></image>
     <view>购物车是空的哦，
       <navigator url='/pages/item/index' class="red">快去逛逛吧></navigator>
     </view>

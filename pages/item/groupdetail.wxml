@@ -4,7 +4,7 @@
 </view>
 <view>
   <view class='title'>1. 拼团玩法</view>
-  <image src='../../imgs/step1.png'></image>
+  <image src='https://app.mmtcapp.com/mmtc/imgs/step1.png'></image>
 </view>
 <view>
   <view class='title'>2. 拼团有效期 </view>

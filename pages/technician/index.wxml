@@ -25,7 +25,7 @@
       <view class='fz24 text666 pt20'>擅长项目：{{item.categories}}</view>
       <view class="pt19">
         <block wx:for="{{f.num2arr(item.score)}}" wx:for-item="i">
-          <image src="{{'../../imgs/start'+(i?1:2)+'@2x.png'}}" class="star"></image>
+          <image src="{{'https://app.mmtcapp.com/mmtc/imgs/start'+(i?1:2)+'@2x.png'}}" class="star"></image>
         </block>
         <view class='fz28 ib text666 pl10 score-text'>{{item.score}}分</view>
       </view>

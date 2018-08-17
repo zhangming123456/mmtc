@@ -1,7 +1,7 @@
 const app = getApp(),
     util = app.util,
     utilPage = require('../../utils/utilPage'),
-    ApiService = require('../../utils/azm/ApiService'),
+    ApiService = require('../../utils/ApiService'),
     c = require("../../utils/common.js");
 const appPage = {
     /**

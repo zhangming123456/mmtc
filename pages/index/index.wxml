@@ -3,11 +3,13 @@
         <view class="flexBox">
             <view class='flexBox-item fb-all' style="flex-grow: 1">
                 <!--地理位置-->
-                <azm-location bindazmtap="azmLocationTap" position="pr" bindcallback="getLocationCallback"></azm-location>
+                <azm-location bindazmtap="azmLocationTap" position="pr"
+                              bindcallback="getLocationCallback"></azm-location>
             </view>
             <view class="flexBox-item fb-all" style="flex-grow: 2;box-sizing: border-box;padding-left: 20rpx;">
                 <view class='azm-search' bindtap='doSearch'>
-                    <image src='../../imgs/search@2x.png' style='width: 24rpx;	height: 24rpx'></image>
+                    <image src='https://app.mmtcapp.com/mmtc/imgs/search@2x.png'
+                           style='width: 24rpx;	height: 24rpx'></image>
                     <text>找店铺 找服务 找案例</text>
                 </view>
             </view>
@@ -28,14 +30,14 @@
         <view class='flex'>
             <navigator class='flex-con' hover-class='none' url='/pages/index/items?cid=4'>
                 <image bindload='onLoadIcon' style="{{iconSize1}}" data-index="1"
-                       src='../../imgs/little/1@2x.png' class='area-icon'></image>
+                       src='https://app.mmtcapp.com/mmtc/imgs/little/1@2x.png' class='area-icon'></image>
                 <view class='text-center'>
                     美容
                 </view>
             </navigator>
             <navigator class='flex-con' hover-class='none' url='/pages/index/items?cid=13'>
                 <image bindload='onLoadIcon' style="{{iconSize2}}" data-index="2"
-                       src='../../imgs/little/2@2x.png' class='area-icon'></image>
+                       src='https://app.mmtcapp.com/mmtc/imgs/little/2@2x.png' class='area-icon'></image>
                 <view class='text-center'>
                     美甲
                 </view>
@@ -43,7 +45,7 @@
             <navigator class='flex-con' hover-class='none' url='/pages/index/items?cid=14'>
                 <image
                         bindload='onLoadIcon' style="{{iconSize4}}" data-index="4"
-                        src='../../imgs/little/3@2x.png'
+                        src='https://app.mmtcapp.com/mmtc/imgs/little/3@2x.png'
                         class='area-icon'></image>
                 <view class='text-center'>
                     美睫
@@ -51,7 +53,7 @@
             </navigator>
             <navigator class='flex-con' hover-class='none' url='/pages/index/items?cid=16'>
                 <image bindload='onLoadIcon' style="{{iconSize5}}" data-index="5"
-                       src='../../imgs/little/4@2x.png' class='area-icon'></image>
+                       src='https://app.mmtcapp.com/mmtc/imgs/little/4@2x.png' class='area-icon'></image>
                 <view class='text-center'>
                     化妆
                 </view>
@@ -60,28 +62,28 @@
         <view class='flex'>
             <navigator class='flex-con' hover-class='none' url='/pages/index/items?cid=17'>
                 <image bindload='onLoadIcon' style="{{iconSize3}}" data-index="3"
-                       src='../../imgs/little/5@2x.png' class='area-icon'></image>
+                       src='https://app.mmtcapp.com/mmtc/imgs/little/5@2x.png' class='area-icon'></image>
                 <view class='text-center'>
                     美发
                 </view>
             </navigator>
             <navigator class='flex-con' hover-class='none' url='/pages/index/items?cid=15'>
                 <image bindload='onLoadIcon' style="{{iconSize6}}" data-index="6"
-                       src='../../imgs/little/6@2x.png' class='area-icon'></image>
+                       src='https://app.mmtcapp.com/mmtc/imgs/little/6@2x.png' class='area-icon'></image>
                 <view class='text-center'>
                     按摩护理
                 </view>
             </navigator>
             <navigator class='flex-con' hover-class='none' url='/pages/index/items?cid=18'>
                 <image bindload='onLoadIcon' style="{{iconSize8}}" data-index="7"
-                       src='../../imgs/little/7@2x.png' class='area-icon'></image>
+                       src='https://app.mmtcapp.com/mmtc/imgs/little/7@2x.png' class='area-icon'></image>
                 <view class='text-center'>
                     纹绣
                 </view>
             </navigator>
             <navigator class='flex-con' hover-class='none' url='/pages/index/items'>
                 <image bindload='onLoadIcon' style="{{iconSize7}}" data-index="8"
-                       src='../../imgs/little/8@2x.png' class='area-icon'></image>
+                       src='https://app.mmtcapp.com/mmtc/imgs/little/8@2x.png' class='area-icon'></image>
                 <view class='text-center'>
                     全部
                 </view>
@@ -94,19 +96,21 @@
         <navigator bindtap='showBannerLink' data-link="{{specialBanner[0].mini_link}}"
                    class="weui-flex__item left azm-border_right_1px_f4f4f4">
             <azm-image src="{{specialBanner[0].cover}}" lazy-load="true"
-                       define-image="imgs/promotion/promotion-1.png"
+                       define-image="http://app.mmtcapp.com/mmtc/imgs/promotion/promotion-1.png"
                        mode="aspectFill"></azm-image>
         </navigator>
         <view class="weui-flex__item right azm-border_left_1px_f4f4f4">
             <navigator bindtap='showBannerLink' data-link="{{specialBanner[1].mini_link}}"
                        class="azm-border_bottom_1px_f4f4f4">
                 <azm-image src="{{specialBanner[1].cover}}" lazy-load="true"
-                           define-image="imgs/promotion/promotion-2.png" mode="aspectFill"></azm-image>
+                           define-image="http://app.mmtcapp.com/mmtc/imgs/promotion/promotion-2.png"
+                           mode="aspectFill"></azm-image>
             </navigator>
             <navigator bindtap='showBannerLink' data-link="{{specialBanner[2].mini_link}}"
                        class="azm-border_top_1px_f4f4f4">
                 <azm-image src="{{specialBanner[2].cover}}" lazy-load="true"
-                           define-image="imgs/promotion/promotion-3.png" mode="aspectFill"></azm-image>
+                           define-image="http://app.mmtcapp.com/mmtc/imgs/promotion/promotion-3.png"
+                           mode="aspectFill"></azm-image>
             </navigator>
         </view>
     </view>
@@ -187,6 +191,7 @@
                                 </view>
                             </view>
                         </navigator>
+                        <!-- <view class="t-boredr"></view> -->
                     </block>
                 </block>
             </block>

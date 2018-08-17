@@ -18,11 +18,11 @@
     <view class="p30 border-b">
       <view class="flex">
         <view>
-          <image src="../../imgs/weixin@2x.png" class='weixin' alt=""></image>
+          <image src="https://app.mmtcapp.com/mmtc/imgs/weixin@2x.png" class='weixin' alt=""></image>
         </view>
         <view class="fz28 text666 pl20">微信支付</view>
         <view class="flex-con text-right">
-            <image src='../../imgs/ok.png' class='tag-img'></image>
+            <image src='https://app.mmtcapp.com/mmtc/imgs/ok.png' class='tag-img'></image>
         </view>
       </view>
     </view>

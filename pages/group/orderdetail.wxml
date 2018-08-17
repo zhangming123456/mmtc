@@ -16,7 +16,7 @@
 <view class='toptip'>
     <view class='flex'>
         <view>
-            <image src='../../imgs/clock.png' class='clock-img'></image>
+            <image src='https://app.mmtcapp.com/mmtc/imgs/clock.png' class='clock-img'></image>
         </view>
         <view class='flex-con'>
             <block wx:if="{{item.num<=item.num_used}}">
@@ -59,7 +59,7 @@
     <view class='shop-name border-b'>
         <view class='flex'>
             <view>
-                <image src='../../imgs/shop2.png' class='shop-avatar'></image>
+                <image src='https://app.mmtcapp.com/mmtc/imgs/shop2.png' class='shop-avatar'></image>
             </view>
             <view class='flex-con one-line'>
                 {{item.shop_name}}
@@ -104,7 +104,7 @@
                     </block>
                     <block wx:else>
                         <view class='item-text-red'>过期未成团</view>
-                        <image src='../../imgs/outdated.png' class='outtime-img'></image>
+                        <image src='https://app.mmtcapp.com/mmtc/imgs/outdated.png' class='outtime-img'></image>
                     </block>
                 </view>
             </view>
@@ -174,7 +174,7 @@
     <view class='btn btn-outline' bindtap='toshare' wx:if="{{item.num>item.num_used&&item.left_seconds>0}}">邀请朋友</view>
     <view class='btn btn-outline' bindtap='tostartagain' wx:elif="{{item.num<=item.num_used}}">再来一单</view>
     <view class='btn btn-outline' bindtap='tostartagain' wx:else>重新开团</view>
-    <view class='btn btn-outline' bindtap='touse' wx:if="{{item.is_used!=1 && item.num<=item.num_used}}">立即使用</view>
+    <view class='btn btn-outline' bindtap='touse' wx:if="{{item.is_used!=1 && item.num<=item.num_used}}">查看券码</view>
 </view>
 
 
@@ -197,6 +197,6 @@
         </view>
     </view>
     <view class='qrcode-close'>
-        <image src='../../imgs/btnclose.png' bindtap='closeQrcode'></image>
+        <image src='https://app.mmtcapp.com/mmtc/imgs/btnclose.png' bindtap='closeQrcode'></image>
     </view>
 </view>

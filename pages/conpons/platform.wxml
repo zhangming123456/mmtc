@@ -19,19 +19,19 @@ module.exports = {
 };
 </wxs>
 <view class="item" wx:for="{{items}}" wx:key="id">
-  <image src='../../imgs/{{item.errmsg?"picked":"notpicked"}}.png' class='bg-img'></image>
+  <image src='https://app.mmtcapp.com/mmtc/imgs/{{item.errmsg?"picked":"notpicked"}}.png' class='bg-img'></image>
   <view class='flex item-info-wrap'>
     <view class='flex-con'>
       <view class='item-info'>
         <view class='shop-name' bindtap='touse' data-item='{{item}}'>
-          <image wx:if="{{item.shop_id>0}}" src='../../imgs/shop1.png' class='avatar'></image>
-          <image wx:else src='../../imgs/mei.png' class='avatar-mei'></image>          
+          <image wx:if="{{item.shop_id>0}}" src='https://app.mmtcapp.com/mmtc/imgs/shop1.png' class='avatar'></image>
+          <image wx:else src='https://app.mmtcapp.com/mmtc/imgs/mei.png' class='avatar-mei'></image>
           {{item.shop_name}}
           <view class='distance' wx:if="{{item.distance}}">({{item.distance}})</view>        
         </view>
         <view class='flex'>
           <view class='shop-avatar' bindtap='touse' data-item='{{item}}'>
-            <image wx:if="{{item.shop_id==0}}" src='../../imgs/mei.png' class='is-mei'></image>
+            <image wx:if="{{item.shop_id==0}}" src='https://app.mmtcapp.com/mmtc/imgs/mei.png' class='is-mei'></image>
             <image wx:else src='{{c.absUrl(item.avatar,150)}}'></image>
           </view>
           <view class='flex-con'>
@@ -59,7 +59,7 @@ module.exports = {
     </view>
     <view class='right-btns'>
       <block wx:if="{{!!item.errmsg}}">
-        <image src='../../imgs/pickedflag.png' class='outdated'></image>
+        <image src='https://app.mmtcapp.com/mmtc/imgs/pickedflag.png' class='outdated'></image>
         <view class='touse' bindtap='touse' data-item='{{item}}'>
           立即使用
         </view>

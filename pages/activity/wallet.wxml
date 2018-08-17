@@ -1,5 +1,7 @@
 <image src="{{imageUrl + bg2img}}" class="bg2"></image>
-<button size="mini" plain class="azm-btn azm-activity_rules" hover-class="none">活动规则</button>
+<button size="mini" plain class="azm-btn azm-activity_rules" hover-class="none" catchtap="azmRoute"
+        data-path="/pages/page/index" data-token="https://app.mmtcapp.com/H5activity/new_player_rules.html">活动规则
+</button>
 <view class='top-info pr'>
     <view class='top-yuan'>
         <view class='top-yuan-money'>{{money||'???'}}</view>
@@ -18,7 +20,10 @@
     </view>
 </view>
 <view class='box1'>
-    <button class='cash-btn' bindtap="bindShowPopup">立即提现</button>
+    <button wx:if="{{canIUse && !isReceive}}" class='cash-btn' open-type="getUserInfo"
+            bindgetuserinfo="bindGetUserInfo" hover-class="none">领取红包
+    </button>
+    <button class='cash-btn' bindtap="bindShowPopup" wx:else>立即提现</button>
     <image src='/imgs/act/line.png' class='line'></image>
     <view class='box1-inner'>
         <view class='box1-item one-line' wx:for="{{records}}" wx:key="{{index}}">

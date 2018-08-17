@@ -1,6 +1,6 @@
 const app = getApp(),
     utilPage = require("../../utils/utilPage"),
-    ApiService = require("../../utils/azm/ApiService"),
+    ApiService = require("../../utils/ApiService"),
     c = require("../../utils/common.js");
 /**
  * 小程序原生数据与生命周期函数
@@ -52,7 +52,7 @@ const methods = {
 
     },
     doSearch(data){
-        app.util.go('/pages/loc/search', {data});
+        app.util.go('/pages/loc/locSearch', {data});
         this.closeSelectCity()
     },
     setAddress(item){

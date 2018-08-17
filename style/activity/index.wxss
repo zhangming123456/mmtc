@@ -17,11 +17,10 @@
 }
 .share-canvas .qrcodeImage {
   position: absolute;
-  bottom: 325rpx;
+  bottom: 310rpx;
   left: 50%;
   transform: translateX(-50%);
-  width: 264rpx;
-  height: 264rpx;
+  width: 310.2rpx;
   z-index: 101;
   border-radius: 100%;
 }
@@ -34,10 +33,6 @@
   background-color: #db3033;
   border: none;
   color: #feece1;
-}
-.hover_canvas {
-  transform: translateX(-100%);
-  z-index: 999;
 }
 .popup__content .content {
   padding: 40rpx;
@@ -65,4 +60,14 @@
 .popup__content .footer button.azm-btn {
   color: #000;
   background-color: #fff;
+}
+.canvas_box {
+  width: 10rpx;
+  height: 10rpx;
+  overflow: hidden;
+  transform: translateX(-100%);
+}
+.canvas_box .hover_canvas {
+  z-index: 999;
+  transform: translateX(-100%);
 }

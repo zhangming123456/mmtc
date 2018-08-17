@@ -10,7 +10,7 @@
 <view class='hr24'></view>
 <view class="refund">
     <view class="topStatus">
-        <image class="shop2" src="../../../imgs/shop2.png"></image>
+        <image class="shop2" src="https://app.mmtcapp.com/mmtc/imgs/shop2.png"></image>
         <view class="shopName fz32">{{info.nickname}}></view>
         <!-- <view class="statusBar">完成退款</view> -->
     </view>

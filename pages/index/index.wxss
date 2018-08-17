@@ -419,6 +419,7 @@ page {
 .p2 {
     background-color: #fff;
     overflow: hidden;
+    position: relative;
 }
 
 .box3-item {
@@ -428,7 +429,10 @@ page {
     border-bottom: 1px #eee solid;
     box-sizing: border-box;
     padding: 0 13rpx 30rpx 30rpx;
+    margin-top: 30rpx;
 }
+
+
 
 .box3-item:nth-child(2n) {
     padding-left: 13rpx;
@@ -505,4 +509,12 @@ page {
     position: fixed;
     right: 30rpx;
     bottom: 30rpx;
+}
+
+
+.t-boredr{
+    width: 100%;
+    height: 2rpx;
+    background-color: #eeeeee;
+    
 }

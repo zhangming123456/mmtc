@@ -2,7 +2,7 @@ const app = getApp(),
     util = app.util,
     c = require("../../utils/common.js"),
     qrcode = require("../../utils/qrcode.js"),
-    ApiService = require("../../utils/azm/ApiService"),
+    ApiService = require("../../utils/ApiService"),
     utilPage = require('../../utils/utilPage');
 const appPage = {
     /**
@@ -74,10 +74,10 @@ const methods = {
     },
     tostartagain(){
         wx.navigateTo({
-            url: '/pages/car/payOrder?item_id=' + this.id + '&num=1&group=1',
+            url: '/pages/car/payOrder?item_id=' + this.data.item.id + '&num=1&group=1',
         });
     },
-    toshare(){
+    toshare(){ 
         wx.navigateTo({
             url: '/pages/group/shared?id=' + this.id,
         });

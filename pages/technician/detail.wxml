@@ -36,7 +36,7 @@
 </wxs>
 <view class="panel-no-margin bg-white">
   <view class="flex">
-    <image src="{{c.absUrl(m.avatar,200) || '/imgs/default.png'}}" alt="" id="avatar"></image>
+    <image src="{{c.absUrl(m.avatar,200) || 'https://app.mmtcapp.com/mmtc/default.png'}}" alt="" id="avatar"></image>
     <view class="flex-con">
       <view style="padding-left: 0.3rem;">
         <span class="fz32 text282828">{{m.username}}</span>
@@ -44,10 +44,10 @@
         <span class="rz" wx:if="m.auth_status == 2">认证</span>
         <view class="stars">
           <block wx:if="{{m.score > 0}}">
-            <image src="../../imgs/start1@2x.png" wx:for="{{f.num2arr(m.score)}}" alt=""></image>
+            <image src="https://app.mmtcapp.com/mmtc/imgs/start1@2x.png" wx:for="{{f.num2arr(m.score)}}" alt=""></image>
           </block>
           <block wx:if="{{5 - f.parseInt(m.score) > 0}}">
-            <image src="../../imgs/starhalf@2x.png" wx:for="{{f.num2arr(5 - f.parseInt(m.score))}}" alt=""></image>
+            <image src="https://app.mmtcapp.com/mmtc/imgs/starhalf@2x.png" wx:for="{{f.num2arr(5 - f.parseInt(m.score))}}" alt=""></image>
           </block>
           <view class='ib'>
             {{m.score}} 分
@@ -82,7 +82,7 @@
     <view class="panel-no-margin bg-white">
       <view class="flex">
         <view>
-          <image src="{{c.absUrl(item.avatar,200)||'../../imgs/default.png'}}" alt="" class="avatar"></image>
+          <image src="{{c.absUrl(item.avatar,200)||'https://app.mmtcapp.com/mmtc/imgs/default.png'}}" alt="" class="avatar"></image>
         </view>
         <view class="flex-con">
           <view class="fz32 text666">{{item.nickname}}</view>
@@ -95,10 +95,10 @@
         <view>
           <view class="stars2">
             <block wx:if="{{f.parseInt(item.score) > 0}}">
-              <image src="../../imgs/start1@2x.png" wx:for="{{f.num2arr(item.score)}}" alt="" wx:for-item="i"></image>
+              <image src="https://app.mmtcapp.com/mmtc/imgs/start1@2x.png" wx:for="{{f.num2arr(item.score)}}" alt="" wx:for-item="i"></image>
             </block>
             <block wx:if="{{5 - f.parseInt(item.score) > 0}}">
-              <image src="../../imgs/starhalf@2x.png" wx:for-item="i" wx:for="{{f.num2arr(5 - f.parseInt(item.score))}}" alt=""></image>
+              <image src="https://app.mmtcapp.com/mmtc/imgs/starhalf@2x.png" wx:for-item="i" wx:for="{{f.num2arr(5 - f.parseInt(item.score))}}" alt=""></image>
             </block>
           </view>
         </view>
@@ -114,21 +114,21 @@
         </view>
       </navigator>
       <view wx:if="{{item.item_id && item.item_id > 0}}" class="pt20">
-        <image src="../../imgs/clz@2x.png" class="img-sm"></image>
+        <image src="https://app.mmtcapp.com/mmtc/imgs/clz@2x.png" class="img-sm"></image>
         <view class="color-red fz26 ib pl10" bindtap='showItemDetail' data-id="{{item.item_id}}">{{item.item_title}}</view>
       </view>
     </view>
     <view class="flex border-t toolbar-mini text666 fz24 text-center bg-white border-b">
       <view class="flex-con border-r">
-        <image src="../../imgs/eye@2x.png" alt="" class='view-img'></image>
+        <image src="https://app.mmtcapp.com/mmtc/imgs/eye@2x.png" alt="" class='view-img'></image>
         浏览 {{item.viewed_count}}
       </view>
       <view class="flex-con border-r {{c.zanedClass(item)}}" catchtap='zan' data-id="{{item.id}}">
-        <image src="../../imgs/zan{{item.zaned?'1':''}}@2x.png" alt="" class="zan-img"></image>
+        <image src="https://app.mmtcapp.com/mmtc/imgs/zan{{item.zaned?'1':''}}@2x.png" alt="" class="zan-img"></image>
         点赞 {{item.zan_count}}
       </view>
       <view class="flex-con" tapmode="hover">
-        <image src="../../imgs/msg@2x.png" alt="" class='comment-img'></image>
+        <image src="https://app.mmtcapp.com/mmtc/imgs/msg@2x.png" alt="" class='comment-img'></image>
         评论 {{item.comment_count}}
       </view>
     </view>

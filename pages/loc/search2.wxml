@@ -1,7 +1,7 @@
 <view class="p1 border-b">
   <view class='flex'>
     <view class='search flex-con rel'>
-      <image src='../../imgs/search@2x.png' style='width: 24rpx;	height: 24rpx' class='search-img'></image>
+      <image src='https://app.mmtcapp.com/mmtc/imgs/search@2x.png' style='width: 24rpx;	height: 24rpx' class='search-img'></image>
       <input class='search-input' focus="true" confirm-type="search" bindconfirm="doSearch" placeholder='找服务 找店铺 找案例'></input>
     </view>
     <view class='cancel-text' bindtap='cancelSearch'>

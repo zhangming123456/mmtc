@@ -7,12 +7,17 @@
   display: block;
   border-radius: 10rpx;
   border: solid 1px #eee;
-  padding: 24rpx 32rpx;
+  padding:30rpx;
   height: 285rpx;
   box-sizing: border-box;
   font-size: 28rpx;
   color: #999;
   line-height: 2em;
+}
+
+.input{
+  height: 100%;
+  width: 100%;
 }
 
 .contact {

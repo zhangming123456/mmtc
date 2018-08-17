@@ -3,9 +3,9 @@
 </view>
 <view class='bg-white rel text-center' wx:if="{{status==1}}">
   <view class='conpons-wrap {{m.is_valid==0?"disabled":""}}'>
-    <image src="../../imgs/conpons.png" class="conpons"></image>
+    <image src="https://app.mmtcapp.com/mmtc/imgs/conpons.png" class="conpons"></image>
     <view class='disabled-tag' wx:if="{{m.is_valid==0}}">
-      <image src='../../imgs/d1.png' class='disabled-img'></image>
+      <image src='https://app.mmtcapp.com/mmtc/imgs/d1.png' class='disabled-img'></image>
       <view class='disabled-txt'>{{m.errmsg}}</view>
     </view>
     <view class='price'>

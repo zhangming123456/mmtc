@@ -16,11 +16,10 @@
     }
     .qrcodeImage {
         position: absolute;
-        bottom: 325*1rpx;
+        bottom: 310*1rpx;
         left: 50%;
         transform: translateX(-50%);
-        width: 660*.4rpx;
-        height: 660*.4rpx;
+        width: 660*.47rpx;
         z-index: 101;
         border-radius: 100%;
     }
@@ -34,11 +33,6 @@
         border: none;
         color: #feece1;
     }
-}
-
-.hover_canvas {
-    transform: translateX(-100%);
-    z-index: 999;
 }
 
 .popup__content {
@@ -68,5 +62,16 @@
             color: #000;
             background-color: #fff;
         }
+    }
+}
+
+.canvas_box {
+    width: 10*1rpx;
+    height: 10*1rpx;
+    overflow: hidden;
+    transform: translateX(-100%);
+    .hover_canvas {
+        z-index: 999;
+        transform: translateX(-100%);
     }
 }

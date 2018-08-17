@@ -1,13 +1,14 @@
 var baseUrl = "https://app.mmtcapp.com";
 var c = {};
-c.absUrl = function (url, imgw) {
+module.exports.absUrl = function (url, imgw) {
     if (url) {
-        if (url.indexOf('://') !== -1) {
+        var reg = getRegExp('^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$', 'i')
+        if (reg.test(url)) {
             return url;
         }
         if (imgw) {
-            if (typeof imgw == 'boolean') {
-                if (url.indexOf('?') == -1) {
+            if (typeof imgw === 'boolean') {
+                if (url.indexOf('?') === -1) {
                     url += '?'
                 } else {
                     url += '&'
@@ -18,29 +19,31 @@ c.absUrl = function (url, imgw) {
             }
         }
         return baseUrl + url;
+    } else {
+        return 'https://app.mmtcapp.com/mmtch5/images/imageErr.png';
     }
-    return '';
+
 };
-c.isEmpty = function (v) {
+module.exports.isEmpty = function (v) {
     return !v || v == 0;
 };
-c.str2attr = function (strs) {
+module.exports.str2attr = function (strs) {
     if (strs) {
         strs = strs.split(',');
         return strs;
     }
     return [];
 };
-c.zanedClass = function (item) {
+module.exports.zanedClass = function (item) {
     if (item.zaned === true) {
         return 'zaned';
     }
     return '';
 };
-c.parseInt = function (v) {
+module.exports.parseInt = function (v) {
     return parseInt(v);
 };
-c.mToKm = function (v, obj) {
+module.exports.mToKm = function (v, obj) {
     var arr = [];
     if (!v) {
         return 0
@@ -54,7 +57,7 @@ c.mToKm = function (v, obj) {
     }
 };
 
-c.orderNumber = function (obj, type) {
+module.exports.orderNumber = function (obj, type) {
     // A:未支付 - 0  B:已支付 { 全部未使用：1，部分完成（含部分退款、部分已经写好日记与未使用）：2，全部使用：3，完成退款：4}
     var status = 0,
         flag = false;
@@ -87,7 +90,7 @@ c.orderNumber = function (obj, type) {
 };
 
 // 计算项目详情服务总时间
-c.numAbs = function (item) {
+module.exports.numAbs = function (item) {
     var num = 0;
     for (var i = 0; i < item.length; i++) {
         num += parseInt(item[i].time)
@@ -96,7 +99,7 @@ c.numAbs = function (item) {
 }
 
 // 计算商品详情使用商品
-c.item_brand_cf = function (item) {
+module.exports.item_brand_cf = function (item) {
     var arr = [],
         j = 0;
     for (var i = 0; i < item.length / 2; i++) {
@@ -109,4 +112,62 @@ c.item_brand_cf = function (item) {
     }
     return arr;
 }
-module.exports = c;
+
+module.exports.num2arr = function num2arr (num, attrlen) {
+    attrlen = attrlen || 5;
+    num = parseInt(num);
+    var rt = [];
+    for (var i = 0; i < 5; i++) {
+        if (i < num) {
+            rt.push(1);
+        } else {
+            rt.push(0);
+        }
+    }
+    return rt;
+}
+module.exports.discount = function discount (v) {
+    return v.split(':')[1] || '';
+}
+module.exports.split = function split (str) {
+    var rt = str.split(',');
+    if (rt.length > 2) {
+        return rt.slice(0, 2);
+    }
+    return rt;
+}
+
+module.exports.num2score = function num2score (num, attrlen) {
+    attrlen = attrlen || 5;
+    num = parseInt(num);
+    var rt = [];
+    for (var i = 0; i < 5; i++) {
+        if (i < num) {
+            rt.push(1);
+        } else {
+            rt.push(0);
+        }
+    }
+    return rt;
+};
+
+module.exports.picCount = function picCount (strs) {
+    if (strs) {
+        strs = strs.split(',');
+        if (strs.length > 3) {
+            return 3;
+        }
+        return strs.length;
+    }
+    return 0;
+}
+
+module.exports.shopLabel = function (arr) {
+    if (arr && "Array" === arr.constructor) {
+        var len = arr.length;
+        arr = arr.slice(0, 5);
+        return arr.join('、') + (len >= 5 ? '...' : '')
+    } else {
+        return ''
+    }
+}

@@ -140,8 +140,8 @@ page {
 
 .full-red {
   border: solid 1px #ff538b;
-  color: #fff;
-  background-color: #ff538b;
+  color: #ff538b;
+  /* background-color: #ff538b; */
 }
 
 .btn-red {

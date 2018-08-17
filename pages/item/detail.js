@@ -1,18 +1,22 @@
 // pages/item/detail.js
 const app = getApp(),
+    regeneratorRuntime = app.util2.regeneratorRuntime,
     utilPage = require('../../utils/utilPage'),
-    ApiService = require('../../utils/azm/ApiService'),
+    ApiService = require('../../utils/ApiService'),
     config = require('../../utils/config'),
-    c = require("../../utils/common.js");
-var WxParse = require('../../wxParse/wxParse.js');
+    c = require("../../utils/common");
+let $wxParse = require('../../wxParse/wxParse');
 let shop_id = 0;
-var not_collected = '../../imgs/collect@2x.png';
-var collected = '../../imgs/collected.png';
+var not_collected = 'https://app.mmtcapp.com/mmtc/imgs/collect@2x.png';
+var collected = 'https://app.mmtcapp.com/mmtc/imgs/collected.png';
 let loadFlag = [],
     item_id = 0,
     typePageMap,
     currentType = 0,
     isToBuyNow = false;
+
+let timerGroup = null;
+
 const appPage = {
     /**
      * 页面的初始数据
@@ -31,7 +35,7 @@ const appPage = {
         noMore: [],
         goodsHidden: true,
         goods: {},
-        collectImage: '../../imgs/collect@2x.png',
+        collectImage: 'https://app.mmtcapp.com/mmtc/imgs/collect@2x.png',
         cases: [],
         recommends: [],
         id: null,
@@ -43,14 +47,13 @@ const appPage = {
         currentTabnoData: false,
         bannerData: {},
         couponData: {},
-        colorData:[
+        colorData: [{
+            type: 0,
+            color: 'purple'
+        },
             {
-                type:0,
-                color:'purple'
-            },
-            {
-                type:1,
-                color:'yellow'
+                type: 1,
+                color: 'yellow'
             }
         ]
 
@@ -63,33 +66,7 @@ const appPage = {
     onLoad(options) {
         let that = this;
         that.loadCb();
-        // var id = options.id;
-        // this.data.id =id;
-        // this._loadData();
     },
-    // _loadData:function(){
-    //     product.getDetailInfo(this.data.id,(data)=>{
-    //         this.setData({
-    //             product:data
-    //         });
-    //     });
-    // },
-    // // 选择器的数据绑定
-    // bindPickerChange:function(event){
-    //     // 所获取的用户选择的数组下标
-    //     var index = event.datail.value;
-    //     var selectedCount = this.data.countsArray[index];
-    //     this.setData({
-    //         productCount:selectedCount
-    //     });
-    // },
-    // // 点击选项卡事件
-    // onTabsItemTap:function(event){
-    //     var index = product.getDataSet(event,'index');
-    //     this.setData({
-    //         currentTabsIndex:index
-    //     });
-    // },
 
 
     /**
@@ -99,25 +76,18 @@ const appPage = {
         if (this.timeFlag) {
             return;
         }
-        this.loadMsg();
     },
     /**
      * 生命周期函数--监听页面隐藏
      */
     onHide() {
-        if (this.timeFlag) {
-            clearTimeout(this.timeFlag);
-            this.timeFlag = null;
-        }
+        clearTimeout(timerGroup);
     },
     /**
      * 生命周期函数--监听页面卸载
      */
     onUnload() {
-        if (this.timeFlag) {
-            clearTimeout(this.timeFlag);
-            this.timeFlag = null;
-        }
+        clearTimeout(timerGroup);
     },
     /**
      * 页面渲染完成
@@ -157,9 +127,11 @@ const methods = {
         let that = this,
             options = that.data.options,
             id = options['id'] || 1;
-        c.get('/api/mmg/putFootPlace', {
+
+        ApiService.getPutFootPlace({
             id: id
-        });
+        }).then(res => {
+        },);
         loadFlag[1] = 0;
         item_id = id;
         loadFlag[0] = 1;
@@ -188,22 +160,9 @@ const methods = {
         this.loadCases();
 
 
-        // 日记banner
-        ApiService.getBannerInfo({
-            id
-        }).then(
-            res => {
-                if (res.status) {
-                    that.setData({
-                        bannerData: res.info
-                    })
-                }
-            }
-        )
     },
     // 优惠券
     doPicker: function (e) {
-        console.log(e);
         var that = this;
         try {
             let item = e.target.dataset.item
@@ -226,20 +185,6 @@ const methods = {
         } catch (e) {
 
         }
-    },
-
-    popupContent(){
-        wx.showModal({  
-            title: '提示',  
-            content: 'item.service_char',  
-            success: function(res) {  
-                if (res.confirm) {  
-                console.log('用户点击确定')  
-                } else if (res.cancel) {  
-                console.log('用户点击取消')  
-                }  
-            }  
-        })  
     },
     // 技师
     getMmgShopIndex(id) {
@@ -264,7 +209,7 @@ const methods = {
         let link = e.currentTarget.dataset.link;
         if (link) {
             try {
-                if (link.indexOf('://') !== -1) { // if for http url
+                if (link.indexOf('://') !== -1) {
                     link = encodeURIComponent(link);
                     wx.navigateTo({
                         url: '/pages/page/index?token=' + link,
@@ -282,16 +227,13 @@ const methods = {
     //滑动切换
     swiperTab: function (e) {
         var that = this;
-        // that.setData({
-        //     currentTab: e.detail.current
-        // });
+
     },
     //点击切换
     clickTab: function (e) {
 
         var that = this,
             current = e.target.dataset.current;
-        console.log(e);
 
         if (this.data.currentTab == current) {
             return;
@@ -307,46 +249,38 @@ const methods = {
             url: '/pages/item/moreremark'
         })
     },
-
     // 跳转到更多点评
     gotoTechnician() {
         wx.navigateTo({
             url: '/pages/technician/index?shop_id=' + this.data.item.shop_id
         })
     },
-
-    getGroupGetTtemV3({
-        id = 0,
-        lat = 0,
-        lon = 0
-    } = {}) {
+    async  getGroupGetTtemV3({id = 0, lat = 0, lon = 0} = {}) {
         let that = this;
-        c.get('/api/group/getItemV3', {
-            id: id,
-            lat: lat,
-            lon: lon
-        }, function (ret) {
-            if (ret.status == 1) {
-                that.data.item = ret.info;
-                if (that.data.item.group_num > 0) {
-                    that.loadGroupRows();
-                }
-                that.data.goods = ret.info;
+        ApiService.getGroupgetItemV3({id: id, lat: lat, lon: lon}).then(async res => {
+            if (res.status == 1) {
+                let item = res.info;
+                that.data.goods = res.info;
                 that.data.goods.num = 1;
-                that.data.shop = ret.info.shop;
-                shop_id = ret.info.shop_id;
+                that.data.shop = res.info.shop;
+                shop_id = res.info.shop_id;
                 that.loadRecommends(function () {
                     c.hideLoading();
                 });
-                WxParse.wxParse('intro', 'html', ret.info.intro, that);
+                $wxParse.wxParse('intro', 'html', res.info.intro, that);
                 that.setData({
-                    item: that.data.item,
+                    item,
                     loaded: true,
                     shop: that.data.shop,
                     goods: that.data.goods
                 });
+                if (item.group_num > 0) {
+                    that.loadMsg();
+                    that.loadGroupRows();
+                }
+
                 ApiService.getCouponInfo({
-                    shop_id: ret.info.shop_id
+                    shop_id: res.info.shop_id
                 }).then(
                     res => {
                         if (res.status) {
@@ -356,22 +290,19 @@ const methods = {
                         }
                     }
                 )
-                that.getMmgShopIndex(ret.info.shop_id);
+                that.getMmgShopIndex(res.info.shop_id);
             } else {
                 c.hideLoading();
             }
-
         });
     },
-    loadGroupRows() {
+    async loadGroupRows() {
         let that = this;
-        c.get('/api/group/getOtherGroups', {
-            item_id: item_id
-        }, function (ret) {
-            if (ret.status == 1) {
-                if (ret.info && ret.info.rows.length && ret.info.count) {
+        ApiService.getOtherGroups({item_id: item_id}).then(res => {
+            if (res.status === 1) {
+                if (res.info && res.info.rows.length && res.info.count) {
                     that.start_time = new Date().getTime();
-                    that.countTime(ret.info);
+                    that.countTime(res.info);
                 }
             }
         });
@@ -388,52 +319,41 @@ const methods = {
                 el.left_time = '';
             }
         });
-        this.setData({
-            groupData: data
-        });
+        this.setData({groupData: data});
         setTimeout(this.countTime.bind(this), 1000);
     },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    hideMsg() {
-        if (this.data.msgitem) {
-            this.setData({
-                msgitem: null
+    loadMsg() {
+        let that = this,
+            item = that.data.item;
+        clearTimeout(timerGroup);
+        if (item && item.group_num > 0) {
+            ApiService.getMakeCollection({item_id: item_id}).then(res => {
+                if (res.status === 1 && res.info.time != that.prevTime) {
+                    that.prevTime = res.info.time;
+                    that.setData({msgitem: res.info});
+                    timerGroup = setTimeout(that.loadMsg.bind(that), 10000);
+                } else {
+                    this.setData({msgitem: null});
+                    timerGroup = setTimeout(that.loadMsg.bind(that), 3000);
+                }
             });
-            this.timeFlag = setTimeout(this.loadMsg.bind(this), 3000);
         }
     },
-    loadMsg() {
-        let that = this;
-        return;
-        c.get('/api/msg/getGroupMsgg', {
-            item_id: item_id
-        }, function (ret) {
-            if (ret.status == 1 && ret.info.time != that.prevTime) {
-                that.prevTime = ret.info.time;
-                that.setData({
-                    msgitem: ret.info
-                });
-                that.timeFlag = setTimeout(that.hideMsg.bind(that), 10000);
-            } else {
-                that.timeFlag = setTimeout(that.loadMsg.bind(that), 3000);
-            }
-        });
-    },
     loadCases() {
-        let url = '/api/note/getNotesOfItem';
         let requestData = {
             item_id: item_id
         };
         let that = this;
-        c.get(url, requestData, function (ret) {
-            if (ret.status == 1) {
+
+        ApiService.getNotesOfItem({
+            requestData
+        }).then(res => {
+            if (res.status == 1) {
                 that.setData({
-                    cases: c.wrapZan(ret.info)
+                    cases: c.wrapZan(res.info)
                 });
             } else {
-                c.alert(ret.info);
+                c.alert(res.info);
             }
         });
     },
@@ -458,6 +378,21 @@ const methods = {
                 c.alert(ret.info);
             }
         });
+        // ApiService.getItemsOfShop({
+        //     requestData
+        // }).then(res => {
+        //     let setData = {};
+        //     callback && callback();
+        //     if (res.status == 1) {
+        //         if (res.info.lengh < c.getPageSize()) {
+        //             setData.noMore = true;
+        //         }
+        //         setData.recommends = res.info;
+        //         that.setData(setData);
+        //     } else {
+        //         c.alert(res.info);
+        //     }
+        // });
     },
     makeCall(evt) {
         if (this.data.shop) {
@@ -466,6 +401,12 @@ const methods = {
                 wx.makePhoneCall({
                     phoneNumber: service_phone //仅为示例，并非真实的电话号码
                 });
+            } else {
+                wx.showToast({
+                    title: '没有服务电话',
+                    icon: 'success',
+                    duration: 2000
+                })
             }
         }
     },
@@ -506,9 +447,16 @@ const methods = {
         }
     },
     sendData(cancel) {
-        c.get('/api/mmg/makeCollection', {
+        // c.get('/api/mmg/makeCollection', {
+        //     item_id: item_id,
+        //     cancel: cancel
+        // });
+
+        ApiService.getMakeCollection({
             item_id: item_id,
             cancel: cancel
+        }).then(res => {
+
         });
     },
     reduceNum(evt) {
@@ -705,8 +653,12 @@ const methods = {
     },
     reportSubmit(e) {
         let formId = e.detail.formId;
-        c.get('/api/store/saveFormIds', {
+
+
+        ApiService.getSaveFormIds({
             form_id: formId
+        }).then(res => {
+
         });
     }
 };

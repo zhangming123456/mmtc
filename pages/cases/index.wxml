@@ -35,7 +35,7 @@
     <view class="p30">
       <view class="flex">
         <view>
-          <image class="avatar" src="{{c.absUrl(item.avatar,200) || '../../imgs/default.png'}}"></image>
+          <image class="avatar" src="{{c.absUrl(item.avatar,200) || 'https://app.mmtcapp.com/mmtc/imgs/default.png'}}"></image>
         </view>
         <view class="flex-con">
           <view class="fz32 text282828">{{item.nickname}}</view>
@@ -53,21 +53,21 @@
         </view>
       </navigator>
       <view wx:if="{{item.item_id && item.item_id > 0}}" class="pt20">
-        <image src="../../imgs/clz@2x.png" class="img-sm"></image>
+        <image src="https://app.mmtcapp.com/mmtc/imgs/clz@2x.png" class="img-sm"></image>
         <view class="color-red fz26 ib pl10" bindtap='showItemDetail' data-id="{{item.item_id}}">{{item.item_title}}</view>
       </view>
     </view>
     <view class="flex border-t toolbar-mini text666 fz24 text-center bg-white border-b">
       <view class="flex-con border-r">
-        <image src="../../imgs/eye@2x.png" alt="" class='view-img'></image>
+        <image src="https://app.mmtcapp.com/mmtc/imgs/eye@2x.png" alt="" class='view-img'></image>
         浏览 {{item.viewed_count}}
       </view>
       <view class="flex-con border-r {{c.zanedClass(item)}}" catchtap='zan' data-id="{{item.id}}">
-        <image src="../../imgs/zan{{item.zaned?'1':''}}@2x.png" alt="" class='zan-img'></image>
+        <image src="https://app.mmtcapp.com/mmtc/imgs/zan{{item.zaned?'1':''}}@2x.png" alt="" class='zan-img'></image>
         点赞 {{item.zan_count}}
       </view>
       <view class="flex-con" tapmode="hover">
-        <image src="../../imgs/msg@2x.png" alt="" class='comment-img'></image>
+        <image src="https://app.mmtcapp.com/mmtc/imgs/msg@2x.png" alt="" class='comment-img'></image>
         评论 {{item.comment_count}}
       </view>
     </view>

@@ -1,124 +1,90 @@
 // pages/home/detail.js
-const c = require("../../utils/common.js");
-Page({
+const app = getApp(),
+    utilPage = require('../../utils/utilPage'),
+    ApiService = require('../../utils/ApiService'),
+    config = require('../../utils/config'),
+    util = require('../../utils/azm/util'),
+    c = require("../../utils/common.js");
+const appPage = {
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        text: 'page home detail',
+        item: {},
+        shop_id: null,
+        qrcode: ''
+    },
+    onLoad(){
+        this.loadCb();
+    }
+};
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
 
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    c.showLoading();
-    let shop_id = options.shop_id;
-    this.shop_id = shop_id;
-    var that = this;
-    c.get('/api/wx2/shopDetail', { id: shop_id }, function (res) {
-      c.hideLoading();
-      if (res.status == 1) {
-        res.info.avatar = c.absUrl(res.info.avatar, 200);
-        that.setData({
-          item: res.info
+const methods = {
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    loadCb: function () {
+        let that = this,
+            options = that.data.options;
+        let shop_id = options.shop_id;
+        that.data.shop_id = shop_id;
+        c.showLoading();
+        ApiService.wx2shopDetail({id: shop_id}).then(res => {
+            if (res.status === 1) {
+                res.info.avatar = c.absUrl(res.info.avatar, 200);
+                that.setData({
+                    item: res.info
+                });
+            }
+        }).finally(res => {
+            c.hideLoading();
         });
-      }
-    });
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-  showQrcode() {
-    let setData = {
-      showMasker: true
-    };
-    if(!this.data.qrcode){
-      c.showLoading();
-      setData.qrcode = c.absUrl('/api/wx_shop/showQrcode?shop_id='+this.shop_id+
-      '&page='+encodeURIComponent('pages/home/index'));
-    }
-    this.setData(setData);
-  },
-  onLoadQrcode(){
-    c.hideLoading();
-  },
-  closeMasker(){
-    this.setData({
-      showMasker: false
-    });
-  },
-  noop(){
-
-  },
-  downQrcode(){
-    if(this.data.qrcode){
-      c.showLoading();
-      wx.downloadFile({
-        url: this.data.qrcode, 
-        success: function (res) {          
-          c.hideLoading();
-          if (res.statusCode === 200) {
-            let tempFilePath = res.tempFilePath;
-            wx.saveImageToPhotosAlbum({
-              filePath:tempFilePath,
-              success(res) {
-                c.toast('成功保存在相册');
-              },
-              fail(res){
-                c.alert(res.errMsg);
-              }
-            })
-          }
+    },
+    showQrcode() {
+        let that = this,
+            setData = {
+                showMasker: true
+            };
+        if (!this.data.qrcode) {
+            util.showLoading();
+            ApiService.wx_shopShowQrcode({page: 'pages/onlineBuy/index', shop_id: this.data.shop_id}).then(res => {
+                setData.qrcode = res.info;
+            }).finally(res => {
+                that.setData(setData);
+                util.hideLoading();
+            });
+        } else {
+            that.setData(setData)
         }
-      })
+    },
+    onLoadQrcode(){
+        util.hideLoading();
+    },
+    closeMasker(){
+        this.setData({
+            showMasker: false
+        });
+    },
+    noop(){
+
+    },
+    saveImage(){
+        if (this.data.qrcode) {
+            let tempFilePath = this.data.qrcode;
+            wx.saveImageToPhotosAlbum({
+                filePath: tempFilePath,
+                success(res) {
+                    util.showToast('成功保存到相册');
+                },
+                fail(res){
+                    util.failToast('图片保存失败');
+                }
+            })
+        }
     }
-  }
-})
+};
+
+
+Page(new utilPage(appPage, methods));

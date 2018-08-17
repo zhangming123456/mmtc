@@ -94,6 +94,7 @@ Page({
 
     },
     onGetMsg(e) {
+        console.log(e);
         c.alert(JSON.stringify(e.detail));
     },
     /**

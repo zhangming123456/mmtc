@@ -17,7 +17,7 @@
     color: #666;
     line-height: 1.8;
 }
-view{
+view.azm-wxParse,.azm-wxParse view{
     word-break:break-all; overflow:auto;
 }
 .wxParse-inline{
@@ -191,7 +191,7 @@ view{
 	border-left:1px solid #e0e0e0;
 	word-break: break-all;
 }
-.wxParse-td:last{
+.wxParse-td:last-child{
 	border-top:1px solid #e0e0e0;
 }
 .wxParse-th{
