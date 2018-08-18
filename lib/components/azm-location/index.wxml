@@ -1,5 +1,0 @@
-<view class="azm-address_location {{position}} {{class}} azm-ellipsis" style="{{styleStr}}" bindtap="onTap">
-    <text class="azm-iconfont icon-address azm-icon left"></text>
-    <text>{{address}}</text>
-    <text class="azm-iconfont icon-jiantou azm-icon right"></text>
-</view>

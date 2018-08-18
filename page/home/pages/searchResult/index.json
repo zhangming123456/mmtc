@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "搜索订单",
-  "enablePullDownRefresh": true,
-  "disableScroll": false,
-  "usingComponents": {
-    "zan-loadmore": "../../../../lib/zanui/loadmore/index"
-  }
-}
-  

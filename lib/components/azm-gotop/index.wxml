@@ -1,5 +1,0 @@
-<view class="{{class}} azm-goToTop">
-    <image wx:if="{{isShow}}" src="../../../imgs/top.png" lazy-load="{{lazyLoad}}"
-           bindtap="_bindAzmGotopTap"
-           mode="{{mode}}"></image>
-</view>

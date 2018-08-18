@@ -1,5 +1,0 @@
-<image class="azm-image {{nolClass}}" src="{{newSrc}}" hidden="{{!isLoad}}"
-       lazy-load="{{lazyLoad}}" binderror="_bindAzmImageError" bindload="_bindAzmImageLoad"
-       mode="{{mode}}"></image>
-
-<image class="azm-image {{nolClass}}" src="{{'../../../'+defineImage}}" hidden="{{isLoad}}" mode="{{mode}}"></image>
