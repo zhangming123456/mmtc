@@ -1,0 +1,66 @@
+<wxs src="../../../../utils/common.wxs" module="c"/>
+<i-toast id="toast"/>
+
+<view class="tip-msg flex">
+    <image class="emptyicon" src="../../../../image/emptyicon.png"/>
+    <view>
+        <button class="contact-btn" open-type="contact" plain="true" hover-class="tapmode">注册信息如需更改请重新提交资料>></button>
+    </view>
+</view>
+<view class="bg-white rel">
+    <image class="authed2-img" src="../../../../image/authed2.png"/>
+    <view class="p30 border-b">
+        <view class="flex hot-title">
+            <view class="title-line"/>
+            <view class="title-txt">店铺信息</view>
+        </view>
+        <view class="flex-line">
+            <view class="flex">
+                <view class="label">店铺名称:</view>
+                <view class="flex-con">{{info.nickname}}</view>
+            </view>
+            <view class="flex">
+                <view class="label">主营业务:</view>
+                <view class="flex-con">{{info.major_business||'--'}}</view>
+            </view>
+            <view class="flex">
+                <view class="label">所在地址:</view>
+                <view class="flex-con">{{info.address||'--'}}</view>
+            </view>
+            <view class="flex">
+                <view class="label">营业执照注册号:</view>
+                <view class="flex-con">{{info.license_code||'--'}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="p30">
+        <view class="flex hot-title">
+            <view class="title-line"/>
+            <view class="title-txt">负责人信息</view>
+        </view>
+        <view class="flex-line">
+            <view class="flex">
+                <view class="label">姓名:</view>
+                <view class="flex-con">{{info.legal_username||'--'}}</view>
+            </view>
+            <view class="flex">
+                <view class="label">电话:</view>
+                <view class="flex-con">{{info.legal_telephone||'--'}}</view>
+            </view>
+            <view class="flex">
+                <view class="label">身份证号码:</view>
+                <view class="flex-con">{{info.legal_identity||'--'}}</view>
+            </view>
+        </view>
+    </view>
+</view>
+<zan-cell-group class="marTop-12">
+    <zan-cell title="门头照" is-link>
+        <view class="zan-right">
+            <image class="cover" src="{{c.absUrl(info.pic)}}" catchtap="previewImage"
+                   data-src="{{c.absUrl(info.pic)}}"></image>
+        </view>
+    </zan-cell>
+</zan-cell-group>
+
+

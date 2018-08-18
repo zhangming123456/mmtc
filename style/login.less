@@ -1,0 +1,101 @@
+@import "theme";
+
+.house {
+    width: 180*1rpx;
+    height: 180*1rpx
+}
+
+.input-area {
+    text-align: center;
+    margin-bottom: 121*1rpx;
+    padding: 0 15*2rpx;
+    box-sizing: border-box;
+}
+
+.textInput {
+    width: 100%;
+    height: 90*1rpx;
+    border-radius: 5*1rpx;
+    border: solid 1px @disabled-color;
+    padding-left: 30*1rpx;
+    padding-right: 30*1rpx;
+    box-sizing: border-box;
+    margin-bottom: 30*1rpx;
+    text-align: left;
+    display: inline-block
+}
+
+.passworkBox {
+    position: relative;
+    width: 100%;
+    border-radius: 5*1rpx;
+    border: solid 1px @disabled-color;
+    margin-bottom: 30*1rpx;
+    box-sizing: border-box;
+    padding: 0 15*2rpx;
+    overflow: hidden;
+    .flexBox-item {
+        position: relative;
+        text-align: right;
+        height: 45*2rpx;
+        line-height: 45*2rpx;
+    }
+    label {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        .passwordInput {
+            padding-right: 30*1rpx;
+            text-align: left;
+            width: 100%;
+            height: 90*1rpx;
+            box-sizing: border-box;
+            &.azm-trn-100 {
+                position: absolute;
+                top: -100%;
+                left: 0;
+                transform: translate(-100%, -100%);
+            }
+        }
+    }
+    .azm-icon {
+        font-size: 38*1rpx;
+        color: @disabled-color;
+    }
+}
+
+.house-wrap {
+    padding-top: 90*1rpx;
+    padding-bottom: 79*1rpx
+}
+
+button.btn {
+    width: 670*1rpx;
+    line-height: 45*2rpx;
+    border-radius: 5*1rpx;
+    display: inline-block;
+    background-image: @btn-theme-lg-bg-color;
+    color: @btn-theme-color;
+    &[plain] {
+        border: none;
+        color: @btn-theme-color;
+    }
+}
+
+.lookPassword {
+    width: 34*1rpx;
+    height: 15*1rpx;
+    padding-right: 40*1rpx
+}
+
+.lookPassword2 {
+    width: 37*1rpx;
+    height: 22*1rpx;
+    padding-right: 40*1rpx
+}
+
+.forget {
+    text-align: right;
+    font-size: 32*1rpx;
+    color: @gray-42-color;
+}

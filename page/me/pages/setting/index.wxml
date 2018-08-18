@@ -1,0 +1,31 @@
+<wxs src="../../../../utils/common.wxs" module="c"/>
+<i-toast id="toast"/>
+
+
+<view class="azm-me--setting">
+    <zan-cell-group>
+        <zan-cell title="密码修改" is-link url="/pages/dashboard/index"></zan-cell>
+        <zan-cell title="手机绑定" is-link url="/pages/dashboard/index"></zan-cell>
+    </zan-cell-group>
+
+    <zan-cell-group class="marTop-12">
+        <zan-cell title="权限" is-link bindtap="openSetting" wx:if="{{isOpenSetting}}">
+            <label for="azm-btn-openSetting" class="azm-btn-openSetting-label">
+                <button id="azm-btn-openSetting" class="azm-btn-openSetting" open-type="openSetting"
+                        wx:if="{{canOpenSetting}}" bindopensetting="bindopensetting"></button>
+            </label>
+        </zan-cell>
+    </zan-cell-group>
+
+    <zan-cell-group class="marTop-12">
+        <zan-cell title="关于我们" is-link url="/pages/dashboard/index"></zan-cell>
+    </zan-cell-group>
+
+    <zan-cell-group class="marTop-12">
+        <zan-cell bindtap="bindLogOut">
+            <view class="zan-center">
+                <text>退出登录</text>
+            </view>
+        </zan-cell>
+    </zan-cell-group>
+</view>

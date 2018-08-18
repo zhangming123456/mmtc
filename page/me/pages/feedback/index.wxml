@@ -1,0 +1,18 @@
+<wxs src="../../../../utils/common.wxs" module="c"/>
+<import src="../../../../wxparse/wxParse.wxml"/>
+<i-toast id="toast"/>
+
+<form bindsubmit="doSubmit" report-submit>
+    <view class="azm-feedback">
+         <textarea class="azm-content" name="content" id="content" cols="30" rows="10"
+                   placeholder="想吐槽就吐槽，想表扬就表扬，我们都爱~"></textarea>
+        <input class="azm-contact" name="contact" placeholder="留下您的邮箱，我们会回复你的哦~"/>
+        <view class="azm-pic-list">
+            <image class="azm-pic-item" mode="aspectFill"
+                   src="{{img_src?c.absUrl(img_src):'../../../../image/updatepic.png'}}"
+                   bindtap="selectPic"></image>
+        </view>
+        <button class="fixed-btn" plain formType="submit" hover-class="none">提交反馈</button>
+    </view>
+</form>
+

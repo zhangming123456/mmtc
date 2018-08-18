@@ -1,0 +1,177 @@
+.empty-area {
+  text-align: center;
+  padding-top: 156rpx;
+  padding-bottom: 156rpx;
+}
+.empty-area .empty-img {
+  text-align: center;
+}
+.empty-area .empty-img > image {
+  width: 191rpx;
+  height: 190rpx;
+}
+.empty-area .empty-txt {
+  font-size: 30rpx;
+  color: #999999;
+  padding-top: 40rpx;
+}
+.loading-more {
+  text-align: center;
+  padding: 30rpx 0;
+  color: #999;
+  font-size: 24rpx;
+  clear: both;
+}
+.nomore-img {
+  width: 127rpx;
+  height: 134rpx;
+}
+.empty-area {
+  text-align: center;
+  padding-top: 156rpx;
+  padding-bottom: 156rpx;
+}
+.empty-area .empty-img {
+  text-align: center;
+}
+.empty-area .empty-img > image {
+  width: 191rpx;
+  height: 190rpx;
+}
+.empty-area .empty-txt {
+  font-size: 30rpx;
+  color: #999;
+  padding-top: 40rpx;
+}
+.loading-more {
+  text-align: center;
+  padding: 30rpx 0;
+  color: #999;
+  font-size: 24rpx;
+  clear: both;
+}
+.nomore-img {
+  width: 127rpx;
+  height: 134rpx;
+}
+.container-main .item-box {
+  background-color: #fff;
+  margin-bottom: 24rpx;
+}
+.container-main .item-box-content {
+  padding: 32rpx 29rpx 28rpx 29rpx;
+}
+.container-main .item-box-content-title {
+  color: #282828;
+  font-size: 34rpx;
+  line-height: 1.3em;
+}
+.container-main .item-box-row {
+  padding-top: 24rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+.container-main .item-box-row-last {
+  font-size: 30rpx;
+  color: #282828;
+  padding-top: 24rpx;
+}
+.container-main .item-box-row-last .price {
+  color: #ff4919;
+  font-size: 24rpx;
+}
+.container-main .item-box-row-last .price .ib {
+  font-size: 45rpx;
+  display: inline;
+}
+.container-main .item-box-title {
+  color: #999;
+  font-size: 28rpx;
+  padding: 24rpx 30rpx;
+}
+.container-main .header {
+  background-color: #3d70f7;
+  color: #fff;
+  padding: 92rpx 0 44rpx 0;
+  font-size: 28rpx;
+}
+.container-main .header .txt {
+  padding-top: 34rpx;
+}
+.container-main .search-area {
+  font-size: 26rpx;
+  padding: 24rpx 30rpx;
+  background-color: #f4f4f4;
+  color: #999;
+}
+.container-main .search-box {
+  background-color: #ffffff;
+  padding: 24rpx 0;
+  border: solid 1px #eeeeee;
+  border-radius: 5rpx;
+}
+.container-main .search-box image {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+.container-main .validate-img {
+  width: 108rpx;
+  height: 100rpx;
+}
+.container-main .scan-img {
+  width: 122rpx;
+  height: 100rpx;
+}
+.container-main .right-border {
+  width: 4rpx;
+  height: 73rpx;
+  background-color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  right: 0;
+  top: 35rpx;
+  opacity: 0.5;
+}
+page .azm-pullDownRefresh--mask {
+  position: fixed;
+  width: 100%;
+  height: 50%;
+  bottom: 0;
+  left: 0;
+  background-color: #f4f4f4;
+  z-index: -1;
+}
+.azm-home {
+  position: relative;
+  background-color: #f4f4f4;
+  z-index: 10;
+}
+.azm-home .azm-home--top.azm-home--top-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+.azm-home .azm-home--list {
+  position: relative;
+  width: 100%;
+}
+.azm-home .azm-home--list .azm-pullDownRefresh {
+  position: relative;
+  width: 100%;
+  height: 454rpx;
+}
+.azm-home .azm-home--list .azm-pullDownRefresh > .azm-pullDownRefresh-content {
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  line-height: 100rpx;
+  color: #3d70f7;
+  font-size: 24rpx;
+}
+.azm-home .azm-home--list .item-list view {
+  line-height: 1;
+}

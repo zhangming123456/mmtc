@@ -1,0 +1,105 @@
+{
+  "pages": [
+    "page/tabBar/home/index",
+    "page/tabBar/me/index",
+    "page/tabBar/order/index",
+    "page/login/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#3d70f7",
+    "navigationBarTitleText": "商家后台",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f4f4f4",
+    "backgroundTextStyle": "dark",
+    "onReachBottomDistance": 50
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#3d70f7",
+    "backgroundColor": "#ffffff",
+    "position": "left",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "page/tabBar/home/index",
+        "iconPath": "image/tab_icon_verify_normal.png",
+        "selectedIconPath": "image/tab_icon_verify_press.png",
+        "text": "订单验证"
+      },
+      {
+        "pagePath": "page/tabBar/order/index",
+        "iconPath": "image/tab_icon_order_normal.png",
+        "selectedIconPath": "image/tab_icon_order_press.png",
+        "text": "订单管理"
+      },
+      {
+        "pagePath": "page/tabBar/me/index",
+        "iconPath": "image/tab_icon_my_normal.png",
+        "selectedIconPath": "image/tab_icon_my_press.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "subPackages": [
+    {
+      "root": "page/home/",
+      "pages": [
+        "pages/search/index",
+        "pages/searchResult/index",
+        "pages/verifyCode/index",
+        "pages/verifyHas/index"
+      ]
+    },
+    {
+      "root": "page/order/",
+      "pages": [
+        "pages/info/index",
+        "pages/detail/index",
+        "pages/groupDetail/index"
+      ]
+    },
+    {
+      "root": "page/products/",
+      "pages": [
+        "pages/detail/index"
+      ]
+    },
+    {
+      "root": "page/me/",
+      "pages": [
+        "pages/setting/index",
+        "pages/memberDetail/index",
+        "pages/feedback/index"
+      ]
+    },
+    {
+      "root": "page/shop/",
+      "pages": [
+        "pages/businessHours/index",
+        "pages/album/index",
+        "pages/atlas_new2/index",
+        "pages/atlas/index",
+        "pages/storeTag/index",
+        "pages/landline/index",
+        "pages/detailedAddress/index",
+        "pages/mobilePhone/index",
+        "pages/detail/index",
+        "pages/info/index"
+      ]
+    },
+    {
+      "root": "page/common/",
+      "pages": [
+        "pages/verifyFail/index",
+        "pages/verifySucceed/index"
+      ]
+    }
+  ],
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000,
+    "uploadFile": 10000,
+    "downloadFile": 10000
+  },
+  "debug": false
+}

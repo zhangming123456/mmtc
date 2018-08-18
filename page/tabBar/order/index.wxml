@@ -1,0 +1,47 @@
+<wxs src="../../../utils/common.wxs" module="c"/>
+<view class="my">
+    <!-- 个人 -->
+    <view class="azm-myInfo">
+        <navigator class="t-myInfo flexBox flexBox-start" hover-class="none" url="/page/me/pages/meMessage/index">
+            <view class="flexBox-item">
+                <image class="t-userPicture" mode="aspectFill" wx:if="{{Bdusers.headimg}}"
+                       src="{{c.absUrl(Bdusers.headimg)}}"></image>
+                <image class="t-userPicture" mode="aspectFill" wx:else
+                       src="../../../image/icon/icon-picture-default.png"></image>
+            </view>
+            <view class="flexBox-item azm-flex--2">
+                <view class="t-userName">
+                    <text>{{Bdusers.username}}</text>
+                </view>
+                <view class="t-date">
+                    <text>{{Bdusers.telephone}}</text>
+                </view>
+                <text class="zan-arrow azm-icon"></text>
+            </view>
+        </navigator>
+    </view>
+
+    <i-cell-group>
+        <i-cell title="提现账号" is-link
+                url="{{!Bdusers.bname?'/page/me/pages/meVerify/index':'/page/me/pages/meAccount/index?isBinding=1'}}">
+            <image class="t-icon-wallet" slot="icon" src="../../../image/icon/icon-wallet.png"></image>
+            <view class="t-bankBox" slot="footer">
+                <block wx:if="{{Bdusers.bname}}">
+                    <text class="t-noBinding2">开户名：{{Bdusers.bname}}</text>
+                </block>
+                <block wx:else>
+                    <text class="t-noBinding">未绑定</text>
+                </block>
+            </view>
+        </i-cell>
+        <i-cell title="我的团队" is-link url="/page/me/pages/meTeam/index">
+            <image class="t-icon-wallet" slot="icon" src="../../../image/icon/icon-team.png"></image>
+        </i-cell>
+        <label for="azm-share--btn">
+            <i-cell title="邀请新人" is-link>
+                <image class="t-icon-wallet" slot="icon" src="../../../image/icon/icon-invitation.png"></image>
+                <button id="azm-share--btn" open-type="share" slot="footer"></button>
+            </i-cell>
+        </label>
+    </i-cell-group>
+</view>

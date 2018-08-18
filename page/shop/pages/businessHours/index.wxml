@@ -1,0 +1,17 @@
+<wxs src="../../../../utils/common.wxs" module="c"/>
+<i-toast id="toast"/>
+<i-message id="message"/>
+
+<view class="azm-shop-album" style="height: 100%">
+    <view class="flexBox flexBox-start azm-content-top">
+        <view class="flexBox-item fb-6">
+            <image src="../../../../image/addicon.png" mode="aspectFill" bindtap="upImg"></image>
+        </view>
+        <view class="flexBox-item fb-6" wx:for="{{img_srcs}}" wx:key="{{index}}">
+            <image src="{{c.absUrl(item)}}" mode="aspectFill" bindtap="upImg"
+                   data-index="{{index}}"></image>
+            <icon type="clear" size="20" class="azm-icon-clear" data-index="{{index}}" catchtap="bindClearImg"></icon>
+        </view>
+    </view>
+</view>
+

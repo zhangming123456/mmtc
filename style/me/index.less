@@ -1,0 +1,79 @@
+@import "../theme";
+
+page {
+    background-color: @default-bg-color;
+}
+
+.azm-mime {
+    box-sizing: border-box;
+    padding-bottom: 12*2rpx;
+    .azm-header {
+        position: relative;
+        background-color: @theme-bg-color;
+        padding: 37*1rpx 15*2rpx 30*2rpx;
+        box-sizing: border-box;
+        .azm-cover {
+            position: relative;
+            width: 80*2rpx;
+            .azm-cover-img {
+                width: 80*2rpx;
+                height: 80*2rpx;
+                border-radius: 100%;
+            }
+            .azm-cover-attestation {
+                padding: 5*1rpx 7*1rpx;
+                position: absolute;
+                background-color: #f8a461;
+                font-size: 12*2rpx;
+                color: #fff;
+                border-radius: 5*1rpx;
+                text-align: center;
+                bottom: 0;
+                left: 50%;
+                line-height: 1;
+                transform: translate(-50%, 50%);
+            }
+        }
+        .azm-flex--2 {
+            box-sizing: border-box;
+            padding-left: 15*2rpx;
+            line-height: 1;
+            .azm-exit-btn {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                height: 25*2rpx;
+                line-height: 23*2rpx;
+                font-size: 12*2rpx;
+                border-color: @white-color;
+                color: @white-color;
+                padding-left: 15*2rpx;
+                padding-right: 15*2rpx;
+                border-radius: 25*2rpx;
+            }
+        }
+        .azm-step {
+            padding-top: 10*2rpx;
+            font-size: 28*1rpx;
+            color: #fff;
+        }
+        .azm-nickname {
+            padding-top: 20*2rpx;
+            font-size: 32*1rpx;
+            color: #fff;
+            .azm-nickname-icon {
+                width: 15*2rpx;
+                height: 15*2rpx;
+                vertical-align: middle;
+            }
+        }
+    }
+    .azm-btn-feedback-label, .azm-btn-openSetting-label {
+        display: block;
+        width: 100%;
+        min-height: 24px;
+    }
+    .azm-btn-feedback, .azm-btn-openSetting {
+        height: 0;
+    }
+}

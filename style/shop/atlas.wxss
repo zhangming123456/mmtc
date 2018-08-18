@@ -1,0 +1,69 @@
+page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.azm-shop-atlas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.azm-shop-atlas #tab1 .azm-content-top {
+  box-sizing: border-box;
+  padding: 26rpx 27.5rpx 90rpx;
+}
+.azm-shop-atlas #tab1 .azm-content-top .flexBox-item {
+  text-align: center;
+  padding: 8rpx 5rpx;
+}
+.azm-shop-atlas #tab1 .azm-content-top .flexBox-item image {
+  width: 168rpx;
+  height: 168rpx;
+}
+.azm-shop-atlas #tab1 .azm-content-top .flexBox-item .azm-icon-clear {
+  position: absolute;
+  top: 10rpx;
+  right: 7rpx;
+}
+.azm-shop-atlas #tab1 .azm-footer {
+  position: absolute;
+  border: none;
+  line-height: 1;
+  height: 90rpx;
+}
+.azm-shop-atlas #tab1 .azm-footer button {
+  border: none;
+  height: 90rpx;
+  line-height: 86rpx;
+  border-radius: 0;
+  font-size: 36rpx;
+}
+.azm-shop-atlas #tab1 .azm-footer button.azm-btn-submit {
+  background-image: linear-gradient(90deg, #35abfe 0, #3d70f7 100%);
+  color: #fff;
+}
+.azm-shop-atlas #tab2 .azm-tab-content {
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+.azm-shop-atlas #tab2 .azm-tab-content .flexBox-item {
+  box-sizing: border-box;
+}
+.azm-shop-atlas #tab2 .azm-tab-content .flexBox-item:nth-child(2n) {
+  padding-left: 15rpx;
+}
+.azm-shop-atlas #tab2 .azm-tab-content .flexBox-item:nth-child(2n+1) {
+  padding-right: 15rpx;
+}
+.azm-shop-atlas #tab2 .azm-tab-content .flexBox-item image {
+  width: 330rpx;
+  height: 330rpx;
+  border-radius: 5rpx;
+  border: solid 1px #e9eaec;
+}
+.azm-shop-atlas #tab2 .azm-tab-content .flexBox-item .azm-tab-content-title {
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 30rpx;
+  color: #282828;
+}

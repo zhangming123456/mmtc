@@ -1,0 +1,14 @@
+{
+  "navigationBarBackgroundColor": "#3d70f7",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "登录",
+  "backgroundColor": "#fff",
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": false,
+  "disableScroll": true,
+  "usingComponents": {
+    "i-toast": "../../lib/iview/toast/index",
+    "zan-row": "../../lib/zanui/row/index",
+    "zan-col": "../../lib/zanui/col/index"
+  }
+}

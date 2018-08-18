@@ -1,0 +1,17 @@
+<wxs src="../../../../utils/common.wxs" module="c"/>
+<i-toast id="toast"/>
+
+<view class="azm-orderInfo text-center form-area" wx:if="{{orderInfo}}">
+    <image class="avatar" mode="aspectFill" src="{{c.absUrl(orderInfo.cover)}}"/>
+    <view class="txt">订单号：{{orderInfo.order_no}}</view>
+    <view class="txt">用户：{{orderInfo.nickname}}</view>
+    <view class="title">【{{orderInfo.category}}】{{orderInfo.title}}</view>
+    <view class="pay-info">付款金额：
+        <view class="ib price-area">￥
+            <view class="ib price-money">{{orderInfo.total}}</view>
+        </view>
+    </view>
+    <view class="button-area">
+        <button class="btn-origin" plain bindtap="checkValid" hover-class="tapmode">确定验证</button>
+    </view>
+</view>

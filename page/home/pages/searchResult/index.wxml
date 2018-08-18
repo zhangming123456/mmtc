@@ -1,0 +1,52 @@
+<view class="container1">
+    <view class="search-area border-b">
+        <view class="search-box">
+            <view class="flex">
+                <view>
+                    <image class="search-img" src="../../../../image/search.png"/>
+                </view>
+                <view class="flex-con">
+                    <input placeholder="输入订单号/产品名称" auto-focus="true" bindconfirm="doSearchTxt" type="text"
+                           confirm-type="search" value="{{kw}}"/>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="item-list azm-1px-t" wx:if="{{itemList && itemList.length>0}}">
+        <block wx:for="{{itemList}}" wx:for-item="v" wx:for-index="i" wx:key="{{i}}">
+            <view class="item-box" wx:for="{{v}}" wx:for-item="item" wx:key="{{index}}">
+                <view class="item-box-title azm-1px-b">订单号：{{item.order_no}}</view>
+                <view class="item-box-content" bindtap="toOrderDetail" data-item="{{item}}">
+                    <view class="item-box-content-title">【{{item.category}}】{{item.title}}</view>
+                    <view class="item-box-row flex">
+                        <view class="flex-con">验证时间</view>
+                        <view>{{item.used_date_time}}</view>
+                    </view>
+                    <view class="item-box-row flex">
+                        <view class="flex-con">用户</view>
+                        <view>{{item.nickname}}</view>
+                    </view>
+                    <view class="item-box-row-last flex">
+                        <view class="flex-con">订单金额</view>
+                        <view class="price azm-1px-t">￥
+                            <view class="ib">{{item.total}}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:if="!list || list.length>0">
+            <zan-loadmore type="text" wx:if="{{noMore}}"></zan-loadmore>
+            <zan-loadmore type="loading" wx:else></zan-loadmore>
+        </block>
+    </view>
+    <view class="empty-area" id="sssss" wx:else>
+
+        <view class="empty-img">
+            <image src="../../../../image/emptyorders.png"/>
+        </view>
+        <view class="empty-txt">没有找到记录</view>
+
+    </view>
+</view>

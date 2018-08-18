@@ -1,0 +1,57 @@
+@import "../theme";
+
+page {
+    background-color: @white-color;
+}
+
+.azm-feedback {
+    padding: 15*2rpx;
+    box-sizing: border-box;
+    textarea.azm-content {
+        width: 100%;
+        height: 285*1rpx;
+        background-color: #ffffff;
+        border-radius: 10*1rpx;
+        border: solid 1px @border-color-default;
+        box-sizing: border-box;
+        padding: 10*2rpx 12*2rpx;
+        font-size: 28*1rpx;
+    }
+    .textarea-placeholder, .input-placeholder {
+        font-size: 28*1rpx;
+        color: @disabled-color;
+    }
+    input.azm-contact {
+        margin-top: 15*2rpx;
+        width: 100%;
+        background-color: #ffffff;
+        border-radius: 10*1rpx;
+        border: solid 1px @border-color-default;
+        box-sizing: border-box;
+        font-size: 28*1rpx;
+        padding: 0 10*2rpx;
+        height: 86*1rpx;
+    }
+    .azm-pic-list {
+        padding-top: 35*1rpx
+    }
+    .azm-pic-item {
+        width: 216*1rpx;
+        height: 216*1rpx;
+    }
+}
+
+button.fixed-btn {
+    position: fixed;
+    left: 0;
+    height: 50*2rpx;
+    line-height: 48*2rpx;
+    right: 0;
+    bottom: 0;
+    background-image: @btn-theme-lg-bg-color;
+    font-size: 36*1rpx;
+    color: #ffffff;
+    border-radius: 0;
+    border: none;
+}
+

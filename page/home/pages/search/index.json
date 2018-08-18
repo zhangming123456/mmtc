@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "搜索订单",
+  "backgroundColor": "#fff",
+  "enablePullDownRefresh": false,
+  "disableScroll": true,
+  "usingComponents": {}
+}
+  
