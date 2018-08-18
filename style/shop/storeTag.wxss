@@ -1,0 +1,128 @@
+page {
+  background-color: #f4f4f4;
+}
+.azm-header .azm-btn-input {
+  flex: 2;
+  border: solid 1px #e9eaec;
+  background-color: #f4f4f4;
+  box-sizing: border-box;
+}
+.azm-header .azm-btn-input .azm-icon-close {
+  position: absolute;
+  top: 50%;
+  right: 30rpx;
+  transform: translate(0, -50%);
+}
+.azm-header .azm-btn-input input {
+  height: 76rpx;
+  padding-left: 30rpx;
+  padding-right: 92rpx;
+  box-sizing: border-box;
+}
+.azm-header .azm-btn-add-tag {
+  box-sizing: border-box;
+  padding-left: 30rpx;
+  padding-top: 10rpx;
+}
+.azm-header .azm-btn-add-tag button {
+  height: 56rpx;
+  line-height: 52rpx;
+  border-color: #ff4919;
+  color: #ff4919;
+  vertical-align: middle;
+}
+.azm-header .azm-header-tags {
+  position: relative;
+  box-sizing: border-box;
+  margin-right: -30rpx;
+  margin-bottom: -30rpx;
+}
+.azm-header .azm-header-tags .flexBox-item {
+  margin-right: 30rpx;
+  margin-bottom: 30rpx;
+  line-height: 1;
+}
+.azm-header .azm-header-tags .flexBox-item button {
+  position: relative;
+  height: 56rpx;
+  line-height: 52rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  background-color: #ff4919;
+  border-color: transparent;
+  color: #fff;
+  border-radius: 5rpx;
+}
+.azm-header .azm-header-tags .flexBox-item .azm-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  z-index: 10;
+  border-radius: 100%;
+  background-color: #fff;
+}
+.azm-content {
+  font-size: 32rpx;
+}
+.azm-content .azm-content-title {
+  position: relative;
+  padding: 24rpx 25px;
+  font-size: 32rpx;
+  box-sizing: border-box;
+}
+.azm-content .azm-content-title::before {
+  content: ' ';
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  height: 23rpx;
+  width: 6rpx;
+  border-radius: 2rpx;
+  background-color: #ff4919;
+  transform: translate(-100%, -50%);
+}
+.azm-content .azm-content-tags {
+  position: relative;
+  padding: 0 15px 24rpx;
+  box-sizing: border-box;
+  margin-right: -30rpx;
+  margin-bottom: -30rpx;
+}
+.azm-content .azm-content-tags .flexBox-item {
+  margin-right: 30rpx;
+  margin-bottom: 30rpx;
+  line-height: 1;
+}
+.azm-content .azm-content-tags .flexBox-item button {
+  height: 56rpx;
+  line-height: 52rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  border-color: #999;
+  color: #999;
+  border-radius: 5rpx;
+}
+.azm-footer {
+  border: none;
+  line-height: 1;
+  height: 90rpx;
+}
+.azm-footer .flexBox-item {
+  line-height: 1;
+}
+.azm-footer button {
+  border: none;
+  height: 90rpx;
+  line-height: 86rpx;
+  border-radius: 0;
+  font-size: 36rpx;
+}
+.azm-footer button.azm-btn-cancel {
+  background-color: #fff;
+  color: #666666;
+}
+.azm-footer button.azm-btn-submit {
+  background-image: linear-gradient(90deg, #35abfe 0, #3d70f7 100%);
+  color: #fff;
+}

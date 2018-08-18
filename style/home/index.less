@@ -1,177 +1,188 @@
+@import "../components/datalist";
 @import "../theme";
 
-page {
-    background-color: @default-bg-color;
+.empty-area {
+    text-align: center;
+    padding-top: 156*1rpx;
+    padding-bottom: 156*1rpx
 }
 
-#azm-index {
-    .azm-promotion {
-        height: 400*1rpx;
-        .weui-flex__item {
-            height: 100%;
-            box-sizing: border-box;
-            &.right {
-                navigator {
-                    height: 50%;
-                    box-sizing: border-box;
-                    overflow: hidden;
-                }
-            }
-            image {
-                width: 100%;
-                height: 100%;
-            }
-        }
-    }
-    .azm-row {
-        background-color: #fff;
-        padding-left: 30*1rpx;
-        padding-right: 30*1rpx;
-        padding-bottom: 30*1rpx;
-        .h2 {
-            padding-top: 32*1rpx;
-            padding-bottom: 29*1rpx;
-            .zan-col {
-                height: 20*2rpx;
-                line-height: 20*2rpx;
-            }
-            .left {
-                position: relative;
-                padding-left: 20*1rpx;
-                text {
-                    font-size: 28*1rpx;
-                    color: #282828;
-                    &.title {
-                        //font-family: 'PingFang-Sc-Bold';
-                        font-weight: 600;
-                    }
-                }
-                &:before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 5*1rpx;
-                    height: 100%;
-                    border-radius: 2.5*1rpx;
-                    background-color: #ed397f;
-                }
-            }
-            .right {
-                position: relative;
-                text {
-                    font-size: 24*1rpx;
-                    color: #888;
-                    &.azm-icon {
-                        //position: absolute;
-                        //right: -18*1rpx;
-                        //top: 50%;
-                        //transform: translateY(-50%);
-                        font-size: 20*1rpx;
-                        vertical-align: middle;
-                    }
+.empty-area .empty-img {
+    text-align: center
+}
 
-                }
-            }
-        }
-        .azm-content {
-            min-height: 100*1rpx;
-            box-sizing: border-box;
-            .azm-col {
-                position: relative;
-                box-sizing: border-box;
-                &:nth-child(1) {
-                    padding-right: 12*1rpx;
-                }
-                image {
-                    width: 100%;
-                    height: 109*2rpx;
-                }
-                &:nth-child(2) {
-                    padding-left: 6*1rpx;
-                    padding-right: 6*1rpx;
-                }
-                &:nth-child(3) {
-                    padding-left: 12*1rpx;
-                }
-                .p {
+.empty-area .empty-img > image {
+    width: 191*1rpx;
+    height: 190*1rpx
+}
 
-                }
-                .title {
-                    font-size: 28*1rpx;
-                    color: #282828;
-                    font-weight: 500;
-                    margin-top: 16*1rpx;
-                }
-                .money {
-                    font-size: 30*1rpx;
-                    color: #ff538b;
-                    margin-top: 23*1rpx;
-                    .market_price {
-                        font-size: 24*1rpx;
-                        color: #999;
-                    }
-                }
-            }
-        }
-    }
-    view.azm-nearby_project {
-        background-color: #fff;
-        view {
-            line-height: 1;
-        }
-        .title-area {
-            position: relative;
-            height: 90*1rpx;
-            line-height: 90*1rpx;
-            font-size: 32*1rpx;
-            font-weight: bold;
-            color: #fb5599;
-            font-family: 'PingFang-SC-Bold';
-            .azm-text {
-                position: relative;
-                display: inline-block;
-                .title_1_2 {
-                    width: 6*2rpx;
-                    height: 6*2rpx;
-                    &.left {
-                        left: -22*1-12rpx;
-                    }
-                    &.right {
-                        right: -22*1-12rpx;
-                    }
-                }
-                .title_1_1 {
-                    width: 3*2rpx;
-                    height: 3*2rpx;
-                    &.left {
-                        left: -46*1-6rpx;
-                    }
-                    &.right {
-                        right: -46*1-6rpx;
-                    }
-                }
-            }
-        }
-        .title_area_round {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            border-radius: 100%;
-            background-image: linear-gradient(90deg, #ff5ea2 0%, #ed3980 70%, #db135e 83%, #e82b8d 100%),
-            linear-gradient(#c939fe, #c939fe);
-            background-blend-mode: normal, normal;
-        }
-    }
-    .azm-search {
+.empty-area .empty-txt {
+    font-size: 30*1rpx;
+    color: @disabled-color;
+    padding-top: 40*1rpx
+}
+
+.loading-more {
+    text-align: center;
+    padding: 30*1rpx 0;
+    color: #999;
+    font-size: 24*1rpx;
+    clear: both
+}
+
+.nomore-img {
+    width: 127*1rpx;
+    height: 134*1rpx
+}
+
+.container-main .item-box {
+    background-color: #fff;
+    margin-bottom: 24*1rpx
+}
+
+.container-main .item-box-content {
+    padding: 32*1rpx 29*1rpx 28*1rpx 29*1rpx
+}
+
+.container-main .item-box-content-title {
+    color: #282828;
+    font-size: 34*1rpx;
+    line-height: 1.3em
+}
+
+.container-main .item-box-row {
+    padding-top: 24*1rpx;
+    color: @disabled-color;
+    font-size: 28*1rpx
+}
+
+.container-main .item-box-row-last {
+    font-size: 30*1rpx;
+    color: #282828;
+    padding-top: 24*1rpx
+}
+
+.container-main .item-box-row-last .price {
+    color: #ff4919;
+    font-size: 24*1rpx
+}
+
+.container-main .item-box-row-last .price .ib {
+    font-size: 45*1rpx;
+    display: inline
+}
+
+.container-main .item-box-title {
+    color: @disabled-color;
+    font-size: 28*1rpx;
+    padding: 24*1rpx 30*1rpx
+}
+
+.container-main .header {
+    background-color: @theme-color;
+    color: #fff;
+    padding: 92*1rpx 0 44*1rpx 0;
+    font-size: 28*1rpx
+}
+
+.container-main .header .txt {
+    padding-top: 34*1rpx
+}
+
+.container-main .search-area {
+    font-size: 26*1rpx;
+    padding: 24*1rpx 30*1rpx;
+    background-color: @default-bg-color;
+    color: @disabled-color;
+}
+
+.container-main .search-box {
+    background-color: #ffffff;
+    padding: 24*1rpx 0;
+    border: solid 1px #eeeeee;
+    border-radius: 5*1rpx
+}
+
+.container-main .search-box image {
+    width: 30*1rpx;
+    height: 30*1rpx;
+    margin-right: 10*1rpx
+}
+
+.container-main .validate-img {
+    width: 108*1rpx;
+    height: 100*1rpx
+}
+
+.container-main .scan-img {
+    width: 122*1rpx;
+    height: 100*1rpx
+}
+
+.container-main .right-border {
+    width: 4*1rpx;
+    height: 73*1rpx;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    right: 0;
+    top: 35*1rpx;
+    opacity: .5
+}
+
+page {
+    //background-color: @theme-color;
+    .azm-pullDownRefresh--mask {
+        position: fixed;
         width: 100%;
-        height: 60*1rpx;
-        line-height: 60*1rpx;
-        background-color: rgba(255, 255, 255, 0.7);
-        border-radius: 29*1rpx;
-        float: left;
-        font-size: 28*1rpx;
-        color: #444;
-        padding-left: 20*1rpx;
+        height: 50%;
+        bottom: 0;
+        left: 0;
+        background-color: @default-bg-color;
+        z-index: -1;
+    }
+}
+
+.azm-home {
+    position: relative;
+    background-color: @default-bg-color;
+    z-index: 10;
+    .azm-home--top {
+        &.azm-home--top-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+        }
+    }
+
+    .azm-home--list {
+        position: relative;
+        width: 100%;
+        .azm-pullDownRefresh {
+            position: relative;
+            width: 100%;
+            height: 227*2rpx;
+            //top: 0;
+            //left: 0;
+            //transform: translate(0, -100%);
+            //background-color: @theme-color;
+            //z-index: 999;
+            > .azm-pullDownRefresh-content {
+                position: absolute;
+                text-align: center;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                line-height: 50*2rpx;
+                color: @theme-color;
+                font-size: 12*2rpx;
+            }
+        }
+        .item-list {
+            view {
+                line-height: 1;
+            }
+        }
     }
 }

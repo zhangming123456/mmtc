@@ -1,0 +1,39 @@
+<wxs src="../../../../utils/common.wxs" module="c"/>
+<import src="../../../../wxparse/wxParse.wxml"/>
+<i-toast id="toast"/>
+
+<view class="container-main">
+    <view class="p30 rel bg-white">
+        <view class="flex">
+            <image class="avatar" src="{{c.absUrl(info.avatar)}}" mode="aspectFill"/>
+            <view class="pl30">
+                <view class="nickname-wrap flex">
+                    <view class="nickname">{{info.nickname}}</view>
+                    <image class="level-img" src="../../../../image/level.png"/>
+                    <view class="level-text">{{info.level}}</view>
+                </view>
+                <view class="pt20 user-intro">{{info.intro}}</view>
+            </view>
+        </view>
+        <button class="send-letter" bindtap="urgentDev">私信TA</button>
+    </view>
+    <view class="hr24"/>
+    <view class="plist azm-1px-b">
+        <view class="flex">
+            <view class="label">成员身份</view>
+            <view class="flex-con text-right">{{info.is_leader?'团长':'团员'}}</view>
+        </view>
+        <view class="flex">
+            <view class="label black">实付款</view>
+            <view class="flex-con text-right money">￥{{info.money}}</view>
+        </view>
+    </view>
+    <view class="plist lh-1">
+        <view class="mt20">订单ID：{{info.order_no}}</view>
+        <view class="mt20">付款时间：{{info.payed_time}}</view>
+        <view class="mt20">拼团状态：{{info.group_status}}</view>
+        <view class="mt20">交易状态：
+            <view class="order-status">{{info.pay_status}}</view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,79 @@
+<wxs src="../../../../utils/common.wxs" module="c"/>
+<i-toast id="toast"/>
+
+<view class="container-main azm-orderDetail" wx:if="{{orderInfo}}">
+    <view class="p30 rel bg-white">
+        <view class="flex">
+            <image class="avatar" src="{{c.absUrl(orderInfo.user.avatar)}}" mode="aspectFill"/>
+            <view class="pl30">
+                <view class="nickname-wrap flex">
+                    <view class="nickname">{{orderInfo.user.nickname}}</view>
+                    <image class="level-img" src="/../../../../image/level.png"/>
+                    <view class="level-text">{{orderInfo.user.level}}</view>
+                </view>
+                <view class="pt20 user-intro">{{orderInfo.user.intro}}</view>
+            </view>
+        </view>
+        <button class="send-letter" bindtap="urgentDev"> 私信TA</button>
+    </view>
+    <block wx:if="{{orderInfo.order.order_type==0}}">
+        <view class="hr24"/>
+        <view class="items">
+            <view class="flex flex-stretch" wx:for="{{orderInfo.items}}" wx:for-item="i" wx:key="{{index}}">
+                <view class="cover-wrap" bindtap="toItemDetail" data-id="{{i.id}}">
+                    <image class="item-cover" src="{{c.absUrl(i.cover)}}" mode="aspectFill"/>
+                </view>
+                <view class="info-wrap flex-con azm-1px-b">
+                    <view class="flex">
+                        <view class="flex-con item-title">【{{i.category_title}}】{{i.title}}</view>
+                        <view class="item-status" wx:if="{{i.order_status}}">{{i.order_status}}</view>
+                    </view>
+                    <view class="price-area flex">
+                        <view class="price-unit">￥</view>
+                        <view class="price-num">{{i.price}}</view>
+                        <view class="market-price">门市价 ￥{{i.market_price}}</view>
+                    </view>
+                    <view class="item-count">数量：{{i.num}}</view>
+                </view>
+            </view>
+        </view>
+    </block>
+    <view class="hr24"/>
+    <view class="border-b plist">
+        <view class="flex">
+            <view class="label state2">{{orderInfo.order.order_type==0?'商品总价':'消费总额'}}</view>
+            <view class="flex-con text-right">￥{{orderInfo.order.origin_total}}</view>
+        </view>
+        <view class="flex" wx:if="{{orderInfo.order.order_type==1}}">
+            <view class="label state">不参与优惠金额</view>
+            <view class="flex-con text-right">￥{{orderInfo.order.no_discount_money}}</view>
+        </view>
+        <view class="flex" wx:if="{{orderInfo.order.discount_txt}}">
+            <view class="label state">{{orderInfo.order.order_type==0?'店铺优惠':'买单优惠'}}</view>
+            <view class="flex-con text-right">
+                <view class="discount-txt">{{discount_txt}}</view>
+                <view class="discount">￥{{orderInfo.order.discount_money}}</view>
+            </view>
+        </view>
+        <view class="flex state" wx:if="{{orderInfo.order.order_type==0}}">
+            <view class="label">尾款</view>
+            <view class="flex-con text-right">无</view>
+        </view>
+    </view>
+    <view class="azm-1px-t azm-1px-b flex-title">
+        <view class="flex">
+            <view class="flex-label">实付款</view>
+            <view class="flex-con text-right flex-price">￥{{orderInfo.order.total}}</view>
+        </view>
+    </view>
+    <view class="border-b plist">
+        <view class="state2">订单ID：{{orderInfo.order.order_no}}</view>
+        <view class="state">下单时间：{{orderInfo.order.create_time}}</view>
+        <view class="state" wx:if="{{orderInfo.order.pay_time}}">付款时间：{{orderInfo.order.pay_time}}</view>
+        <view>交易状态：
+            <view class="order-status">{{orderInfo.order.order_status}}</view>
+        </view>
+    </view>
+</view>
+
+<view class="azm-pullDownRefresh--mask-b"></view>

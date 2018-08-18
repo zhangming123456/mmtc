@@ -4,22 +4,18 @@
 var host = 'https://app.mmtcapp.com';//开发环境
 // var host = 'http://192.168.3.81';//开发环境
 // var host = 'http://192.168.3.28';//开发环境(小康)
-// var host = 'http://192.168.3.900';//本地后台反向代理服务器
+// var host = 'https://192.168.3.900';//本地后台反向代理服务器
 var config = {
     // 下面的地址配合云端 Server 工作
     host,
 
     defaultApi: `${host}/api`,
 
-    appApi: `${host}/app`,
-
     shopApi: `${host}/shopapi`,
 
     bdApi: `${host}/bd`,
 
     version: `1.0.${+new Date()}`,
-
-    isMap: 1,
 
     // 美美天成-商家端 二维码生成规则
     consumeQRCode: {
@@ -51,7 +47,7 @@ var config = {
     templateMessageUrl: `${host}/templateMessage`,
 
     // 上传文件接口
-    uploadFileUrl: `${host}/upload`,
+    uploadFileUrl: `https://app.mmtcapp.com/services/uploader/uploadImg`,
 
     // 下载示例图片接口
     downloadExampleUrl: `${host}/static/weapp.jpg`

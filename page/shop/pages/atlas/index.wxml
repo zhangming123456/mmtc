@@ -1,0 +1,112 @@
+<wxs src="../../../../utils/common.wxs" module="c"/>
+<i-toast id="toast"/>
+<i-message id="message"/>
+
+<view class="azm-shop-atlas" style="height: 100%">
+    <!--<i-sticky scrollTop="{{scrollTop}}">-->
+    <!--<i-sticky-item i-class="i-sticky-demo-title">-->
+    <!---->
+    <!--</i-sticky-item>-->
+    <!--</i-sticky>-->
+    <view id="azm-header" class="azm-header">
+        <i-tabs current="tab{{ current }}" color="#3d70f7" bindchange="handleChange">
+            <block wx:for="{{tabs}}" wx:key="{{index}}">
+                <i-tab key="{{item.key}}" title="{{item.title}}"></i-tab>
+            </block>
+        </i-tabs>
+    </view>
+
+    <swiper style="{{ styleSwiper }}" bindchange="bindSwiperChange" current="{{current}}">
+        <swiper-item>
+            <view id="tab1" class="flexBox-item fb-12" style="height: 100%">
+                <scroll-view scroll-y scroll-with-animation enable-back-to-top bindscrolltoupper="upper"
+                             bindscrolltolower="lower"
+                             style="height: 100%"
+                             bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+                    <view class="flexBox flexBox-start azm-content-top">
+                        <view class="flexBox-item fb-6">
+                            <image src="../../../../image/addicon.png" mode="aspectFill" bindtap="upImg"></image>
+                        </view>
+                        <view class="flexBox-item fb-6" wx:for="{{img_srcs}}" wx:key="{{index}}">
+                            <image src="{{c.absUrl(item)}}" mode="aspectFill" bindtap="upImg"
+                                   data-index="{{index}}"></image>
+                            <icon type="clear" size="20" class="azm-icon-clear" data-index="{{index}}"
+                                  catchtap="bindClearImg"></icon>
+                        </view>
+                    </view>
+                </scroll-view>
+                <view class="azm-footer">
+                    <button class="azm-btn-submit" bindtap="bindSubmit">保存</button>
+                </view>
+            </view>
+        </swiper-item>
+        <swiper-item>
+            <view id="tab2" class="flexBox-item fb-12" style="height: 100%">
+                <scroll-view scroll-y scroll-with-animation enable-back-to-top bindscrolltoupper="upper"
+                             bindscrolltolower="lower"
+                             style="height: 100%"
+                             bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+                    <view class="flexBox flexBox-start azm-tab-content">
+                        <view class="flexBox-item fb-12" wx:for="{{picFigure}}" wx:key="{{index}}"
+                              data-item="{{item}}" catchtap="toAlbum">
+                            <image src="{{c.absUrl(item.cover)}}" mode="aspectFill"
+                                   data-index="{{index}}"></image>
+                            <view class="azm-tab-content-title">
+                                <text>{{item.title}}({{item.pic_count || 0}})</text>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </view>
+        </swiper-item>
+    </swiper>
+
+
+    <!--<view class="azm-content" bindtouchstart="touchstart" bindtouchend="touchend" bindtouchcancel="touchcancel">-->
+    <!--<scroll-view scroll-x scroll-with-animation bindscrolltoupper="upperX" bindscrolltolower="lowerX"-->
+    <!--style="height: 100%" bindscroll="scrollX" scroll-into-view="{{ current }}"-->
+    <!--scroll-left="{{_scrollLeft}}">-->
+    <!--<view class="flexBox" style="width: 200%;height: 100%">-->
+    <!--<view id="tab1" class="flexBox-item fb-12" style="height: 100%">-->
+    <!--<scroll-view scroll-y scroll-with-animation enable-back-to-top bindscrolltoupper="upper"-->
+    <!--bindscrolltolower="lower"-->
+    <!--style="height: 100%"-->
+    <!--bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">-->
+    <!--<view class="flexBox flexBox-start azm-content-top">-->
+    <!--<view class="flexBox-item fb-6">-->
+    <!--<image src="../../../../image/addicon.png" mode="aspectFill" bindtap="upImg"></image>-->
+    <!--</view>-->
+    <!--<view class="flexBox-item fb-6" wx:for="{{img_srcs}}" wx:key="{{index}}">-->
+    <!--<image src="{{c.absUrl(item)}}" mode="aspectFill" bindtap="upImg"-->
+    <!--data-index="{{index}}"></image>-->
+    <!--<icon type="clear" size="20" class="azm-icon-clear" data-index="{{index}}"-->
+    <!--catchtap="bindClearImg"></icon>-->
+    <!--</view>-->
+    <!--</view>-->
+    <!--</scroll-view>-->
+    <!--<view class="azm-footer">-->
+    <!--<button class="azm-btn-submit" bindtap="bindSubmit">保存</button>-->
+    <!--</view>-->
+    <!--</view>-->
+    <!--<view id="tab2" class="flexBox-item fb-12" style="height: 100%">-->
+    <!--<scroll-view scroll-y scroll-with-animation enable-back-to-top bindscrolltoupper="upper"-->
+    <!--bindscrolltolower="lower"-->
+    <!--style="height: 100%"-->
+    <!--bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">-->
+    <!--<view class="flexBox flexBox-start azm-tab-content">-->
+    <!--<view class="flexBox-item fb-12" wx:for="{{picFigure}}" wx:key="{{index}}"-->
+    <!--data-item="{{item}}" catchtap="toAlbum">-->
+    <!--<image src="{{c.absUrl(item.cover)}}" mode="aspectFill"-->
+    <!--data-index="{{index}}"></image>-->
+    <!--<view class="azm-tab-content-title">-->
+    <!--<text>{{item.title}}({{item.pic_count || 0}})</text>-->
+    <!--</view>-->
+    <!--</view>-->
+    <!--</view>-->
+    <!--</scroll-view>-->
+    <!--</view>-->
+    <!--</view>-->
+    <!--</scroll-view>-->
+    <!--</view>-->
+</view>
+

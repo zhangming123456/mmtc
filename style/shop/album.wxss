@@ -1,0 +1,24 @@
+page {
+  position: relative;
+}
+.azm-shop-album {
+  position: relative;
+  width: 100%;
+}
+.azm-shop-album .azm-content-top {
+  box-sizing: border-box;
+  padding: 26rpx 27.5rpx;
+}
+.azm-shop-album .azm-content-top .flexBox-item {
+  text-align: center;
+  padding: 8rpx 5rpx;
+}
+.azm-shop-album .azm-content-top .flexBox-item image {
+  width: 168rpx;
+  height: 168rpx;
+}
+.azm-shop-album .azm-content-top .flexBox-item .azm-icon-clear {
+  position: absolute;
+  top: 10rpx;
+  right: 7rpx;
+}

@@ -1,14 +1,30 @@
-<view style='padding-top:50rpx;padding-left:41rpx;padding-right:41rpx;line-height: 43rpx;' class='fz28 text999'>
-    您好，请使用手机绑定登录，以便我们为您提供更好发服务~
+<view class="text-center house-wrap">
+    <image class="house" src="../../image/house.png"/>
 </view>
-<view class='btns'>
-    <button class='btn-bywx' open-type='getPhoneNumber' bindgetphonenumber="getPhoneNumber">微信立即登录</button>
+<view class="input-area text999 fz28">
+    <input class="textInput" placeholder="请输入商户帐号/手机账号" name="username" bindinput="setField" value="{{username}}"
+           data-key="username" focus="{{ focus === 0 }}" cursor-spacing="200" maxlength="20"/>
+    <view class="passworkBox flexBox">
+        <view class="flexBox-item fb-20">
+            <label for="passwordInput">
+                <input id="passwordInput" wx:if="{{!isShowPassword}}" name="password" class="passwordInput"
+                       focus="{{ focus === 1 }}" placeholder="请输入商户密码" type="password" data-key="password"
+                       value="{{password}}" bindinput="setField" cursor-spacing="200" maxlength="16"/>
+                <input class="passwordInput" wx:else placeholder="请输入商户密码" name="password" type="text"
+                       focus="{{ focus === 1 }}" value="{{password}}" data-key="password" bindinput="setField"
+                       cursor-spacing="200" maxlength="16"/>
+            </label>
+        </view>
+        <view class="flexBox-item fb-4" bindtap="LookPassword">
+            <test class="azm-iconfont icon-yincangmima azm-icon" wx:if="{{!isShowPassword}}"></test>
+            <test class="azm-iconfont icon-yincangmima1 azm-icon" wx:else></test>
+        </view>
+    </view>
+    <view bindtap="gotoAmend" class="forget">忘记密码?</view>
+</view>
 
-    <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">获取用户信息登入</button>
-    <!--<view class='btn-byphone' bindtap='showPhoneWin'>-->
-    <!--手机验证登录-->
-    <!--</view>-->
-    <!--<view class='btn-byphone' bindtgetUserInfoogin'>-->
-    <!--账号密码登录-->
-    <!--</view>-->
+<view class="text-center">
+    <button class="btn textfff fz32" plain hover-class="none" bindtap="getLogin">立即登录</button>
 </view>
+
+<i-toast id="toast"/>

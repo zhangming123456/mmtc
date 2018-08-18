@@ -1,0 +1,59 @@
+@import "../theme";
+
+page {
+    background-color: @default-bg-color;
+}
+
+.azm-shopInfo {
+    .azm-cover-img {
+        width: 172*1rpx;
+        height: 172*1rpx;
+        background-color: @default-bg-color;
+        margin-right: 15*2rpx;
+    }
+    .azm-qrcode-icon {
+        font-size: 20*2rpx;
+        color: @disabled-color;
+    }
+    .azm-cell-value {
+        color: @text-prompt-color;
+        .azm-icon {
+            margin-right: 8*2rpx;
+        }
+    }
+}
+
+.azm-qrcode-popup {
+    overflow: hidden;
+    width: 312*2rpx;
+    background-color: #fff;
+    border-radius: 10*2rpx;
+    .azm-qrcode-popup--title {
+        .azm-qrcode-popup--title-img {
+            width: 40*2rpx;
+            height: 40*2rpx;
+        }
+    }
+    .azm-qrcode-popup--content {
+        image {
+            width: 440*1rpx;
+            height: 440*1rpx;
+        }
+    }
+    .azm-qrcode-popup--footer {
+        button {
+            height: 50*2rpx;
+            line-height: 48*2rpx;
+            border-radius: 0;
+            border-color: transparent;
+            color: #ff538b;
+            font-size: 15*2rpx;
+        }
+    }
+}
+
+.i-action-sheet-header {
+    height: 96*1rpx;
+    line-height: 96*1rpx;
+    font-size: 30*1rpx;
+}

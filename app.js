@@ -1,63 +1,59 @@
-//app.js
-const c = require("./utils/common.js"),
-    config = require('./utils/config'),
-    util = require('./utils/azm/util');
-
-const util2 = require('./utils/util');
+const util = require('./utils/util');
 let isUpdate = true;
 App({
-    globalData: {
-        userInfo: null,
-        shop: {},
-        pages: {},
-        city: {},
-        isLocation: false,
-        lat_and_lon: {}
-    },
-    util2,
     util,
-    /**
-     * 生命周期函数--监听小程序初始化
-     * @param options
-     */
     onLaunch: function (options) {
-        console.warn('版本号：' + config.version);
         console.log('App Launch', options)
     },
-    /**
-     * 生命周期函数--监听小程序显示
-     * @param options
-     */
     onShow: function (options) {
         console.log('App Show', options);
         if (isUpdate) {
-            new util2.updateManager().onALL();
+            new util.updateManager().onALL();
             isUpdate = false;
         }
     },
-    /**
-     * 生命周期函数--监听小程序隐藏
-     * @param options
-     */
-    onHide: function (options) {
+    onHide: function () {
         isUpdate = true;
-        console.log('App Hide', options);
-        if ('userInfo' === wx.getStorageSync('authorizeUserInfo')) {
-            wx.setStorageSync('authorizeUserInfo', '');
+        console.log('App Hide')
+    },
+    globalData: {
+        hasLogin: false,
+        openid: null,
+        userInfo: {
+            bname: null,
+            create_time: null,
+            grandpa_id: null,
+            headimg: null,
+            id: null,
+            level: null,
+            parent_id: null,
+            telephone: null,
+            username: null,
+        },
+        startDate: '2017-01-01',
+        currentDate: util.dateCalendar.format(new Date(), 'YYYY-MM-DD'),
+        queryType: 2,
+        queryTime: util.dateCalendar.format(new Date(), 'YYYY-MM-DD'),
+        events: {},
+        services: {},
+        productManage: {},
+        $$pages: []
+    },
+    // lazy loading openid
+    getUserOpenId: function (callback) {
+        var self = this
+
+        if (self.globalData.openid) {
+            callback(null, self.globalData.openid)
+        } else {
+            wx.login({
+                success: function (data) {
+
+                },
+                fail: function (err) {
+                    callback(err)
+                }
+            })
         }
-    },
-    /**
-     * 错误监听函数
-     * @param msg
-     */
-    onError: function (msg) {
-        // console.warn('错误监听函数', msg);
-    },
-    /**
-     * 不存在页面监听
-     * @param options
-     */
-    onPageNotFound (options) {
-        console.warn('不存在页面监听', options);
     }
 })

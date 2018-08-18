@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "产品详情",
+  "disableScroll": false,
+  "usingComponents": {
+    "i-toast": "../../../../lib/iview/toast/index"
+  }
+}
+  

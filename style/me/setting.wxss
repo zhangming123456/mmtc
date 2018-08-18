@@ -1,0 +1,18 @@
+page {
+  background-color: #f4f4f4;
+}
+.azm-me--setting {
+  box-sizing: border-box;
+  padding-top: 24rpx;
+  padding-bottom: 24rpx;
+}
+.azm-me--setting .azm-btn-feedback-label,
+.azm-me--setting .azm-btn-openSetting-label {
+  display: block;
+  width: 100%;
+  min-height: 24px;
+}
+.azm-me--setting .azm-btn-feedback,
+.azm-me--setting .azm-btn-openSetting {
+  height: 0;
+}

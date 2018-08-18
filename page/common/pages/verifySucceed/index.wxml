@@ -1,0 +1,5 @@
+<view class="container1 text-center">
+    <image class="ok-icon" src="../../../../image/suc.png"/>
+    <view class="p0">验证成功</view>
+    <view class="p1"> 订单：{{order_no}} 已完成验证</view>
+</view>

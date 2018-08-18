@@ -4,7 +4,7 @@ const app = getApp(),
     Fly = require('./fly.min'),
     ContentType = "Content-Type";
 import { jude, router, queryString } from '../util'
-let retryNum = 0
+
 function failCallback (res) {
     retryNum++;
     let text = '网络连接失败，或服务器错误' + '{' + res.errMsg + '}';
@@ -106,8 +106,10 @@ function getFly (params = {}) {
                 let page = router.getCurrentPages(),
                     path = page[page.length - 1].route;
                 // path !== 'page/tabBar/me/index'
-                if (res.data.status === 202 && (path !== 'pages/login/getUserInfo/index' || path !== 'pages/login/index')) {
-                    router.push('/page/userLogin/pages/getUserInfo/index');
+                if (res.data.status === 202 && path !== 'page/login/index') {
+                    wx.reLaunch({
+                        url: '/page/login/index'
+                    });
                     return {
                         info: null,
                         message: '未登入',
@@ -295,8 +297,6 @@ class HttpRequest {
     downImage (url, data) {
         let qrCodePath = `${url}?${queryString.stringify(data)}`;
         let cookie = util.getSessionId();
-        console.log(qrCodePath);
-        
         return new Promise((resolve, reject) => {
             wx.downloadFile({
                 url: qrCodePath,

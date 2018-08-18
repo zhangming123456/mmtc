@@ -1,185 +1,152 @@
+@import "../components/datalist";
 @import "../theme";
 
-page {
+.item-list {
+    view {
+        line-height: 1;
+    }
+}
+
+.empty-area {
+    text-align: center;
+    padding-top: 156*1rpx;
+    padding-bottom: 156*1rpx
+}
+
+.empty-area .empty-img {
+    text-align: center
+}
+
+.empty-area .empty-img > image {
+    width: 191*1rpx;
+    height: 190*1rpx
+}
+
+.empty-area .empty-txt {
+    font-size: 30*1rpx;
+    color: @disabled-color;
+    padding-top: 40*1rpx
+}
+
+.loading-more {
+    text-align: center;
+    padding: 30*1rpx 0;
+    color: @disabled-color;
+    font-size: 24*1rpx;
+    clear: both
+}
+
+.nomore-img {
+    width: 127*1rpx;
+    height: 134*1rpx
+}
+
+.container1 {
+    padding: 0
+}
+
+.container1 .search-area {
+    padding: 40*1rpx 30*1rpx 30*1rpx;
+    background-color: #fff;
+}
+
+.container1 .histories {
+    padding-top: 51*1rpx;
+    font-size: 26*1rpx
+}
+
+.container1 .histories .title {
+    font-size: 26*1rpx;
+    color: #666666
+}
+
+.container1 .clear-btn {
+    color: #ff4919;
+    font-size: 28*1rpx
+}
+
+.container1 .item-box {
+    background-color: #fff;
+    margin-bottom: 24*1rpx
+}
+
+.container1 .item-box-content {
+    padding: 32*1rpx 29*1rpx 28*1rpx 29*1rpx
+}
+
+.container1 .item-box-content-title {
+    color: @text-title-color;
+    font-size: 34*1rpx
+}
+
+.container1 .item-box-row {
+    padding-top: 24*1rpx;
+    color: @disabled-color;
+    font-size: 28*1rpx
+}
+
+.container1 .item-box-row-last {
+    font-size: 30*1rpx;
+    color: @text-default-color;
+    padding-top: 24*1rpx
+}
+
+.container1 .item-box-row-last .price {
+    color: @money-color;
+    font-size: 24*1rpx
+}
+
+.container1 .item-box-row-last .price .ib {
+    font-size: 45*1rpx;
+    display: inline;
+}
+
+.container1 .item-box-title {
+    color: @disabled-color;
+    font-size: 28*1rpx;
+    padding: 24*1rpx 30*1rpx;
+}
+
+.search-box {
+    font-size: 28*1rpx;
+    color: @disabled-color;
+    border: solid 1px @border-color-default;
+    border-radius: 5*1rpx;
+    background-color: @default-bg-color;
+    padding: 20*1rpx 24*1rpx;
+}
+
+.search-img {
+    width: 24*1rpx;
+    height: 25*1rpx;
+    margin-right: 15*1rpx;
+    vertical-align: middle;
+}
+
+.tags {
+    overflow: hidden;
+    margin-left: -24*1rpx
+}
+
+.tag {
+    float: left;
+    color: @text-default-color;
+    background-color: @default-bg-color;
+    border-radius: 5*1rpx;
+    white-space: nowrap;
+    height: 60*1rpx;
+    line-height: 60*1rpx;
+    font-size: 30*1rpx;
+    padding: 0 48*1rpx;
+    margin-top: 30*1rpx;
+    margin-left: 24*1rpx
+}
+
+.search-box input {
     width: 100%;
-    height: 100%;
+    height: 27*1rpx
+}
+
+page {
     background-color: @default-bg-color;
 }
-
-.azm-home-searchResult {
-    #azm-header {
-        .azm-search {
-            background-color: #fff;
-            box-sizing: border-box;
-            padding: 12*2rpx 15*2rpx;
-            .azm-search-l {
-                flex: 2;
-                position: relative;
-                box-sizing: border-box;
-                input, input.input-placeholder {
-                    background-color: @default-bg-color;
-                    font-size: 12*2rpx;
-                    width: 100%;
-                    height: 30*2rpx;
-                    min-height: 30*2rpx;
-                    border-radius: 30*2rpx;
-                    box-sizing: border-box;
-                    padding-left: 25*2rpx;
-                }
-                .azm-icon-search {
-                    position: absolute;
-                    top: 50%;
-                    left: 10*2rpx;
-                    transform: translate(0, -50%);
-                    z-index: 100;
-                }
-            }
-            .azm-search-r {
-                width: 130*1rpx;
-                .azm-btn-search-cancel {
-                    border: none;
-                    line-height: 30*2rpx;
-                    padding-right: 0;
-                }
-            }
-        }
-    }
-    .azm-content {
-        background-color: #fff;
-        min-height: 300*2rpx;
-        scroll-view {
-            min-height: 300*2rpx;
-            background-color: @default-bg-color;
-        }
-        .azm-refresh {
-            position: relative;
-            height: 50*2rpx;
-            background-color: @default-bg-color;
-            .azm-refresh-box {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                box-sizing: border-box;
-                text-align: center;
-                padding: 12*2rpx 15*2rpx;
-                font-size: 12*2rpx;
-                width: 100%;
-            }
-        }
-        .azm-no-data {
-            image {
-                width: 95*2rpx;
-            }
-        }
-        #tab0 {
-            min-height: 100*2rpx;
-            background-color: #fff;
-            > .flexBox {
-                background-color: #fff;
-                position: relative;
-                box-sizing: border-box;
-                padding: 12*2rpx 15*2rpx;
-            }
-            .azm-tab0-l {
-                position: relative;
-                flex: 2;
-                text-align: left;
-                .azm-image-box {
-                    display: block;
-                    position: relative;
-                    width: 100%;
-                    height: 100%;
-                }
-            }
-            .azm-tab0-r {
-                position: relative;
-                width: 500*1rpx;
-                box-sizing: border-box;
-                padding-left: 12*2rpx;
-                line-height: 1;
-                .azm-tab0-title {
-                    font-size: 32*1rpx;
-                    color: #282828;
-                    margin-bottom: 18*1rpx;
-                }
-                .azm-tab0-stars {
-                    text {
-                        font-size: 12*2rpx;
-                        color: @disabled-color;
-                    }
-                    margin-bottom: 16*1rpx;
-                }
-                .azm-tab0-label {
-                    display: block;
-                    margin-bottom: 20*1rpx;
-                }
-                .azm-tab0-location {
-
-                    font-size: 12*2rpx;
-                    color: @disabled-color;
-                }
-            }
-        }
-        #tab1 {
-            min-height: 100*2rpx;
-            background-color: #fff;
-            box-sizing: border-box;
-            padding-top: 15*2rpx;
-            padding-left: 15*2rpx;
-            .flexBox-item {
-                box-sizing: border-box;
-                padding-right: 15*2rpx;
-                padding-bottom: 15*2rpx;
-            }
-            .azm-item__box {
-                position: relative;
-                box-shadow: 2px 4px 13px 0 rgba(0, 0, 0, 0.06);
-                .azm-image-box {
-                    display: block;
-                    position: relative;
-                    width: 100%;
-                    height: 100%;
-                }
-                .azm-item-info {
-                    box-sizing: border-box;
-                    padding: 10*2rpx;
-                    line-height: 1;
-                    .azm-item-title {
-                        font-size: 30*1rpx;
-                        color: #282828;
-                    }
-                    .azm-item-desc {
-                        font-size: 20*1rpx;
-                        color: #666;
-                        padding-top: 11*1rpx;
-                        padding-bottom: 17*1rpx;
-                        border-bottom: 1px dashed #d9d9d9;
-                    }
-                    .azm-item-price-info {
-                        padding-top: 20*1rpx;
-                        .price {
-                            color: #ff538b;
-                            font-size: 45*1rpx;
-                            display: inline-block;
-                            i {
-                                font-size: 24*1rpx;
-                            }
-                        }
-                        .market-price {
-                            color: #999;
-                            font-size: 24*1rpx;
-                            text-decoration: line-through;
-                            margin-left: 10*1rpx;
-                            display: inline-block;
-                        }
-                    }
-                }
-            }
-        }
-        #tab2 {
-            min-height: 100*2rpx;
-            background-color: #fff;
-        }
-    }
-}
-

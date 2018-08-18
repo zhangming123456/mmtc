@@ -1,0 +1,46 @@
+@import "../theme";
+
+page {
+    background-color: #fff;
+}
+
+.azm-verifyFail {
+    position: relative;
+    padding: 97*1rpx 15*2rpx 0;
+    box-sizing: border-box;
+    text-align: center;
+    .avatar {
+        width: 104*1rpx;
+        height: 104*1rpx;
+    }
+    .title {
+        font-size: 36*1rpx;
+        color: @title-color;
+        padding-top: 39*1rpx;
+        padding-bottom: 28*1rpx;
+    }
+    .txt {
+        line-height: 43*1rpx;
+        font-size: 28*1rpx;
+        color: @disabled-color;
+    }
+    .button-area {
+        margin-top: 127*1rpx;
+        button.btn-origin {
+            line-height: 45*2rpx;
+            font-size: 32*1rpx;
+            background-image: @btn-theme-lg-bg-color;
+            color: @btn-theme-color;
+            border: none;
+        }
+
+        button.btn-outed {
+            margin-top: 40*1rpx;
+            line-height: 45*2rpx;
+            font-size: 32*1rpx;
+            background-color: @btn-theme-color;
+            color: @btn-theme-bg-color;
+            border: solid 1px @btn-theme-bg-color;
+        }
+    }
+}

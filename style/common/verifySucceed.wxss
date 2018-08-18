@@ -1,0 +1,23 @@
+.container1 {
+  padding-top: 97rpx;
+  padding-bottom: 112rpx;
+  background-color: #fff;
+}
+page {
+  background-color: #f4f4f4;
+}
+.p1 {
+  padding-top: 21rpx;
+  font-size: 28rpx;
+  color: #999999;
+  line-height: 1.8em;
+}
+.ok-icon {
+  width: 105rpx;
+  height: 105rpx;
+}
+.p0 {
+  padding-top: 39rpx;
+  font-size: 36rpx;
+  color: #333333;
+}

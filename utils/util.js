@@ -1,23 +1,4 @@
 "use strict";
-
-const formatTime = date => {
-    const year = date.getFullYear()
-    const month = date.getMonth() + 1
-    const day = date.getDate()
-    const hour = date.getHours()
-    const minute = date.getMinutes()
-    const second = date.getSeconds()
-
-    return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
-
-const formatNumber = n => {
-    n = n.toString()
-    return n[1] ? n : '0' + n
-}
-
-/******************************************************旧的***************************************************************/
-
 /**
  * 设置 Promise.finally  方法
  * @param callback
@@ -350,7 +331,6 @@ class ROUTER {
     go (num) {
         let that = this;
         if (that.isGoRouter) return;
-        console.log(jude.isString(num));
         if (jude.isNumberOfNaN(num)) {
             num = Math.abs(+num);
             let len = getCurrentPages().length;
@@ -1291,26 +1271,14 @@ function pageScrollTo (num = 0) {
  * @param id
  * @return {*}
  */
-function getCity ({title = '深圳市', id = 1} = {}) {
+function getCity ({title = '深圳', id = 1} = {}) {
     let cities = wx.getStorageSync('cities');
-    if (jude.isArray(cities)) {
-        let fIndex = cities.findIndex(v => {
-            if (title) {
-                title = title.replace(/市$/, '');
-                let reg = new RegExp(title);
-                if (reg.test(v.title))return true;
-            } else if (id && +v.id === id) {
-                return true;
-            }
-        });
-        if (fIndex > -1) {
-            return cities[fIndex];
-        } else {
-            return {title: '深圳市', id: 1};
+    for (let v of cities) {
+        if (v.title === title || v.id === id) {
+            return v
         }
-    } else {
-        return {title: '深圳市', id: 1};
     }
+    return {title: '深圳', id: 1};
 }
 
 /**
@@ -1330,12 +1298,6 @@ function filterNullData (data = {}) {
     } catch (err) {
         return {};
     }
-}
-
-function querySelector (el) {
-    if (!el) return;
-    let node = null;
-    return wx.createSelectorQuery().select(el);
 }
 
 /*********************utils***************************/
@@ -1598,14 +1560,12 @@ class updateManager {
 }
 
 module.exports = {
-    formatTime: formatTime,
     regeneratorRuntime,
     getSessionId,
     removeSessionId,
     router,
     jude,
     queryString,
-    querySelector,
     trim,
     unique,
     hideToast,

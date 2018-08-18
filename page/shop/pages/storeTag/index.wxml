@@ -1,0 +1,46 @@
+<wxs src="../../../../utils/common.wxs" module="c"/>
+<i-toast id="toast"/>
+<i-message id="message"/>
+
+<form bindsubmit="formSubmit" bindreset="formReset" report-submit>
+    <zan-panel hideBorder class="azm-header">
+        <zan-cell>
+            <view class="flexBox flexBox-start azm-header-top">
+                <view class="flexBox-item azm-btn-input">
+                    <input placeholder="选择或填写热门标签，不超过5个字~" maxlength="5" value="{{tag}}" focus
+                           confirm-type="添加" bindconfirm="bindAddTag" bindinput="setTag" confirm-hold/>
+                    <icon type="clear" class="azm-icon-close" size="16" catchtap="bindCloseInput"/>
+                </view>
+                <view class="flexBox-item azm-btn-add-tag">
+                    <button bindtap="bindAddTag" plain size="mini">添加</button>
+                </view>
+            </view>
+        </zan-cell>
+        <zan-cell wx:if="{{my_tags.length>0}}">
+            <view class="flexBox flexBox-start azm-header-tags">
+                <view class="flexBox-item" wx:for="{{my_tags}}" wx:key="{{index}}">
+                    <button plain size="mini" data-index="{{index}}">{{item}}</button>
+                    <icon type="cancel" color="#ff4919" size="20" class="azm-icon" data-index="{{index}}"
+                          catchtap="bindCloseTag"></icon>
+                </view>
+            </view>
+        </zan-cell>
+    </zan-panel>
+    <zan-panel hideBorder class="azm-content marTop-12">
+        <view class="azm-content-title">热门标签</view>
+        <view class="flexBox flexBox-start azm-content-tags">
+            <view class="flexBox-item" wx:for="{{hot_tags}}" wx:key="{{index}}">
+                <button bindtap="bindAddTag" plain size="mini" data-index="{{index}}">{{item}}</button>
+            </view>
+        </view>
+    </zan-panel>
+    <view class="azm-footer flexBox">
+        <view class="flexBox-item fb-12">
+            <button class="azm-btn-cancel azm-1px-t" bindtap="bindBack">取消</button>
+        </view>
+        <view class="flexBox-item fb-12">
+            <button class="azm-btn-submit" bindtap="bindSubmit">确定</button>
+        </view>
+    </view>
+</form>
+

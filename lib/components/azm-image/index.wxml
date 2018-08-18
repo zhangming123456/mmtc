@@ -1,18 +1,5 @@
-<wxs src="./index.wxs" module="c"/>
+<image class="azm-image {{nolClass}}" src="{{newSrc}}" hidden="{{!isLoad}}"
+       lazy-load="{{lazyLoad}}" binderror="_bindAzmImageError" bindload="_bindAzmImageLoad"
+       mode="{{mode}}"></image>
 
-<view class="azm-image-box">
-    <image class="azm-image {{nolClass}}" src="{{c.absUrl(newSrc)}}" hidden="{{!isLoad}}"
-           lazy-load="{{lazyLoad}}" binderror="_bindAzmImageError" bindload="_bindAzmImageLoad"
-           mode="{{mode}}" style="{{height}}"></image>
-    <block wx:if="{{type === 'img'}}">
-        <image class="azm-image {{nolClass}}" src="https://app.mmtcapp.com/mmtch5/images/imageLoading.png"
-               hidden="{{isLoad}}" mode="{{mode}}" style="{{height}}"></image>
-    </block>
-    <block wx:else>
-        <image class="azm-image {{nolClass}}" src="{{c.absUrl(defineImage)}}" hidden="{{isLoad}}"
-               mode="{{mode}}" style="{{height}}"></image>
-    </block>
-</view>
-
-
-
+<image class="azm-image {{nolClass}}" src="{{'../../../'+defineImage}}" hidden="{{isLoad}}" mode="{{mode}}"></image>

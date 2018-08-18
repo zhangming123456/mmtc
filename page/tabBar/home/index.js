@@ -1,259 +1,187 @@
 const app = getApp(),
-    regeneratorRuntime = app.util2.regeneratorRuntime,
-    ApiService = require('../../../utils/ApiService'),
+    util = app.util, regeneratorRuntime = util.regeneratorRuntime,
     config = require('../../../utils/config'),
     utilPage = require('../../../utils/utilPage'),
-    c = require("../../../utils/common");
+    ApiService = require('../../../utils/ApiService');
 const appPage = {
-    /**
-     * 页面的初始数据
-     */
     data: {
-        text: 'Page home',
-        isShow: false,
-        options: {},
-        imageUrl: config.imageUrl,
-        isShowLocation: true,
+        text: "Page home",
+        isFixed: false,
+        noMore: false,
+        itemList: [],
         page: 1,
-        shops: [],
-        tabListData: [],
-        specialBanner: []
+        scrollTop: 0,
+        pullDownRefreshStatus: 0,
+        touchStartY: 0,
+        touchEndY: 0,
+        touchMoveY: 0,
+        isTopFixed: null
     },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad (options) {
+    onLoad: function (options) {
         let that = this;
         that.loadCb();
     },
     /**
-     * 生命周期函数--监听页面显示
+     * 进入页面
      */
-    onShow (options) {
+    onShow: function (options) {
         let that = this;
         if (that.data.isShow) {
-            that.loadCb();
+            let p = that.data.page;
+            that.getShopSite(p)
         }
     },
     /**
      * 生命周期函数--监听页面隐藏
      */
-    onHide () {
-        let that = this;
+    onHide: function () {
+
     },
     /**
      * 生命周期函数--监听页面卸载
      */
-    onUnload () {
-        let that = this;
+    onUnload: function () {
+
     },
     /**
      * 页面渲染完成
      */
-    onReady () {
-        let that = this;
+    onReady: function () {
+
     },
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh () {
+    onPullDownRefresh: function () {
         let that = this;
         this.setData({
-            noMore: false
+            pullDownRefreshStatus: 2
+        });
+        wx.vibrateShort({});
+        that.getShopSite(1, true).finally(res => {
+            that.stopPullDownRefresh()
         });
     },
     /**
-     * 页面上拉触底事件的处理函数
+     * 上拉触底
      */
-    onReachBottom (options) {
-        let page = this.data.page;
-        page++;
-        this.getSpecialItemNear({page});
-    },
-    onPageScroll(options){
-
+    onReachBottom () {
+        let that = this,
+            page = that.data.page;
+        that.getShopSite(page++)
     },
     /**
-     * 用户点击右上角分享
+     * 页面滚动
+     * @param scrollTop //页面在垂直方向已滚动的距离（单位px）
      */
-    onShareAppMessage(options) {
-
+    onPageScroll (options) {
+        let scrollTop = this.data.scrollTop;
+        // if (options.scrollTop <= 50 && this.data.isTopFixed && scrollTop - options.scrollTop >= 0) {
+        //     this.setData({isTopFixed: false})
+        // } else if (options.scrollTop > 0 && !this.data.isTopFixed) {
+        //     this.setData({isTopFixed: true})
+        // }
+        if (options.scrollTop > 10) {
+            this.setData({isTopFixed: true})
+        } else {
+            this.setData({isTopFixed: false})
+        }
+        this.data.scrollTop = options.scrollTop;
     }
 };
 /**
  * 方法类
  */
 const methods = {
-    loadCb(callback){
-        let that = this;
-        app.globalData.pages.indexPage = this;
-        ApiService.getBanners().then(
-            res => {
-                callback && callback();
-                if (res.status == 1) {
-                    that.setData({
-                        banners: res.info
-                    });
-                }
-            }
-        );
-        ApiService.getSpecialBanner().then(
-            res => {
-                if (res.status == 1) {
-                    let data = {};
-                    that.setData({
-                        [`specialBanner`]: res.info
-                    });
-                }
-            }
-        );
-    },
-    /**
-     * 获取所有专题商品列表分类名
-     */
-    getSpecialList(){
-        let that = this;
-        ApiService.getSpecialList().then(
-            res => {
-                if (res.status == 1) {
-                    let data = [
-                        '美丽不OUT',
-                        '美丽蜕变，只需一点',
-                        '改变从头，愉悦在心',
-                        '美丽，由新而生',
-                        '指尖新时尚，秀出大不同',
-                        '美于形，靓于型',
-                        '装扮您的心灵的窗户',
-                        '百变美丽，时尚有型',
-                        '用心打造你的美',
-                    ];
-                    // for (let i = 0; res.info.length > i; i++) {
-                    //     res.info[i].title_name = data[i];
-                    //     that.getSpecialItem({id: res.info[i].id})
-                    // }
-                    that.setData({
-                        [`tabList`]: res.info
-                    });
-                    // console.log(data);
-                    // that.setData(data);
-                }
-            }
-        );
-    },
-    /**
-     * 地理定位组件的回调
-     * @param e
-     */
-    getLocationCallback(e){
-        let that = this,
-            value = e.detail;
-        if (value.isUpdate) {
-            that.getAppSpecialItem();
-            if (!this.data.isPullDownRefresh) {
-                c.showLoading()
-            }
-            this.getSpecialItemNear({page: 1}).finally(res => {
-                that.stopPullDownRefresh();
-                c.hideLoading();
-            });
+    handletouchtart (e) {
+        let scrollTop = this.data.scrollTop;
+        let pageY = e.changedTouches[0].pageY;
+        this.data.touchStartY = pageY;
+        if (e.changedTouches && scrollTop <= 0) {
+            // console.log(e.changedTouches[0].pageY, 'handletouchtart');
         }
     },
-    getAppSpecialItem(){
-        let that = this,
-            azmLocationData = this.data.azmLocationData,
-            lon = azmLocationData.lon || 0,
-            lat = azmLocationData.lat || 0;
-        return ApiService.getAppSpecialItem({lon, lat}).finally(res => {
-                if (res.status === 1) {
-                    that.setData({
-                        [`tabListData`]: res.info
-                    });
-                }
+    handletouchmove (e) {
+        let scrollTop = this.data.scrollTop;
+        let pageY = e.changedTouches[0].pageY;
+        let pullDownRefreshStatus = this.data.pullDownRefreshStatus;
+        this.data.touchMoveY = pageY;
+        if (e.changedTouches && scrollTop <= 0) {
+            let y = pageY - this.data.touchStartY,
+                setData = {};
+            if (y > 50) {
+                this.setData({
+                    pullDownRefreshStatus: 1
+                })
+            } else {
+                this.setData({
+                    pullDownRefreshStatus: 0
+                })
             }
-        )
-    },
-    getSpecialItemNear({page = 1, num = 10} = {}, callback){
-        let that = this,
-            pageData = that.data,
-            azmLocationData = this.data.azmLocationData;
-        if (pageData.noMore) {
-            that.setData({
-                noMore: false
-            });
+            // console.log(y, e.changedTouches[0].pageY, 'handletouchmove');
         }
-        return ApiService.getSpecialItemNear(
-            {
-                p: page,
-                num,
-                lon: azmLocationData.lon || 0,
-                lat: azmLocationData.lat || 0
-            }
-        ).then(
-            res => {
-                if (res.status === 1 && res.info && res.info.length > 0) {
+    },
+    handletouchend (e) {
+        let scrollTop = this.data.scrollTop;
+        let pageY = e.changedTouches[0].pageY;
+        let pullDownRefreshStatus = this.data.pullDownRefreshStatus;
+        this.data.touchEndY = pageY;
+        if (e.changedTouches && scrollTop <= 0 && pullDownRefreshStatus === 1) {
+            // console.log(e.changedTouches[0].pageY, 'handletouchend');
+        }
+    },
+
+    async loadCb () {
+        let that = this,
+            time,
+            options = that.data.options;
+        await that.getShopSite();
+        if (options.q) {
+            await that.__scanVerifyCode(options.q)
+        }
+    },
+    loadData () {
+
+    },
+    showCheckValidPage () {
+        this.$route.push('/page/home/pages/verifyCode/index')
+    },
+    getShopSite (page = 1, bol) {
+        let that = this, setData = {};
+        if (that.data.isGetShopSite) return;
+        that.data.isGetShopSite = true;
+        if (!bol) {
+            util.showLoading();
+        }
+        if (page === 1) {
+            that.setData({noMore: false, scrollTop: 0});
+        } else {
+            that.setData({noMore: false});
+        }
+        return ApiService.getShopSite({p: page}).finally(res => {
+            let info = res.info;
+            util.hideLoading(true);
+            that.data.isGetShopSite = false;
+            if (res.status === 1) {
+                if (info.length > 0) {
                     if (page === 1) {
-                        that.setData({
-                            [`shops`]: [],
-                            [`shops[${page - 1}]`]: res.info
-                        });
+                        setData.itemList = [info];
                     } else {
-                        that.setData({
-                            [`shops[${page - 1}]`]: res.info
-                        });
+                        setData[`itemList[${page - 1}]`] = info
                     }
-                    that.data.page = page;
-                } else {
-                    that.setData({
-                        noMore: true
-                    });
+                    setData.page = page + 1;
+                } else if (info.length === 0) {
+                    if (page > 1) {
+                        setData.page = page - 1;
+                    }
+                    setData.noMore = true;
                 }
-                callback && callback();
+                that.setData(setData);
             }
-        )
-    },
-    onLoadIcon(e){
-        let index = e.currentTarget.dataset.index
-        let key = 'iconSize' + index
-        let value = 'height:' + parseInt(e.detail.height * this.rate) + 'px;width:' + parseInt(e.detail.width * this.rate) + 'px'
-        this.setData({
-            [key]: value
         })
     },
-    showPickUp(){
-        c.hasLogin(function () {
-            wx.navigateTo({
-                url: '/pages/conpons/platform'
-            })
-        });
-    },
-    showBannerLink(e){
-        let link = e.currentTarget.dataset.link;
-        if (link) {
-            try {
-                if (link.indexOf('://') !== -1) { // if for http url
-                    link = encodeURIComponent(link);
-                    wx.navigateTo({
-                        url: '/pages/page/index?token=' + link,
-                    })
-                } else {
-                    wx.navigateTo({
-                        url: link,
-                    })
-                }
-            } catch (e) {
-
-            }
-        }
-    },
-    doSearch () {
-        wx.navigateTo({
-            url: '/page/home/pages/search/index',
-        });
-    },
-    gotoTop () {
-        wx.pageScrollTo({
-            scrollTop: 0
-        });
+    showSearchWin (e) {
+        util.router.push({path: '/page/home/pages/search/index', query: {order_type: 0}})
     }
 };
 Page(new utilPage(appPage, methods));

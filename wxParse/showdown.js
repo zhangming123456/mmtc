@@ -589,7 +589,7 @@ var rgxFindMatchPos = function (str, left, right, flags) {
  * (c) 2007 Steven Levithan <stevenlevithan.com>
  * MIT License
  *
- * Accepts a string to locSearch, a left and right format delimiter
+ * Accepts a string to search, a left and right format delimiter
  * as regex patterns, and optional regex flags. Returns an array
  * of matches, allowing nested instances of left/right delimiters.
  * Use the "g" flag to return all matches, otherwise only the

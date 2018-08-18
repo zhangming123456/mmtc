@@ -1,0 +1,25 @@
+<wxs src="../../../../utils/common.wxs" module="c"/>
+<i-toast id="toast"/>
+
+<form bindsubmit="formSubmit" bindreset="formReset" report-submit>
+    <view class="container1">
+        <view class="tip-msg">*请务必填写真实号码，这与您店铺的信誉等级相关：</view>
+        <view class="form-area text999 fz28">
+            <view class="form-item">
+                <view class="flex">
+                    <view class="telephone1-wrap-parent">
+                        <view class="telephone1-wrap">
+                            <input name="code" placeholder="区号" type="number" maxlength="4"/>
+                        </view>
+                    </view>
+                    <view class="flex-con telephone1-right">
+                        <input name="landline" placeholder="座机号码" type="number" maxlength="8"/>
+                    </view>
+                </view>
+            </view>
+            <view class="button-area">
+                <button class="azm-btn-submit" plain formType="submit" hover-class="none">确认</button>
+            </view>
+        </view>
+    </view>
+</form>

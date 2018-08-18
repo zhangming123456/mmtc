@@ -1,268 +1,148 @@
-// pages/login/index.js
 const app = getApp(),
-    util = app.util,
-    regeneratorRuntime = app.util2.regeneratorRuntime,
-    ApiService = require('../../utils/ApiService'),
+    util = app.util,regeneratorRuntime = util.regeneratorRuntime,
+    config = require('../../utils/config'),
     utilPage = require('../../utils/utilPage'),
-    c = require("../../utils/common.js");
+    ApiService = require('../../utils/ApiService');
+var interval = null //倒计时函数
 const appPage = {
-    /**
-     * 页面的初始数据
-     */
     data: {
-        text: 'Page loginIndex',
-        isLogin: true,
-        userInfo: {},
-        invite_id: '',//邀请码
+        text: "Page login",
+        isFixed: false,
+        loadingMore: true,
+        focus: 0,
+        username: "",
+        password: "",
+        isShowPassword: false,
+        isSubmit: false
     },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad (options) {
+    onLoad: function (options) {
         let that = this;
         that.loadCb();
     },
     /**
-     * 生命周期函数--监听页面显示
+     * 进入页面
      */
-    onShow (options) {
-        if (this.data.isShow) {
-            this.loadCb()
-        }
+    onShow: function (options) {
+
     },
     /**
      * 生命周期函数--监听页面隐藏
      */
-    onHide () {
+    onHide: function () {
 
     },
     /**
      * 生命周期函数--监听页面卸载
      */
-    onUnload () {
+    onUnload: function () {
 
     },
     /**
      * 页面渲染完成
      */
-    onReady () {
+    onReady: function () {
 
     },
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh () {
+    onPullDownRefresh: function () {
+        let that = this;
+    },
+    /**
+     * 上拉触底
+     */
+    onReachBottom() {
 
     },
     /**
-     * 页面上拉触底事件的处理函数
+     * 页面滚动
+     * @param scrollTop //页面在垂直方向已滚动的距离（单位px）
      */
-    onReachBottom (options) {
-
-    },
-    onPageScroll(options){
-
-    },
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage(options) {
+    onPageScroll(options) {
 
     }
 };
-
+/**
+ * 方法类
+ */
 const methods = {
-    loadCb () {
+    loadCb() {
         let that = this,
-            options = this.data.options,
-            invite_id = 0;
-        if (options.scene) {
-            let scene = decodeURIComponent(options.scene)
-            if (scene) {
-                let kv = scene.split(':');
-                if (kv[0] == 'invite_id') {
-                    invite_id = kv[1];
-                }
-            }
-        } else if (app.globalData.invite_id) {
-            invite_id = app.globalData.invite_id
-        }
-        that.setData({invite_id});
-        if (!c.hasLoginWx()) {
-            that.wxLogon();
-        }
+            options = that.data.options,
+            isShow = that.data.isShow,
+            id = options.id;
     },
-    showPhoneWin () {
-        let invite_id = this.data.invite_id;
-        util.go(`phone?invite_id=${invite_id || 0}`)
-    },
-    doGetPhone(e, r){
-        let that = this, invite_id = that.data.invite_id;
-        if (e.detail.encryptedData) {
-            c.showLoading();
-            r = r || {};
-            ApiService.wx2LoginByPhone({
-                encryptedData: e.detail.encryptedData,
-                iv: e.detail.iv,
-                encryptedData_1: r.encryptedData,
-                iv_1: r.iv,
-                invite_id
-            }).then(
-                res => {
-                    c.hideLoading();
-                    if (res.status === 1) {
-                        if (!util.common.isEmptyObject(that.data.userInfo)) {
-                            that.data.userInfo = {
-                                avatarUrl: res.info.avatar,
-                                nickName: res.info.nickname
-                            };
-                        }
-                        that.setUserInfo(e)
-                    } else if (res.status === 202) {
-                        c.logoff();
-                        that.wxLogon(e);
-                    } else {
-                        c.alert(res.message);
-                    }
-                }
-            )
-        }
-    },
-    wxLogon(e){
-        let that = this,
-            invite_id = that.data.invite_id;
-        that.__login(true).then(
-            res => {
-                if (res.code) {
-                    ApiService.wx2Login({code: res.code, invite_id}).then(
-                        res => {
-                            if (res.status === 1) {
-                                if (e) {
-                                    that.getPhoneNumber(e);
-                                } else {
-                                    c.setHasLoginWx()
-                                }
-                            }
-                        }
-                    )
-                }
-            }
-        )
-    },
-    userLogin(){
-        app.util.go('/page/userLogin/pages/getUserInfo/index')
-    },
+    loadData() {
 
-    getPhoneNumber (e) {
+    },
+    setField(e){
+        let key = e.target.dataset.key, value = e.detail.value;
+        if (key) {
+            this.setData({[key]: value})
+        }
+    },
+    getVerificationCode() {
         let that = this;
-        if (e.detail.errMsg !== "getPhoneNumber:fail user deny") {
-            this.__getUserInfo({withCredentials: true}).then(
-                res => {
-                    if (res.userInfo) {
-                        that.data.userInfo = res.userInfo;
-                        // that.startLogin(e);
-                        that.doGetPhone(e, res);
+        let telephone = that.data.telephone;
+        if (!util.regExpUtil.isPhone(telephone)) {
+            console.log(util.regExpUtil.isPhone(telephone));
+            that.$Toast({content: '手机号码格式不正确'});
+            return;
+        }
+        if (that.data.isGetCode || (that.data.azm_clockCode && that.data.azm_clockCode.time > 0))return;
+        that.data.isGetCode = true;
+        ApiService.getRegisterSendSMS({telephone}).finally(res => {
+            that.data.isGetCode = false;
+            if (res.status === 1) {
+                util.showToast('验证码已发送');
+                that.data.clockCodeCountdown = new util.Countdown(that, {
+                    time: 60 * 1000, type: 'ss', text: 'clockCode',
+                    onEnd() {
+
                     }
-                },
-                rsp => {
-                    that.doGetPhone(e);
-                    that.data.userInfo = {};
-                }
-            ).finally(() => {
-
-            });
-        }
-    },
-
-
-    async startLogin(e){
-        let that = this, invite_id = that.data.invite_id,
-            p1 = new Promise(resole => {
-                this.wx2Login().then(res => {
-                    let code = that.data.code;
-                    ApiService.wx2Login({code}).then(
-                        res => {
-                            if (res.status === 1) {
-                                c.setHasLoginWx();
-                                resole();
-                            }
-                        }
-                    )
-                })
-            });
-        await p1;
-        if (invite_id) {
-            await this.register();
-        }
-        await this.wx2LoginByPhone(e);
-    },
-    async wx2Login(e){
-        let that = this;
-        let p1 = that.__login(true),
-            p2 = that.__getUserInfo({withCredentials: true});
-        p1.then(res => {
-            that.data.code = res.code;
-            console.log(res);
-            console.log(1);
-        });
-        p2.then(res => {
-            that.data.userInfo = res.userInfo;
-        });
-        await p1;
-        await p2;
-    },
-    register(){
-        console.log(2);
-        return ApiService.setActivityRegister();
-    },
-    wx2LoginByPhone(e){
-        console.log(3);
-        let that = this, invite_id = that.data.invite_id;
-        if (e.detail.encryptedData) {
-            c.showLoading();
-            return ApiService.wx2LoginByPhone({
-                encryptedData: e.detail.encryptedData,
-                iv: e.detail.iv,
-                invite_id
-            }).then(
-                res => {
-                    c.hideLoading();
-                    if (res.status === 1) {
-                        that.setUserInfo(e)
-                    } else if (res.status === 202) {
-                        c.logoff();
-                    } else {
-                        c.alert(res.message);
-                    }
-                }
-            )
-        }
-    },
-
-    setUserInfo(rt){
-        let that = this,
-            userInfo = that.data.userInfo;
-        c.post('/api/wx2/updateUserInfo', userInfo);
-        c.setUserInfo(userInfo);
-        c.refreshPrevPage();
-        if (util.getCurrentPages().length > 1) {
-            app.util.go(-1)
-        } else {
-            app.util.go('/pages/mine/index', {type: 'tab'})
-        }
-    },
-
-    onGotUserInfo(e){
-        let encryptedData = e.detail.encryptedData,
-            iv = e.detail.iv,
-            userInfo = e.detail.userInfo;
-        this.__login(true).finally(res => {
-            console.log(res, e);
-            if (res.errMsg === 'login:ok') {
-                ApiService.login2wxLogin({code: res.code, encryptedData, iv, userInfo})
+                });
+            } else {
+                that.$Toast({content: res.message || '验证码获取失败'});
             }
-        })
+        });
+    },
+
+    //登陆
+    getLogin() {
+        let that = this,
+            username = that.data.username,
+            password = that.data.password;
+        if (!util.trim(username)) {
+            that.$Toast({content: '请输入商户帐号'});
+            return;
+        }
+        if (!util.trim(password)) {
+            that.$Toast({content: '请输入商户密码'});
+            return;
+        }
+        if (password.length < 6 || password.length > 16) {
+            that.$Toast({content: '请输入6~16位的商户密码'});
+            return;
+        }
+        if (that.data.isGetLogin)return;
+        that.data.isGetLogin = true;
+        util.showLoading();
+        ApiService.shopLoing({username, password}).finally(res => {
+            that.data.isGetLogin = false;
+            util.hideLoading(true);
+            if (res.status === 1) {
+                app.globalData.userInfo = res.info;
+                that.$route.tab('/page/tabBar/home/index')
+            } else {
+                that.$Toast({content: res.message});
+            }
+        });
+    },
+
+
+    LookPassword(){
+        this.setData({isShowPassword: !this.data.isShowPassword, focus: 1})
     }
 };
-
-Page(new utilPage(appPage, methods))
+Page(new utilPage(appPage, methods));

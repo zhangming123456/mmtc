@@ -1,0 +1,28 @@
+.empty-area {
+  text-align: center;
+  padding-top: 156rpx;
+  padding-bottom: 156rpx;
+}
+.empty-area .empty-img {
+  text-align: center;
+}
+.empty-area .empty-img > image {
+  width: 191rpx;
+  height: 190rpx;
+}
+.empty-area .empty-txt {
+  font-size: 30rpx;
+  color: #999999;
+  padding-top: 40rpx;
+}
+.loading-more {
+  text-align: center;
+  padding: 30rpx 0;
+  color: #999;
+  font-size: 24rpx;
+  clear: both;
+}
+.nomore-img {
+  width: 127rpx;
+  height: 134rpx;
+}

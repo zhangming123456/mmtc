@@ -3,14 +3,15 @@
  */
 "use strict";
 const app = getApp(),
-    regeneratorRuntime = app.util2.regeneratorRuntime,
-    router = app.util2.router,
-    jude = app.util2.jude,
-    authorize = require('./azm/authorize'),
+    util = app.util, regeneratorRuntime = util.regeneratorRuntime,
+    router = app.util.router,
+    jude = app.util.jude,
+    queryString = app.util.queryString,
+    authorize = require('./authorize'),
     config = require('./config'),
     ApiService = require('./ApiService');
 const {$Toast, $Message} = require('../lib/iview/base/index');
-// let wxParse = require('../wxparse/wxParse');
+const wxParse = require('../wxparse/wxParse');
 
 let __imageUploadKey = 'cover';
 let ImageUploadCount = 0;
@@ -22,7 +23,7 @@ const events = {
     $route: router,
     $Toast,
     $Message,
-    // $wxParse: wxParse,
+    $wxParse: wxParse,
     /**
      * 生命周期函数--监听页面加载
      */
@@ -137,6 +138,10 @@ const events = {
         that.data.isPullDownRefresh = true;
     },
 
+    /**
+     * 结束下拉触发事件
+     * @param options
+     */
     stopPullDownRefresh (options) {
         console.warn(`下拉触发事件${this.data.text}结束`, options, 'onPullDownRefresh');
         let that = this;
@@ -259,17 +264,18 @@ const events = {
                 );
         });
     },
+
     __imageError () {
 
     },
     // 保存formId
     saveFormIds (e) {
         let formId = e.detail.formId;
-        console.log(formId);
         if (formId !== 'the formId is a mock one') {
-            ApiService.saveFormIds({form_id: formId});
+            // ApiService.saveFormIds({form_id: formId});
         }
     },
+
     azmRoute (e) {
         let dataset = e.currentTarget.dataset || e.target.dataset,
             path = dataset.path,
@@ -279,8 +285,9 @@ const events = {
         if (path === '/pages/page/index') {
             data.token = token;
         }
-        router.go(path, {data, type});
+        util.go(path, {data, type});
     },
+
     bindPageToast (e) {
         let dataset = e.currentTarget.dataset,
             message = dataset.message;
@@ -295,6 +302,7 @@ const events = {
             }
         });
     },
+
     /**
      *  toast方法
      * @param text 提示文字
@@ -336,10 +344,12 @@ const events = {
             console.log("调用azmShowToast失败", e);
         }
     },
+
     bindWxcToastSuccess () {
         console.log('toast结束');
         wxc_toastHideToast && wxc_toastHideToast();
     },
+
 
     querySelector(el){
         if (!el) return;
@@ -368,14 +378,13 @@ const events = {
         wx.setClipboardData({
             data: dataset.value,
             success: function (res) {
-                util2.showToast('复制成功');
+                util.showToast('复制成功');
             },
             fail () {
-                util2.failToast('复制失败');
+                util.failToast('复制失败');
             }
         })
     },
-
 
     /**
      * 函数描述：作为上传文件时递归上传的函数体体；
@@ -415,7 +424,7 @@ const events = {
                         successUp++;
                         that.setData(setData);
                     } catch (e) {
-                        util2.failToast('上传失败');
+                        util.failToast('上传失败');
                     }
                 }
             },
@@ -425,12 +434,12 @@ const events = {
             complete: () => {
                 i++;
                 if (i === length) {
-                    util2.hideLoading(true);
+                    util.hideLoading(true);
                     __imageUploadKey = 'cover';
                     ImageUploadCount = 0;
                     if (successUp > 0) {
                         callback && callback({message: `成功上传${successUp}张`, status: 1});
-                        util2.showToast(`成功上传${successUp}张`);
+                        util.showToast(`成功上传${successUp}张`);
                     }
                 } else {//递归调用uploadDIY函数
                     that.uploadDIY(filePaths, successUp, failUp, i, length, callback, count);
@@ -455,7 +464,7 @@ const events = {
                 success: res => {
                     // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
                     let tempFilePaths = res.tempFilePaths;
-                    util2.showLoading("正在上传...");
+                    util.showLoading("正在上传...");
                     let successUp = 0,//成功个数
                         failUp = 0, //失败个数
                         length = tempFilePaths.length, //总共个数
@@ -544,10 +553,10 @@ const events = {
         let that = this;
         if (!pwd || pwd.length < 12 || this.data.isVerificationSee) return;
         this.data.isVerificationSee = true;
-        util2.showLoading();
+        util.showLoading();
         ApiService.verificationSee({pwd}).finally(res => {
             this.data.isVerificationSee = false;
-            util2.hideLoading(true);
+            util.hideLoading(true);
             if (res.status === 1 && res.info) {
                 if (res.info.is_used == 1) {
                     that.$route.push({path: '/page/home/pages/verifyHas/index', query: {order_id: +res.info.id}})
@@ -637,7 +646,7 @@ const events = {
      */
     makePhoneCall(e){
         let phoneNumber = e.target.dataset.tel;
-        if (util2.trim(phoneNumber)) {
+        if (util.trim(phoneNumber)) {
             wx.makePhoneCall({phoneNumber})
         }
     },
@@ -673,12 +682,13 @@ class Page {
             isOpenSetting: false,
             systemInfo: {},
             SDKVersion: [1, 6, 6],
+            startDate: app.globalData.startDate,
+            currentDate: app.globalData.currentDate,
             isPullDownRefresh: false,
             options: {},
-            canIUse: wx.canIUse('button.open-type.getUserInfo'),
+            imageUrl: config.imageUrl,
             canFeedback: wx.canIUse('button.open-type.feedback'),
             canOpenSetting: wx.canIUse('button.open-type.openSetting'),
-            imageUrl: config.imageUrl,
             $azmToast: {
                 show: false,
                 text: '',

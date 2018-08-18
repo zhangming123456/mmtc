@@ -1,0 +1,16 @@
+{
+  "navigationBarTitleText": "店铺图册",
+  "backgroundColor": "#fff",
+  "disableScroll": true,
+  "usingComponents": {
+    "i-toast": "../../../../lib/iview/toast/index",
+    "i-message": "../../../../lib/iview/message/index",
+    "i-tabs": "../../../../lib/iview/tabs/index",
+    "i-tab": "../../../../lib/iview/tab/index",
+    "zan-cell": "../../../../lib/zanui/cell/index",
+    "zan-cell-group": "../../../../lib/zanui/cell-group/index",
+    "zan-panel": "../../../../lib/zanui/panel/index",
+    "zan-popup": "../../../../lib/zanui/popup/index"
+  }
+}
+  

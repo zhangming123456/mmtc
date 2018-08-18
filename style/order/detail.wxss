@@ -1,0 +1,132 @@
+page {
+  background-color: #f4f4f4;
+}
+.azm-orderDetail view {
+  line-height: 1;
+}
+.azm-orderDetail .pl30 {
+  padding-left: 30rpx;
+}
+.azm-orderDetail .item-title {
+  font-size: 30rpx;
+  color: #282828;
+  line-height: 1.2;
+  box-sizing: border-box;
+  padding-right: 20rpx;
+}
+.azm-orderDetail .item-status {
+  height: 34rpx;
+  line-height: 34rpx;
+  font-size: 20rpx;
+  color: #ff4919;
+  padding: 0 7rpx;
+  background-color: transparent;
+  border-radius: 10rpx;
+  border: solid 1px #ff4919;
+}
+image.avatar {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+}
+.nickname {
+  color: #ff4919;
+  font-size: 32rpx;
+  margin-right: 20rpx;
+}
+image.level-img {
+  width: 29rpx;
+  height: 26rpx;
+}
+.level-text {
+  color: #ffc548;
+  padding-top: 20rpx;
+  font-size: 28rpx;
+  position: relative;
+  top: -6rpx;
+}
+button.send-letter {
+  width: 111rpx;
+  padding: 0;
+  margin: 0;
+  height: 46rpx;
+  line-height: 46rpx;
+  background-color: #ff4919;
+  color: #fff;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  position: absolute;
+  right: 30rpx;
+  bottom: 30rpx;
+}
+.items {
+  background-color: #fff;
+}
+.item-cover {
+  width: 188rpx;
+  height: 188rpx;
+}
+.cover-wrap {
+  padding: 30rpx;
+}
+.info-wrap {
+  padding: 30rpx 30rpx 30rpx 0;
+}
+.price-area {
+  padding: 30rpx 0;
+  align-items: flex-end;
+}
+.item-count {
+  font-size: 28rpx;
+  color: #999999;
+}
+.price-unit {
+  color: #ff4919;
+  font-size: 26rpx;
+}
+.price-num {
+  font-size: 40rpx;
+  color: #ff4919;
+  margin-right: 20rpx;
+}
+.market-price {
+  font-size: 28rpx;
+  color: #999999;
+  text-decoration: line-through;
+}
+.plist,
+.flex-title {
+  background-color: #fff;
+}
+.plist {
+  padding: 15rpx 30rpx;
+  line-height: 50rpx;
+  font-size: 26rpx;
+  color: #999999;
+}
+.flex-title {
+  padding: 25rpx 30rpx;
+}
+.flex-label {
+  font-size: 30rpx;
+  color: #282828;
+}
+.flex-price {
+  font-size: 34rpx;
+  color: #ff4919;
+}
+.order-status {
+  display: inline;
+  color: #282828;
+}
+.user-intro {
+  font-size: 28rpx;
+  color: #999999;
+}
+.state {
+  margin-bottom: 20rpx;
+}
+.state2 {
+  margin-top: 10rpx;
+  margin-bottom: 20rpx;
+}

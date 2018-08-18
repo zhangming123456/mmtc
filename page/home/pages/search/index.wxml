@@ -1,34 +1,24 @@
-<view class="p1 border-b">
-    <view class='flex'>
-        <view class='search flex-con rel'>
-            <image src='https://app.mmtcapp.com/mmtc/imgs/search@2x.png' style='width: 24rpx;height: 24rpx'
-                   class='search-img'></image>
-            <input class='search-input' focus="true" confirm-type="search" bindconfirm="doSearch"
-                   placeholder='找服务 找店铺 找案例'/>
-        </view>
-        <view class='cancel-text' bindtap='cancelSearch'>取消</view>
-    </view>
-</view>
-
-<view class="p2 border-b" wx:if="{{histories && histories.length}}">
-    <view class='flex'>
-        <view class='flex-con title'>历史记录:</view>
-        <view class='clearbtn' bindtap='clearHistory'>清除</view>
-    </view>
-    <view class='tags'>
-        <view class='tag' wx:key="index" bindtap='showResult' data-item="{{item}}" wx:for="{{histories}}">
-            <text>{{item.title}}</text>
+<view class="container1">
+    <view class="search-box">
+        <view class="flex">
+            <view>
+                <image class="search-img" src="../../../../image/search.png"/>
+            </view>
+            <view class="flex-con">
+                <input auto-focus="true" placeholder="输入订单号/产品名称" bindconfirm="doSearchTxt" type="text"
+                       confirm-type="search"/>
+            </view>
         </view>
     </view>
-</view>
-
-<view class="p2">
-    <view class='flex'>
-        <view class='flex-con title'>大家在搜：</view>
-    </view>
-    <view class='tags'>
-        <view class='tag' wx:key="{{index}}" bindtap='showResult' data-item="{{item}}" wx:for="{{searches}}">
-            <text>{{item.title}}</text>
+    <view class="histories" wx:if="{{list && list.length}}">
+        <view class="flex">
+            <view class="flex-con title">搜索记录</view>
+            <view class="clear-btn" bindtap="clearHistories">清除</view>
+        </view>
+        <view class="tags">
+            <block wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="key">
+                <view class="tag" bindtap="doSearch" data-value="{{item}}" wx:if="{{index<=10}}"> {{item}}</view>
+            </block>
         </view>
     </view>
 </view>

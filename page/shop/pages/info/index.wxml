@@ -1,0 +1,78 @@
+<wxs src="../../../../utils/common.wxs" module="c"/>
+<import src="../../../../wxparse/wxParse.wxml"/>
+<i-toast id="toast"/>
+<i-message id="message"/>
+
+<view class="azm-shopInfo">
+    <zan-cell-group>
+        <zan-cell title="{{info.nickname}}" label="{{c.shopLabel(info.major_business)}}" is-link
+                  url="/page/shop/pages/detail/index">
+            <image class="azm-cover-img" slot="icon" mode="aspectFill" src="{{c.absUrl(info.cover)}}"
+                   catchtap="bindUpCover"></image>
+            <view class="zan-right">
+                <text class="azm-iconfont icon-erweima azm-qrcode-icon" catchtap="togglePopup"></text>
+            </view>
+        </zan-cell>
+    </zan-cell-group>
+    <zan-cell-group class="marTop-12">
+        <zan-cell title="营业时间" is-link url="/pages/dashboard/index" value="{{info.open_times}}"></zan-cell>
+        <zan-cell title="服务电话" is-link value="{{info.service_phone}}" bindtap="bindServicePhone"></zan-cell>
+    </zan-cell-group>
+
+    <zan-cell-group class="marTop-12">
+        <zan-cell title="GPS定位" is-link value="{{(info.position || '') + (info.position_name || '')}}"
+                  bindtap="chooseLocation"></zan-cell>
+        <zan-cell title="详细地址" is-link url="/page/shop/pages/detailedAddress/index"
+                  value="{{info.address || ''}}"></zan-cell>
+    </zan-cell-group>
+
+    <zan-cell-group class="marTop-12">
+        <zan-cell title="店铺标签" is-link url="/page/shop/pages/storeTag/index">
+            <view class="zan-right azm-cell-value">
+                <text>{{c.shopLabel(info.tags)}}</text>
+            </view>
+        </zan-cell>
+        <zan-cell title="店铺图册" is-link url="/page/shop/pages/atlas/index?img_srcs={{c.encodeURI(info.img_srcs)}}">
+            <view class="zan-right azm-cell-value">
+                <text wx:if="{{info.img_srcs}}">已完善</text>
+                <block wx:else>
+                    <text class="azm-iconfont icon-gantanhao azm-icon"></text>
+                    <text>未完善</text>
+                </block>
+            </view>
+        </zan-cell>
+        <zan-cell title="店铺介绍" is-link url="/pages/dashboard/index">
+            <view class="zan-right azm-cell-value">
+                <text wx:if="{{info.intro && info.intro.length}}">已完善</text>
+                <block wx:else>
+                    <text class="azm-iconfont icon-gantanhao azm-icon"></text>
+                    <text>未完善</text>
+                </block>
+            </view>
+        </zan-cell>
+    </zan-cell-group>
+</view>
+
+<i-action-sheet visible="{{ servicePhoneVisible }}" actions="{{ servicePhoneActions }}" show-cancel
+                bind:cancel="bindServicePhone" bind:click="handleClickServicePhone">
+    <view slot="header" class="i-action-sheet-header">请选择服务电话的类型</view>
+</i-action-sheet>
+
+<zan-popup show="{{ isQRCodeShow }}" overlay bindclose="togglePopup">
+    <view class="azm-qrcode-popup">
+        <view class="azm-qrcode-popup--title">
+            <zan-cell title="{{info.nickname}}">
+                <image slot="icon" mode="aspectFill" class="azm-qrcode-popup--title-img"
+                       src="{{c.absUrl(info.cover)}}"></image>
+            </zan-cell>
+        </view>
+        <view class="zan-center azm-qrcode-popup--content">
+            <image mode="aspectFill" src="{{c.absUrl(qrcode)}}" catchtap="previewImage"
+                   data-src="{{c.absUrl(qrcode)}}"></image>
+        </view>
+        <view class="azm-qrcode-popup--footer">
+            <button plain catchtap="downQrcode">下载二维码分享朋友圈</button>
+        </view>
+    </view>
+</zan-popup>
+

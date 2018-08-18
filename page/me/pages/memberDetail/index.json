@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "成员订单详情",
+  "disableScroll": true,
+  "usingComponents": {
+    "i-toast": "../../../../lib/iview/toast/index"
+  }
+}
+  

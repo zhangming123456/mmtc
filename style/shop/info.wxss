@@ -1,0 +1,46 @@
+page {
+  background-color: #f4f4f4;
+}
+.azm-shopInfo .azm-cover-img {
+  width: 172rpx;
+  height: 172rpx;
+  background-color: #f4f4f4;
+  margin-right: 30rpx;
+}
+.azm-shopInfo .azm-qrcode-icon {
+  font-size: 40rpx;
+  color: #999;
+}
+.azm-shopInfo .azm-cell-value {
+  color: #ff4919;
+}
+.azm-shopInfo .azm-cell-value .azm-icon {
+  margin-right: 16rpx;
+}
+.azm-qrcode-popup {
+  overflow: hidden;
+  width: 624rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+}
+.azm-qrcode-popup .azm-qrcode-popup--title .azm-qrcode-popup--title-img {
+  width: 80rpx;
+  height: 80rpx;
+}
+.azm-qrcode-popup .azm-qrcode-popup--content image {
+  width: 440rpx;
+  height: 440rpx;
+}
+.azm-qrcode-popup .azm-qrcode-popup--footer button {
+  height: 100rpx;
+  line-height: 96rpx;
+  border-radius: 0;
+  border-color: transparent;
+  color: #ff538b;
+  font-size: 30rpx;
+}
+.i-action-sheet-header {
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: 30rpx;
+}

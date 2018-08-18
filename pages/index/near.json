@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "附近",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "azm-location": "../../lib/components/azm-location/index"
-  }
-}

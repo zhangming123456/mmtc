@@ -1,0 +1,10 @@
+<view class="azm-verifyFail">
+    <image class="avatar" src="../../../../image/fail.png"/>
+    <view class="title">验证失败</view>
+    <view class="txt">Ops，验证码没有匹配上哦</view>
+    <view class="txt">重新再试一次吧</view>
+    <view class="button-area">
+        <button class="btn-origin" plain bindtap="scanAgain" hover-class="none">继续扫码验证</button>
+        <button class="btn-outed" plain bindtap="checkValid" hover-class="none">尝试输入验证</button>
+    </view>
+</view>
